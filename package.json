@@ -1,13 +1,18 @@
 {
   "name": "trylater",
-  "private": true,
   "version": "1.0.0",
+  "private": true,
+  "description": "Frontend-Client für die TryLater-App",
+  "author": "SpaghettiCodeGang",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint ."
+  },
+  "engines": {
+    "node": ">=22"
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
