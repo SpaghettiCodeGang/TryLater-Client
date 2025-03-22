@@ -5,7 +5,9 @@ import net from 'net'
 import {sassTrue} from "sass";
 
 const isLinux = os.platform() === 'linux'
-const backendHost = isLinux ? 'http://172.17.0.1' : 'http://host.docker.internal'
+const hostOptions = isLinux
+    ? ['http://172.17.0.1', 'http://localhost']
+    : ['http://host.docker.internal', 'http://localhost']
 const backendPort = 8080
 
 function checkBackendReachable(host, port) {
@@ -24,8 +26,17 @@ function checkBackendReachable(host, port) {
   })
 }
 
+async function findReachableBackend(hosts, port) {
+  for (const host of hosts) {
+    const reachable = await checkBackendReachable(host, port)
+    if (reachable) return host
+  }
+  return null
+}
+
 export default defineConfig(async () => {
-  const backendAvailable = await checkBackendReachable(backendHost, backendPort)
+  const backendHost = await findReachableBackend(hostOptions, backendPort)
+  const backendAvailable = !!backendHost
   console.log(`🔌 Backend erreichbar: ${backendAvailable}`)
 
   return {
