@@ -48,6 +48,11 @@
 .btn-primary,
 .btn-secondary {
   color: $white;
+
+  &:hover,
+  &:focus {
+    color: $white;
+  }
 }
 
 .btn-gray {
@@ -57,5 +62,10 @@
   background-color: $gray-600;
   border-color: $gray-600;
   color: $white;
+
+  &:hover,
+  &:focus {
+    color: $white;
+  }
 }
 
