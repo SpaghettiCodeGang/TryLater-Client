@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const Register = () => {
+const RegisterPage = () => {
     return (
         <>
             <h2>Registrieren</h2>
@@ -9,4 +9,4 @@ const Register = () => {
     )
 }
 
-export default Register;
+export default RegisterPage;

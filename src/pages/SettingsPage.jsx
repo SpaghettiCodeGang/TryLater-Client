@@ -1,4 +1,4 @@
-const Settings = () => {
+const SettingsPage = () => {
     return (
         <>
             <h2>Einstellungen</h2>
@@ -6,4 +6,4 @@ const Settings = () => {
     )
 }
 
-export default Settings;
+export default SettingsPage;
