@@ -1,5 +1,3 @@
 @use './variables' as *;
 @use './mixins' as *;
-
-@use 'bootstrap/scss/bootstrap';
-@use './custom';
+@use './bootstrap';

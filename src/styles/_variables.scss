@@ -1,13 +1,46 @@
 // Farben
-$primary: #1e88e5;
-$secondary: #ff9800;
-$danger: #e53935;
+$primary:    #FFA400;
+$secondary:  #4A4044;
+$light:      #EDE0C8;
+$dark:       #1E171A;
+$white:      #FFFFFF;
+$black:      #000000;
+
+$gray-100:   #F8F8F8;
+$gray-200:   #E8E8E8;
+$gray-300:   #D9D9D9;
+$gray-600:   #797979;
+
+$danger:     #D40000;
 
 // Fonts
-$font-family-base: 'Inter', sans-serif;
 
-// Grid
-$grid-gutter-width: 1.5rem;
+$font-family-base: 'Open Sans', sans-serif;
+
+$h1-font-size: 2.5rem;
+$h2-font-size: 1.5rem;
+$h3-font-size: 1.25rem;
+$headings-line-height: 1.5;
+$headings-font-weight: 800;
+$headings-font-family: $font-family-base;
+
+$font-size-base: 1.25rem;
+$line-height-base: 1.5;
+$font-weight-base: 400;
+
+$small-font-size: 0.75rem;
+
+// TODO: Imp Text ??
+$lead-font-size: 1.25rem;
+$lead-font-weight: 600;
 
 // Buttons
-$btn-border-radius: 2rem;
+
+$btn-font-family: $font-family-base;
+$btn-font-size: 1.5rem;
+$btn-font-weight: 800;
+$btn-border-radius: 10px;
+$btn-padding-y: 0.5rem;
+$btn-padding-x: 1.25rem;
+
+$btn-color: $white;

@@ -1,0 +1,61 @@
+@use './variables' as *;
+
+// Bootstrap Customizations
+@use 'bootstrap/scss/bootstrap' with (
+  $primary:    $primary,
+  $secondary:  $secondary,
+  $light:      $light,
+  $dark:       $dark,
+  $white:      $white,
+  $black:      $black,
+
+  $gray-100:   $gray-100,
+  $gray-200:   $gray-200,
+  $gray-300:   $gray-300,
+  $gray-600:   $gray-600,
+
+  $danger:     $danger,
+
+  $font-family-base: $font-family-base,
+
+  $h1-font-size: $h1-font-size,
+  $h2-font-size: $h2-font-size,
+  $h3-font-size: $h3-font-size,
+  $headings-line-height: $headings-line-height,
+  $headings-font-weight: $headings-font-weight,
+  $headings-font-family: $headings-font-family,
+
+  $font-size-base: $font-size-base,
+  $line-height-base: $line-height-base,
+  $font-weight-base: $font-weight-base,
+
+  $small-font-size: $small-font-size,
+
+  $lead-font-size: $lead-font-size,
+  $lead-font-weight: $lead-font-weight,
+
+  $btn-font-family: $btn-font-family,
+  $btn-font-size: $btn-font-size,
+  $btn-font-weight: $btn-font-weight,
+  $btn-border-radius: $btn-border-radius,
+  $btn-padding-y: $btn-padding-y,
+  $btn-padding-x: $btn-padding-x,
+
+  $btn-color: $btn-color,
+);
+
+// Button Overwrite
+.btn-primary,
+.btn-secondary {
+  color: $white;
+}
+
+.btn-gray {
+  @extend .btn;
+  @extend .btn-secondary;
+
+  background-color: $gray-600;
+  border-color: $gray-600;
+  color: $white;
+}
+
