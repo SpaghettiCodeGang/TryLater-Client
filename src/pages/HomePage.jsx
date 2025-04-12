@@ -7,6 +7,7 @@ const HomePage = () => {
 
     useEffect(() => {
         setHeadline("TryLater");
+        return () => setHeadline("");
     }, []);
 
     return (

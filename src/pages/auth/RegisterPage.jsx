@@ -7,6 +7,7 @@ const RegisterPage = () => {
 
     useEffect(() => {
         setHeadline("TryLater");
+        return () => setHeadline("");
     }, []);
 
     return (

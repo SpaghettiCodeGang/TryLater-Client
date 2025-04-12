@@ -2,21 +2,16 @@ import {useLayout} from "../../hooks/useLayout.jsx";
 import {useEffect} from "react";
 
 const DiscoverRecommendationsPage = () => {
-    const { setHeadline, setActions } = useLayout();
+    const { setHeadline } = useLayout();
 
     useEffect(() => {
         setHeadline("Entdecke");
-        setActions();
-
-        return () => {
-            setHeadline("");
-            setActions(null);
-        };
+        return () => setHeadline("");
     }, []);
 
     return (
         <>
-            <p>Content.</p>
+            <p>Content</p>
         </>
     )
 }
