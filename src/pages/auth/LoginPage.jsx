@@ -11,8 +11,7 @@ const LoginPage = () => {
 
     return (
         <>
-            <h2>Login</h2>
-            <p>Noch kein Konto? <Link to="/register">Registrieren</Link></p>
+
             <p className="text-center">
                 <small>Noch kein Account? <Link className="text-black" to="/register"><strong>Hier Registrieren</strong></Link></small>
             </p>
