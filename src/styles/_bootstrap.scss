@@ -40,11 +40,13 @@
   $btn-font-weight: $btn-font-weight,
   $btn-padding-y: $btn-padding-y,
   $btn-padding-x: $btn-padding-x,
+  $btn-box-shadow: $btn-box-shadow,
 
   $input-padding-y: $input-padding-y,
   $input-padding-x: $input-padding-x,
   $input-font-size: $input-font-size,
   $input-font-weight: $input-font-weight,
+  $input-border-color: $input-border-color,
 
   $form-label-font-size: $form-label-font-size,
   $form-label-font-weight: $form-label-font-weight,
@@ -63,7 +65,8 @@
   color: $white;
 
   &:hover,
-  &:focus {
+  &:focus,
+  &:disabled {
     color: $white;
   }
 }
@@ -77,7 +80,8 @@
   color: $white;
 
   &:hover,
-  &:focus {
+  &:focus,
+  &:disabled  {
     color: $white;
   }
 }
