@@ -34,17 +34,30 @@
   $lead-font-size: $lead-font-size,
   $lead-font-weight: $lead-font-weight,
 
-  $btn-font-family: $btn-font-family,
+  $border-radius: $border-radius,
+
   $btn-font-size: $btn-font-size,
   $btn-font-weight: $btn-font-weight,
-  $btn-border-radius: $btn-border-radius,
   $btn-padding-y: $btn-padding-y,
   $btn-padding-x: $btn-padding-x,
 
-  $btn-color: $btn-color,
+  $input-padding-y: $input-padding-y,
+  $input-padding-x: $input-padding-x,
+  $input-font-size: $input-font-size,
+  $input-font-weight: $input-font-weight,
+
+  $form-label-font-size: $form-label-font-size,
+  $form-label-font-weight: $form-label-font-weight,
+  $form-label-margin-bottom: $form-label-margin-bottom,
 );
 
-// Button Overwrite
+// Prevent responsive behavior of fonts
+.h1, h1 { font-size: $h1-font-size }
+.h2, h2 { font-size: $h2-font-size }
+.h3, h3 { font-size: $h3-font-size }
+.btn { font-size: $btn-font-size}
+
+// Button overwrite
 .btn-primary,
 .btn-secondary {
   color: $white;

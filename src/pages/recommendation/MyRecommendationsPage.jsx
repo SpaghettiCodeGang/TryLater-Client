@@ -1,7 +1,22 @@
+import {useLayout} from "../../hooks/useLayout.jsx";
+import {useEffect} from "react";
+
 const MyRecommendationsPage = () => {
+    const { setHeadline, setActions } = useLayout();
+
+    useEffect(() => {
+        setHeadline("Sammlung");
+        setActions();
+
+        return () => {
+            setHeadline("");
+            setActions(null);
+        };
+    }, []);
+
     return (
         <>
-            <h2>Empfehlungen</h2>
+            <p>Content</p>
         </>
     )
 }

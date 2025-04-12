@@ -1,10 +1,19 @@
 import { Link } from 'react-router-dom';
+import {useLayout} from "../../hooks/useLayout.jsx";
+import {useEffect} from "react";
 
 const RegisterPage = () => {
+    const { setHeadline } = useLayout();
+
+    useEffect(() => {
+        setHeadline("TryLater");
+    }, []);
+
     return (
         <>
-            <h2>Registrieren</h2>
-            <p>Schon ein Konto? <Link to="/login">Login</Link></p>
+            <p className="text-center">
+                <small>Schon ein Account? <Link className="text-black" to="/login"><strong>Hier Anmelden</strong></Link></small>
+            </p>
         </>
     )
 }
