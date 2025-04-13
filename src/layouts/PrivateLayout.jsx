@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar';
 import { useState } from "react";
 import { LayoutContext } from "../hooks/useLayout.jsx";
 
-const PrivateLayout = ({ setIsLoggedIn }) => {
+const PrivateLayout = () => {
     const [headline, setHeadline] = useState('');
     const [actions, setActions] = useState(null);
 
@@ -23,7 +23,6 @@ const PrivateLayout = ({ setIsLoggedIn }) => {
 
                 <footer>
                     <Navbar />
-                    <button className="btn btn-primary mt-2 w-100" onClick={() => setIsLoggedIn(false)}>Logout (Dev)</button>
                 </footer>
             </div>
         </LayoutContext.Provider>
