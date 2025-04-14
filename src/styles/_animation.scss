@@ -18,3 +18,42 @@
   }
 }
 
+// Logo Animation
+.layout_container--public.logo_animation {
+  header {
+    h1 {
+      animation: fade-in-out 4.5s ease-in-out forwards;
+    }
+  }
+  main, footer {
+    display: none;
+  }
+}
+
+.logo_animation--left {
+  display: inline-block;
+  animation: float-up 1.2s ease-in-out infinite alternate;
+}
+
+.logo_animation--right {
+  animation-delay: 0.2s;
+  display: inline-block;
+  animation: float-down 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes fade-in-out {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes float-up {
+  0% { transform: translateY(.5rem); }
+  100% { transform: translateY(-.5rem); }
+}
+
+@keyframes float-down {
+  0% { transform: translateY(-.5rem); }
+  100% { transform: translateY(.5rem); }
+}

@@ -5,7 +5,7 @@ import { useLayout } from "../../hooks/useLayout.jsx";
 
 const RegisterPage = () => {
     const { setHeadline } = useLayout();
-    const { register, loading, error } = useAuth();
+    const { register, login, loading, error } = useAuth();
     const [ passwordConfirmError, setPasswordConfirmError ] = useState({})
 
     useEffect(() => {
@@ -33,7 +33,16 @@ const RegisterPage = () => {
             password: form.password.value,
         }
 
-        await register(userData);
+        const success = await register(userData);
+
+        if (success) {
+             const loginData = {
+                 loginName: form.userName.value,
+                 password: form.password.value,
+             }
+
+             await login(loginData);
+        }
     };
 
     return (
@@ -59,7 +68,7 @@ const RegisterPage = () => {
                     <input type="password" className="form-control" id="confirmPassword" placeholder="Passwort wiederholen" />
                     <small className="text-danger ps-3 pe-3 d-inline-flex">{ passwordConfirmError?.confirmPassword }</small>
                 </div>
-                <button className="btn btn-primary form-control p-2 d-flex align-items-center justify-content-center" type="submit" disabled={loading}>
+                <button className="btn btn-primary form-control p-2 d-flex align-items-center justify-content-center" type="submit" disabled={ loading }>
                     {loading ? (
                         <>
                             <span className="btn-spinner me-2" />
@@ -69,7 +78,6 @@ const RegisterPage = () => {
                         <strong>Registrieren</strong>
                     )}
                 </button>
-
             </form>
             <p className="text-center mb-5">
                 <small>Schon ein Account? <Link className="text-black" to="/login"><strong>Hier Anmelden</strong></Link></small>

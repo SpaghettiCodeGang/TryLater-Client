@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import {useState} from "react";
+import { useAuth } from "../hooks/useAuth.jsx";
 import HomePage from '../pages/HomePage.jsx';
 import LoginPage from '../pages/auth/LoginPage.jsx';
 import RegisterPage from '../pages/auth/RegisterPage.jsx';
@@ -10,28 +10,32 @@ import PrivateLayout from '../layouts/PrivateLayout';
 import DiscoverRecommendationsPage from "../pages/recommendation/DiscoverRecommendationsPage.jsx";
 import NewRecommendationsPage from "../pages/recommendation/NewRecommendationsPage.jsx";
 import ContactPage from "../pages/contact/ContactPage.jsx";
+import LogoAnimation from "../components/LogoAnimation.jsx";
 
 const AppRouter = () => {
-    // TODO: Die Authentifizierung muss später noch implementiert werden. (useAuth()-Hook erstellen)
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const { user, loadingLogo } = useAuth();
+
+    if (loadingLogo) {
+        return <LogoAnimation />
+    }
 
     return (
         <Router>
             <Routes>
                 {/* Public Pages */}
-                <Route element={<PublicLayout setIsLoggedIn={setIsLoggedIn} />}>
-                    <Route path="/" element={!isLoggedIn ? <HomePage /> : <Navigate to="/recommendations" />} />
-                    <Route path="/login" element={!isLoggedIn ? <LoginPage /> : <Navigate to="/recommendations" />} />
-                    <Route path="/register" element={!isLoggedIn ? <RegisterPage /> : <Navigate to="/recommendations" />} />
+                <Route element={<PublicLayout />}>
+                    <Route path="/" element={!user ? <HomePage /> : <Navigate to="/recommendations" />} />
+                    <Route path="/login" element={!user ? <LoginPage /> : <Navigate to="/recommendations" />} />
+                    <Route path="/register" element={!user ? <RegisterPage /> : <Navigate to="/recommendations" />} />
                 </Route>
 
                 {/* Private Pages */}
-                <Route element={<PrivateLayout setIsLoggedIn={setIsLoggedIn} />}>
-                    <Route path="/recommendations" element={isLoggedIn ? <MyRecommendationsPage /> : <Navigate to="/login" />} />
-                    <Route path="/recommendations/received" element={isLoggedIn ? <DiscoverRecommendationsPage /> : <Navigate to="/login" />} />
-                    <Route path="/recommendations/create" element={isLoggedIn ? <NewRecommendationsPage /> : <Navigate to="/login" />} />
-                    <Route path="/contacts" element={isLoggedIn ? <ContactPage /> : <Navigate to="/login" />} />
-                    <Route path="/settings" element={isLoggedIn ? <SettingsPage /> : <Navigate to="/login" />} />
+                <Route element={<PrivateLayout />}>
+                    <Route path="/recommendations" element={user ? <MyRecommendationsPage /> : <Navigate to="/login" />} />
+                    <Route path="/recommendations/received" element={user ? <DiscoverRecommendationsPage /> : <Navigate to="/login" />} />
+                    <Route path="/recommendations/create" element={user ? <NewRecommendationsPage /> : <Navigate to="/login" />} />
+                    <Route path="/contacts" element={user ? <ContactPage /> : <Navigate to="/login" />} />
+                    <Route path="/settings" element={user ? <SettingsPage /> : <Navigate to="/login" />} />
                 </Route>
 
                 {/* Catch-all */}

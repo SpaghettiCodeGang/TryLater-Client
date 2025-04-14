@@ -19,8 +19,7 @@ const request = async (method, path, data = null) => {
 
     if (!response.ok) {
         if (response.status === 401 || response.status === 403) {
-            // TODO: Aus HomePage weiterleiten
-            console.log('Unauthorized');
+            // TODO: Auf HomePage weiterleiten
             console.log("Weiterleitung auf HomePage fehlt...")
         }
 
@@ -28,6 +27,7 @@ const request = async (method, path, data = null) => {
         const error = new Error(errorData.message || 'Unbekannter Fehler');
         error.status = response.status;
         error.data = errorData;
+        console.log(error.data);
         throw error;
     }
 

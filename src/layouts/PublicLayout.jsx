@@ -1,10 +1,10 @@
 import { Outlet } from 'react-router-dom';
-import {useState} from "react";
+import { useState } from "react";
 import { LayoutContext } from "../hooks/useLayout.jsx";
 
 
-const PublicLayout = ({ setIsLoggedIn }) => {
-    const [headline, setHeadline] = useState('');
+const PublicLayout = () => {
+    const [headline, setHeadline ] = useState('');
 
     return (
         <LayoutContext.Provider value={{ headline, setHeadline }}>
@@ -18,9 +18,7 @@ const PublicLayout = ({ setIsLoggedIn }) => {
                     <Outlet/>
                 </main>
                 <footer>
-                    <div className="d-flex flex-column gap-2">
-                        <button className="btn btn-primary w-100" onClick={() => setIsLoggedIn(true)}>Login (Dev)</button>
-                    </div>
+                    {/*  Hier könnte ihre Werbung stehen.  */}
                 </footer>
             </div>
         </LayoutContext.Provider>
