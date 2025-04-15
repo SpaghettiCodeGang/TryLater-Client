@@ -3,6 +3,7 @@ import CameraFill from '../assets/icons/Bootstrap/camera-fill.svg?react';
 import CameraReels from '../assets/icons/Bootstrap/camera-reels.svg?react';
 import CheckCircleFill from '../assets/icons/Bootstrap/check-circle-fill.svg?react';
 import ChevronRight from '../assets/icons/Bootstrap/chevron-right.svg?react';
+import ChevronLeft from '../assets/icons/Bootstrap/chevron-left.svg?react';
 import CircleFill from '../assets/icons/Bootstrap/circle-fill.svg?react';
 import CloudUpload from '../assets/icons/Bootstrap/cloud-upload.svg?react';
 import CupStraw from '../assets/icons/Bootstrap/cup-straw.svg?react';
@@ -26,6 +27,7 @@ export const BootstrapIcons = {
     CameraReels,
     CheckCircleFill,
     ChevronRight,
+    ChevronLeft,
     CircleFill,
     CloudUpload,
     CupStraw,
