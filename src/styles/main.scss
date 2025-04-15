@@ -1,6 +1,7 @@
 @use './bootstrap';
-@use './variables' as *;
-@use './mixins' as *;
-@use './layout' as *;
-@use './animation' as *;
+@use './layout';
+@use './animation';
+
+// Components
+@use './components/contact';
 @use './components/slide-in-overlay';

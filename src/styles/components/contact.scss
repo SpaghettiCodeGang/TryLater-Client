@@ -1,0 +1,50 @@
+@use '../variables' as *;
+
+.contact {
+  &_nav {
+    &__btn {
+      background-color: $black;
+      border-radius: 50%;
+      border: none;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+
+      &:hover,
+      &:focus {
+        background-color: $secondary;
+      }
+
+      &.active {
+        &:before {
+          position: absolute;
+          content: "";
+          right: 1px;
+          top: 1px;
+          background-color: $primary;
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+
+  &_page {
+    padding-top: 1rem;
+
+    &:before {
+      position: absolute;
+      content: "";
+      width: calc(100% - 2rem);
+      height: 0;
+      top: 0.1rem;
+      left: 1rem;
+      border-bottom: $border-light;
+      box-shadow: $box-shadow;
+    }
+  }
+}
