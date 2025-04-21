@@ -1,4 +1,5 @@
 @use '../variables' as *;
+@use "sass:color";
 
 .contact {
   &_nav {
@@ -12,10 +13,11 @@
       align-items: center;
       justify-content: center;
       position: relative;
+      padding: 0;
 
       &:hover,
       &:focus {
-        background-color: $secondary;
+        background-color: color.adjust($black, $lightness: 30%);
       }
 
       &.active {
@@ -45,6 +47,172 @@
       left: 1rem;
       border-bottom: $border-light;
       box-shadow: $box-shadow;
+    }
+  }
+
+  &_list {
+    list-style: none;
+    padding: 0;
+
+    &__item {
+      width: 100%;
+      border: $border-light;
+      border-radius: $border-radius-large;
+      box-shadow: $box-shadow;
+      background-color: $white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.8rem;
+      padding: 0.25rem 0.5rem;
+      margin-bottom: 0.6rem;
+      flex-wrap: nowrap;
+      cursor: pointer;
+    }
+
+    &__data {
+      display: flex;
+      align-items: center;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    &__img {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      margin-right: 1rem;
+    }
+
+    &__displayname {
+      font-size: $tag-font-size;
+      font-weight: $tag-font-weight;
+      margin: 0 0.8rem 0 0;
+      max-width: 50%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &__username {
+      font-size: $tag-font-size-small;
+      font-weight: $tag-font-weight;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &__actions {
+      flex-shrink: 0;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    &__btn {
+      background-color: $black;
+      border-radius: 50%;
+      border: none;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      padding: 0;
+      margin-right: 0.5rem;
+
+      &:hover,
+      &:focus {
+        background-color: color.adjust($black, $lightness: 30%);
+      }
+
+      &--primary {
+        background-color: $primary;
+
+        &:hover,
+        &:focus {
+          background-color: color.adjust($primary, $lightness: 15%);
+        }
+      }
+    }
+
+    &__batch {
+      background-color: $gray-600;
+      font-size: $tag-font-size-small;
+      font-weight: $tag-font-weight;
+      color: $white;
+      border-radius: 15px;
+      padding: 0.2rem 0.5rem;
+      margin-right: 0.5rem;
+    }
+  }
+
+  &_view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+
+    &__img {
+      width: 30%;
+      height: auto;
+      border-radius: 50%;
+    }
+
+    &__data {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      flex-grow: 1;
+
+      input:disabled {
+        background-color: $white;
+      }
+    }
+  }
+
+  &_search {
+    width: 100%;
+    display: flex;
+    border: $border-light;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+    margin-bottom: 1rem;
+    padding: 0.25rem 0.5rem;
+
+    &:focus-within {
+      box-shadow: 0 0 0 0.25rem color.adjust($primary, $lightness: 25%);
+    }
+
+    .form-control {
+      border: none;
+      padding: 0;
+      font-size: $font-size-base;
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+
+    .btn {
+      border: none;
+      background-color: $white;
+      box-shadow: none;
+      min-width: 38px;
+      max-width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin-right: 1rem;
+      padding: 0;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: $white;
+      }
     }
   }
 }

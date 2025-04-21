@@ -1,6 +1,7 @@
 import Bell from '../assets/icons/Bootstrap/bell.svg?react';
 import CameraFill from '../assets/icons/Bootstrap/camera-fill.svg?react';
 import CameraReels from '../assets/icons/Bootstrap/camera-reels.svg?react';
+import Check from '../assets/icons/Bootstrap/check.svg?react';
 import CheckCircleFill from '../assets/icons/Bootstrap/check-circle-fill.svg?react';
 import ChevronRight from '../assets/icons/Bootstrap/chevron-right.svg?react';
 import ChevronLeft from '../assets/icons/Bootstrap/chevron-left.svg?react';
@@ -19,12 +20,14 @@ import Person from '../assets/icons/Bootstrap/person.svg?react';
 import Plus from '../assets/icons/Bootstrap/plus.svg?react';
 import PlusCircleFill from '../assets/icons/Bootstrap/plus-circle-fill.svg?react';
 import Search from '../assets/icons/Bootstrap/search.svg?react';
+import X from '../assets/icons/Bootstrap/x.svg?react';
 import XCircleFill from '../assets/icons/Bootstrap/x-circle-fill.svg?react';
 
 export const BootstrapIcons = {
     Bell,
     CameraFill,
     CameraReels,
+    Check,
     CheckCircleFill,
     ChevronRight,
     ChevronLeft,
@@ -43,5 +46,6 @@ export const BootstrapIcons = {
     Plus,
     PlusCircleFill,
     Search,
+    X,
     XCircleFill,
 }

@@ -8,13 +8,14 @@
   left: $body-padding;
   z-index: 20;
   width: calc(100% - 2 * $body-padding);
-  height: calc(100% - 2px);
+  min-height: calc(100% - 2px);
   border: $border-light;
   box-shadow: $box-shadow;
   transition: transform 0.5s ease;
   transform: translateX(-120%);
-  pointer-events: none;
   padding: $body-padding;
+  display: flex;
+  flex-direction: column;
 
   &--visible {
     transform: translateX(0%);
@@ -29,7 +30,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     padding: 0;
 
     h2 {
@@ -40,5 +41,11 @@
   &__icon {
     position: absolute;
     left: 0;
+  }
+
+  &__content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
   }
 }
