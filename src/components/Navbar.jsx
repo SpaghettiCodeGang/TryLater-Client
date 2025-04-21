@@ -1,13 +1,34 @@
 import { NavLink } from 'react-router-dom';
+import { BootstrapIcons } from "./BootstrapIcons.jsx";
 
-const Navbar = () => (
-    <nav className="d-flex gap-2 flex-wrap">
-        <NavLink to="/recommendations">Sammlung</NavLink>
-        <NavLink to="/recommendations/received">Entdecke</NavLink>
-        <NavLink to="/recommendations/create">Empfehlen</NavLink>
-        <NavLink to="/contacts">Kontakte</NavLink>
-        <NavLink to="/settings">Einstellungen</NavLink>
-    </nav>
-);
+const Navbar = () => {
+    // stellt Klassenanwendung sicher
+    const getNavLinkClass = ({ isActive }) => isActive ? "navbar__link active" : "navbar__link";
+
+    return (
+        <nav className="navbar">
+
+            <NavLink to="/recommendations" className={getNavLinkClass} end>
+                <BootstrapIcons.HouseDoor size={24} />
+            </NavLink>
+
+            <NavLink to="/recommendations/received" className={getNavLinkClass}>
+                <BootstrapIcons.Search size={24} />
+            </NavLink>
+
+            <NavLink to="/recommendations/create" className={getNavLinkClass}>
+                <BootstrapIcons.Plus size={24} />
+            </NavLink>
+
+            <NavLink to="/contacts" className={getNavLinkClass}>
+                <BootstrapIcons.Person size={24} />
+            </NavLink>
+
+            <NavLink to="/settings" className={getNavLinkClass}>
+                <BootstrapIcons.Gear size={24} />
+            </NavLink>
+        </nav>
+    );
+};
 
 export default Navbar;

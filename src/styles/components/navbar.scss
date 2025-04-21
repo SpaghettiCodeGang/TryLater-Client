@@ -1,0 +1,65 @@
+@use '../variables' as *;
+@use "sass:color";
+
+.navbar {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
+  background-color: $dark;
+  padding: 0.8rem;
+  display: flex;
+  justify-content: space-around;
+  border-radius: $border-radius-large;
+  //border-top-left-radius: $border-radius-large;
+  //border-top-right-radius: $border-radius-large;
+  box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+
+  // Für größere Bildschirme
+  @media (min-width: 600px) {
+    width: 550px;
+    margin: 0 auto;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $white;
+    text-decoration: none;
+    position: relative;
+    width: 48px;
+    height: 48px;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    &:hover, &:focus {
+      color: color.adjust($white, $alpha: -0.2);
+    }
+
+    &.active {
+      &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 42px;
+        height: 42px;
+        background-color: $primary;
+        border-radius: 50%;
+        z-index: -1;
+      }
+
+      svg {
+        color: $white;
+      }
+    }
+  }
+}
