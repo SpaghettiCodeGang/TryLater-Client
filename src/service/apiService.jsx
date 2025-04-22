@@ -1,17 +1,17 @@
 const BASE_URL = '/api';
 
 const request = async (method, path, data = null) => {
-    const headers = {
-        'Content-Type': 'application/json',
-    };
-
     const options = {
         method,
-        headers,
         credentials: 'include',
     };
 
-    if (data) {
+    if (data instanceof File) {
+        const formData = new FormData();
+        formData.append('image', data);
+        options.body = formData;
+    } else if (data !== null) {
+        options.headers = { 'Content-Type': 'application/json' };
         options.body = JSON.stringify(data);
     }
 
