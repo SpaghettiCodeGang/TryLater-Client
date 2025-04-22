@@ -1,7 +1,9 @@
+import apiService from "../service/apiService.jsx";
+
 const Contact = ({ contactPartner, actions, onClick }) => {
 
     const placeholderImg = "src/assets/profil.png";
-    const imgSrc = contactPartner?.imgPath && contactPartner?.imgPath.trim() !== "" ? contactPartner?.imgPath : placeholderImg;
+    const imgSrc = contactPartner?.imgPath && contactPartner?.imgPath.trim() !== "" ? `${apiService.getBaseUrl()}/images/${contactPartner?.imgPath}` : placeholderImg;
 
     return (
         <li className="contact_list__item" role="button" onClick={ onClick } tabIndex="0"
