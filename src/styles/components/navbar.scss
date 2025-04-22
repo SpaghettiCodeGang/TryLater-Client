@@ -2,27 +2,14 @@
 @use "sass:color";
 
 .navbar {
-  position: fixed;
-  bottom: 1rem;
-  left: 1rem;
-  right: 1rem;
+  width: 100%;
   background-color: $dark;
   padding: 0.8rem;
   display: flex;
   justify-content: space-around;
   border-radius: $border-radius-large;
-  //border-top-left-radius: $border-radius-large;
-  //border-top-right-radius: $border-radius-large;
-  box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: $box-shadow;
   z-index: 1000;
-
-  // Für größere Bildschirme
-  @media (min-width: 600px) {
-    width: 550px;
-    margin: 0 auto;
-    left: 50%;
-    transform: translateX(-50%);
-  }
 
   &__link {
     display: flex;
@@ -37,10 +24,6 @@
     svg {
       width: 24px;
       height: 24px;
-    }
-
-    &:hover, &:focus {
-      color: color.adjust($white, $alpha: -0.2);
     }
 
     &.active {
