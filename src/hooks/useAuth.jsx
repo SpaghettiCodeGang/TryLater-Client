@@ -8,7 +8,7 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(false);
     const [loadingLogo, setLoadingLogo] = useState(true);
     const [error, setError] = useState(null);
-    const logoAnimationDuration = 4800;
+    const logoAnimationDuration = 2400;
     const loadingAnimationDuration = 500;
 
     useEffect(() => {
