@@ -28,6 +28,7 @@
 
     &__username {
       font-weight: $lead-font-weight;
+      color: $secondary;
       margin: 0;
       white-space: nowrap;
       overflow: hidden;
@@ -67,5 +68,9 @@
     justify-content: center;
     flex-direction: column;
     padding: 2rem;
+
+    small {
+      color: $secondary;
+    }
   }
 }

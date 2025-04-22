@@ -81,7 +81,7 @@ const SettingsPage = ({ user }) => {
             <div className="settings_banner">
                 <p className="h1">
                     <span className="text-primary">Try</span>
-                    <span>Later</span>
+                    <span className="text-dark">Later</span>
                 </p>
                 <small>Aktuelle Version: 1.0.0</small>
                 <small>Empfehlungen für dich!</small>
