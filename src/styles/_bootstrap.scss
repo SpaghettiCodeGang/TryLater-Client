@@ -60,6 +60,8 @@
 .btn { font-size: $btn-font-size}
 
 // Button overwrite
+.btn { box-shadow: $btn-box-shadow }
+
 .btn-primary,
 .btn-secondary {
   color: $white;

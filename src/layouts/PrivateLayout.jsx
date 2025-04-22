@@ -12,12 +12,12 @@ const PrivateLayout = () => {
             <div className="layout_container layout_container--private">
                 <header>
                     <h1>
-                        <span className="text-primary">{ headline?.slice(0, 3) }</span>{ headline?.slice(3) }
+                        <span className="text-primary ms-2">{ headline?.slice(0, 3) }</span>{ headline?.slice(3) }
                     </h1>
-                    <div className="d-flex gap-2">{ actions }</div>
+                    <div className="d-flex gap-2 align-items-center me-2">{ actions }</div>
                 </header>
 
-                <main>
+                <main className="position-relative">
                     <Outlet />
                 </main>
 

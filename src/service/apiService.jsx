@@ -39,6 +39,7 @@ const request = async (method, path, data = null) => {
 const apiService = {
     get: (path) => request('GET', path),
     post: (path, data) => request('POST', path, data),
+    patch: (path, data) => request('PATCH', path, data),
     put: (path, data) => request('PUT', path, data),
     delete: (path, data) => request('DELETE', path, data),
 };

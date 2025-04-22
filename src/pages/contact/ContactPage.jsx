@@ -1,29 +1,88 @@
 import { useEffect, useState } from "react";
 import { useLayout } from "../../hooks/useLayout.jsx";
+import { useFetch } from "../../hooks/useFetch.jsx";
+import Contact from "../../components/Contact.jsx";
+import ContactSearchOverlay from "./ContactSearchOverlay.jsx";
+import ContactRequestOverlay from "./ContactRequestOverlay.jsx";
+import ContactViewOverlay from "./ContactViewOverlay.jsx";
+import { BootstrapIcons } from "../../components/BootstrapIcons.jsx";
 
 const ContactPage = () => {
+    const [activeOverlay, setActiveOverlay] = useState(null);
+    const [activeContact, setActiveContact] = useState(null);
     const { setHeadline, setActions } = useLayout();
+
+    const { data: contacts, refetch: refetchContacts } = useFetch('/contact?status=ACCEPTED');
+    const { data: incomingContactRequests, refetch: refetchIncomingRequests } = useFetch('/contact?status=PENDING&role=RECEIVER');
+    const { data: outgoingContactRequests, refetch: refetchOutgoingRequests } = useFetch('/contact?status=PENDING&role=REQUESTER');
 
     useEffect(() => {
         setHeadline("Kontakte");
         setActions(
+            <>
+                <button
+                    className={`contact_nav__btn ${incomingContactRequests?.length > 0 ? 'active' : ''}`}
+                    onClick={() => setActiveOverlay(activeOverlay === 'contactRequests' ? null : 'contactRequests')}
+                >
+                    <BootstrapIcons.Bell width={18} height={18} fill="white" />
+                </button>
+                <button
+                    className={`contact_nav__btn `}
+                    onClick={() => setActiveOverlay(activeOverlay === 'contactSearch' ? null : 'contactSearch')}
+                >
+                    <BootstrapIcons.Plus width={32} height={32} fill="white" />
+                </button>
+            </>
         );
 
         return () => {
             setHeadline("");
             setActions(null);
         };
-    }, []);
+    }, [incomingContactRequests]);
 
     return (
         <>
+            <div className="contact_page">
+                <div className="contact_border"></div>
+                <h2 className="ms-2">Deine Kontakte</h2>
 
-            <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquam architecto asperiores cumque debitis eaque explicabo facilis harum ipsum natus nemo, obcaecati qui sapiente tenetur voluptates. At consequuntur fugiat neque!</span><span>Aliquam commodi dicta exercitationem hic illum, nemo quos reprehenderit voluptas voluptatem. Aspernatur debitis ducimus exercitationem iure modi nesciunt odit quas sapiente. Aliquam exercitationem incidunt magnam modi possimus quibusdam ut, velit.</span><span>Animi delectus deserunt eius et, iste laudantium magnam nobis praesentium. At atque culpa cumque deserunt dicta ducimus hic impedit iste magnam molestias necessitatibus, officiis quibusdam recusandae totam ullam vitae voluptatibus?</span><span>Assumenda cum, esse est fugit in modi, nisi obcaecati quas repellendus suscipit, velit veniam voluptate voluptatem! Beatae, cum, cumque deserunt distinctio, fuga maiores modi molestias quaerat sed similique ut vitae?</span><span>A ad aperiam eligendi, est facere fugiat ipsa itaque iure laborum laudantium magni omnis pariatur placeat quibusdam quo reiciendis sequi similique, velit? Culpa fugit nam nemo qui quis, sapiente tempora?</span><span>A aperiam consequuntur corporis ipsam maiores porro, veniam voluptates voluptatum? Culpa ex hic nam! Dolore illo impedit nobis quae! Accusantium aspernatur autem dolorem esse, ex itaque iusto maiores quas quis?</span><span>Consectetur debitis, laborum nobis omnis quibusdam ratione ullam. Ab aliquam at commodi dignissimos illum itaque laborum molestias officia officiis quaerat, quasi, quidem ratione repellendus ullam, voluptas. Incidunt molestias perspiciatis vel.</span><span>Accusamus accusantium asperiores at doloremque dolores eaque, harum incidunt mollitia nisi nulla placeat quasi quia, quisquam! Adipisci aspernatur autem eaque inventore minima nulla, optio pariatur provident quod rem temporibus voluptas.</span><span>Cumque, facilis fugit illo nisi quos voluptatum. A autem earum et eum incidunt, modi nesciunt sed. Blanditiis harum, hic ipsam minima nisi provident quasi quidem soluta totam velit? Architecto, reiciendis!</span><span>At aut est laboriosam nesciunt ratione recusandae veniam! Enim eveniet facere ipsam maiores repellat totam ut? Ab ad, distinctio ducimus ex fugiat id incidunt numquam optio placeat quaerat quisquam velit.</span></p>
-            <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquam architecto asperiores cumque debitis eaque explicabo facilis harum ipsum natus nemo, obcaecati qui sapiente tenetur voluptates. At consequuntur fugiat neque!</span><span>Aliquam commodi dicta exercitationem hic illum, nemo quos reprehenderit voluptas voluptatem. Aspernatur debitis ducimus exercitationem iure modi nesciunt odit quas sapiente. Aliquam exercitationem incidunt magnam modi possimus quibusdam ut, velit.</span><span>Animi delectus deserunt eius et, iste laudantium magnam nobis praesentium. At atque culpa cumque deserunt dicta ducimus hic impedit iste magnam molestias necessitatibus, officiis quibusdam recusandae totam ullam vitae voluptatibus?</span><span>Assumenda cum, esse est fugit in modi, nisi obcaecati quas repellendus suscipit, velit veniam voluptate voluptatem! Beatae, cum, cumque deserunt distinctio, fuga maiores modi molestias quaerat sed similique ut vitae?</span><span>A ad aperiam eligendi, est facere fugiat ipsa itaque iure laborum laudantium magni omnis pariatur placeat quibusdam quo reiciendis sequi similique, velit? Culpa fugit nam nemo qui quis, sapiente tempora?</span><span>A aperiam consequuntur corporis ipsam maiores porro, veniam voluptates voluptatum? Culpa ex hic nam! Dolore illo impedit nobis quae! Accusantium aspernatur autem dolorem esse, ex itaque iusto maiores quas quis?</span><span>Consectetur debitis, laborum nobis omnis quibusdam ratione ullam. Ab aliquam at commodi dignissimos illum itaque laborum molestias officia officiis quaerat, quasi, quidem ratione repellendus ullam, voluptas. Incidunt molestias perspiciatis vel.</span><span>Accusamus accusantium asperiores at doloremque dolores eaque, harum incidunt mollitia nisi nulla placeat quasi quia, quisquam! Adipisci aspernatur autem eaque inventore minima nulla, optio pariatur provident quod rem temporibus voluptas.</span><span>Cumque, facilis fugit illo nisi quos voluptatum. A autem earum et eum incidunt, modi nesciunt sed. Blanditiis harum, hic ipsam minima nisi provident quasi quidem soluta totam velit? Architecto, reiciendis!</span><span>At aut est laboriosam nesciunt ratione recusandae veniam! Enim eveniet facere ipsam maiores repellat totam ut? Ab ad, distinctio ducimus ex fugiat id incidunt numquam optio placeat quaerat quisquam velit.</span></p>
-            <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquam architecto asperiores cumque debitis eaque explicabo facilis harum ipsum natus nemo, obcaecati qui sapiente tenetur voluptates. At consequuntur fugiat neque!</span><span>Aliquam commodi dicta exercitationem hic illum, nemo quos reprehenderit voluptas voluptatem. Aspernatur debitis ducimus exercitationem iure modi nesciunt odit quas sapiente. Aliquam exercitationem incidunt magnam modi possimus quibusdam ut, velit.</span><span>Animi delectus deserunt eius et, iste laudantium magnam nobis praesentium. At atque culpa cumque deserunt dicta ducimus hic impedit iste magnam molestias necessitatibus, officiis quibusdam recusandae totam ullam vitae voluptatibus?</span><span>Assumenda cum, esse est fugit in modi, nisi obcaecati quas repellendus suscipit, velit veniam voluptate voluptatem! Beatae, cum, cumque deserunt distinctio, fuga maiores modi molestias quaerat sed similique ut vitae?</span><span>A ad aperiam eligendi, est facere fugiat ipsa itaque iure laborum laudantium magni omnis pariatur placeat quibusdam quo reiciendis sequi similique, velit? Culpa fugit nam nemo qui quis, sapiente tempora?</span><span>A aperiam consequuntur corporis ipsam maiores porro, veniam voluptates voluptatum? Culpa ex hic nam! Dolore illo impedit nobis quae! Accusantium aspernatur autem dolorem esse, ex itaque iusto maiores quas quis?</span><span>Consectetur debitis, laborum nobis omnis quibusdam ratione ullam. Ab aliquam at commodi dignissimos illum itaque laborum molestias officia officiis quaerat, quasi, quidem ratione repellendus ullam, voluptas. Incidunt molestias perspiciatis vel.</span><span>Accusamus accusantium asperiores at doloremque dolores eaque, harum incidunt mollitia nisi nulla placeat quasi quia, quisquam! Adipisci aspernatur autem eaque inventore minima nulla, optio pariatur provident quod rem temporibus voluptas.</span><span>Cumque, facilis fugit illo nisi quos voluptatum. A autem earum et eum incidunt, modi nesciunt sed. Blanditiis harum, hic ipsam minima nisi provident quasi quidem soluta totam velit? Architecto, reiciendis!</span><span>At aut est laboriosam nesciunt ratione recusandae veniam! Enim eveniet facere ipsam maiores repellat totam ut? Ab ad, distinctio ducimus ex fugiat id incidunt numquam optio placeat quaerat quisquam velit.</span></p>
-            <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquam architecto asperiores cumque debitis eaque explicabo facilis harum ipsum natus nemo, obcaecati qui sapiente tenetur voluptates. At consequuntur fugiat neque!</span><span>Aliquam commodi dicta exercitationem hic illum, nemo quos reprehenderit voluptas voluptatem. Aspernatur debitis ducimus exercitationem iure modi nesciunt odit quas sapiente. Aliquam exercitationem incidunt magnam modi possimus quibusdam ut, velit.</span><span>Animi delectus deserunt eius et, iste laudantium magnam nobis praesentium. At atque culpa cumque deserunt dicta ducimus hic impedit iste magnam molestias necessitatibus, officiis quibusdam recusandae totam ullam vitae voluptatibus?</span><span>Assumenda cum, esse est fugit in modi, nisi obcaecati quas repellendus suscipit, velit veniam voluptate voluptatem! Beatae, cum, cumque deserunt distinctio, fuga maiores modi molestias quaerat sed similique ut vitae?</span><span>A ad aperiam eligendi, est facere fugiat ipsa itaque iure laborum laudantium magni omnis pariatur placeat quibusdam quo reiciendis sequi similique, velit? Culpa fugit nam nemo qui quis, sapiente tempora?</span><span>A aperiam consequuntur corporis ipsam maiores porro, veniam voluptates voluptatum? Culpa ex hic nam! Dolore illo impedit nobis quae! Accusantium aspernatur autem dolorem esse, ex itaque iusto maiores quas quis?</span><span>Consectetur debitis, laborum nobis omnis quibusdam ratione ullam. Ab aliquam at commodi dignissimos illum itaque laborum molestias officia officiis quaerat, quasi, quidem ratione repellendus ullam, voluptas. Incidunt molestias perspiciatis vel.</span><span>Accusamus accusantium asperiores at doloremque dolores eaque, harum incidunt mollitia nisi nulla placeat quasi quia, quisquam! Adipisci aspernatur autem eaque inventore minima nulla, optio pariatur provident quod rem temporibus voluptas.</span><span>Cumque, facilis fugit illo nisi quos voluptatum. A autem earum et eum incidunt, modi nesciunt sed. Blanditiis harum, hic ipsam minima nisi provident quasi quidem soluta totam velit? Architecto, reiciendis!</span><span>At aut est laboriosam nesciunt ratione recusandae veniam! Enim eveniet facere ipsam maiores repellat totam ut? Ab ad, distinctio ducimus ex fugiat id incidunt numquam optio placeat quaerat quisquam velit.</span></p>
-            <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquam architecto asperiores cumque debitis eaque explicabo facilis harum ipsum natus nemo, obcaecati qui sapiente tenetur voluptates. At consequuntur fugiat neque!</span><span>Aliquam commodi dicta exercitationem hic illum, nemo quos reprehenderit voluptas voluptatem. Aspernatur debitis ducimus exercitationem iure modi nesciunt odit quas sapiente. Aliquam exercitationem incidunt magnam modi possimus quibusdam ut, velit.</span><span>Animi delectus deserunt eius et, iste laudantium magnam nobis praesentium. At atque culpa cumque deserunt dicta ducimus hic impedit iste magnam molestias necessitatibus, officiis quibusdam recusandae totam ullam vitae voluptatibus?</span><span>Assumenda cum, esse est fugit in modi, nisi obcaecati quas repellendus suscipit, velit veniam voluptate voluptatem! Beatae, cum, cumque deserunt distinctio, fuga maiores modi molestias quaerat sed similique ut vitae?</span><span>A ad aperiam eligendi, est facere fugiat ipsa itaque iure laborum laudantium magni omnis pariatur placeat quibusdam quo reiciendis sequi similique, velit? Culpa fugit nam nemo qui quis, sapiente tempora?</span><span>A aperiam consequuntur corporis ipsam maiores porro, veniam voluptates voluptatum? Culpa ex hic nam! Dolore illo impedit nobis quae! Accusantium aspernatur autem dolorem esse, ex itaque iusto maiores quas quis?</span><span>Consectetur debitis, laborum nobis omnis quibusdam ratione ullam. Ab aliquam at commodi dignissimos illum itaque laborum molestias officia officiis quaerat, quasi, quidem ratione repellendus ullam, voluptas. Incidunt molestias perspiciatis vel.</span><span>Accusamus accusantium asperiores at doloremque dolores eaque, harum incidunt mollitia nisi nulla placeat quasi quia, quisquam! Adipisci aspernatur autem eaque inventore minima nulla, optio pariatur provident quod rem temporibus voluptas.</span><span>Cumque, facilis fugit illo nisi quos voluptatum. A autem earum et eum incidunt, modi nesciunt sed. Blanditiis harum, hic ipsam minima nisi provident quasi quidem soluta totam velit? Architecto, reiciendis!</span><span>At aut est laboriosam nesciunt ratione recusandae veniam! Enim eveniet facere ipsam maiores repellat totam ut? Ab ad, distinctio ducimus ex fugiat id incidunt numquam optio placeat quaerat quisquam velit.</span></p>
-            <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquam architecto asperiores cumque debitis eaque explicabo facilis harum ipsum natus nemo, obcaecati qui sapiente tenetur voluptates. At consequuntur fugiat neque!</span><span>Aliquam commodi dicta exercitationem hic illum, nemo quos reprehenderit voluptas voluptatem. Aspernatur debitis ducimus exercitationem iure modi nesciunt odit quas sapiente. Aliquam exercitationem incidunt magnam modi possimus quibusdam ut, velit.</span><span>Animi delectus deserunt eius et, iste laudantium magnam nobis praesentium. At atque culpa cumque deserunt dicta ducimus hic impedit iste magnam molestias necessitatibus, officiis quibusdam recusandae totam ullam vitae voluptatibus?</span><span>Assumenda cum, esse est fugit in modi, nisi obcaecati quas repellendus suscipit, velit veniam voluptate voluptatem! Beatae, cum, cumque deserunt distinctio, fuga maiores modi molestias quaerat sed similique ut vitae?</span><span>A ad aperiam eligendi, est facere fugiat ipsa itaque iure laborum laudantium magni omnis pariatur placeat quibusdam quo reiciendis sequi similique, velit? Culpa fugit nam nemo qui quis, sapiente tempora?</span><span>A aperiam consequuntur corporis ipsam maiores porro, veniam voluptates voluptatum? Culpa ex hic nam! Dolore illo impedit nobis quae! Accusantium aspernatur autem dolorem esse, ex itaque iusto maiores quas quis?</span><span>Consectetur debitis, laborum nobis omnis quibusdam ratione ullam. Ab aliquam at commodi dignissimos illum itaque laborum molestias officia officiis quaerat, quasi, quidem ratione repellendus ullam, voluptas. Incidunt molestias perspiciatis vel.</span><span>Accusamus accusantium asperiores at doloremque dolores eaque, harum incidunt mollitia nisi nulla placeat quasi quia, quisquam! Adipisci aspernatur autem eaque inventore minima nulla, optio pariatur provident quod rem temporibus voluptas.</span><span>Cumque, facilis fugit illo nisi quos voluptatum. A autem earum et eum incidunt, modi nesciunt sed. Blanditiis harum, hic ipsam minima nisi provident quasi quidem soluta totam velit? Architecto, reiciendis!</span><span>At aut est laboriosam nesciunt ratione recusandae veniam! Enim eveniet facere ipsam maiores repellat totam ut? Ab ad, distinctio ducimus ex fugiat id incidunt numquam optio placeat quaerat quisquam velit.</span></p>
+                <ul className="contact_list">
+                    {contacts?.map((contact) => (
+                        <Contact
+                            key={contact.contactId}
+                            contactPartner={contact.contactPartner}
+                            onClick={() => {
+                                setActiveContact(contact);
+                                setActiveOverlay(activeOverlay === 'contactView' ? null : 'contactView')}
+                            }
+                        />
+                    ))}
+                </ul>
+            </div>
+
+            <ContactViewOverlay
+                activeOverlay={activeOverlay}
+                setActiveOverlay={setActiveOverlay}
+                contact={activeContact}
+                refetchContacts={refetchContacts}
+            />
+
+            <ContactRequestOverlay
+                activeOverlay={activeOverlay}
+                setActiveOverlay={setActiveOverlay}
+                incomingContactRequests={incomingContactRequests}
+                refetchIncomingRequests={refetchIncomingRequests}
+                refetchContacts={refetchContacts}
+            />
+
+            <ContactSearchOverlay
+                activeOverlay={activeOverlay}
+                setActiveOverlay={setActiveOverlay}
+                outgoingContactRequests={outgoingContactRequests}
+                refetchOutgoingRequests={refetchOutgoingRequests}
+                refetchContacts={refetchContacts}
+            />
         </>
     );
 };
