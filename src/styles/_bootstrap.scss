@@ -60,7 +60,17 @@
 .btn { font-size: $btn-font-size}
 
 // Button overwrite
-.btn { box-shadow: $btn-box-shadow }
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: $btn-box-shadow;
+
+  &-flat {
+    font-size: $btn-font-size-flat;
+    font-weight: $btn-font-weight-flat;
+  }
+}
 
 .btn-primary,
 .btn-secondary {
@@ -87,4 +97,3 @@
     color: $white;
   }
 }
-
