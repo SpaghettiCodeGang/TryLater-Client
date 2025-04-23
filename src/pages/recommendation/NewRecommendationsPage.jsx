@@ -1,5 +1,6 @@
-import {useLayout} from "../../hooks/useLayout.jsx";
-import {useEffect} from "react";
+import { useLayout } from "../../hooks/useLayout.jsx";
+import { useEffect } from "react";
+import CategorySelection from "./../../components/CategorySelection.jsx";
 
 const NewRecommendationsPage = () => {
     const { setHeadline } = useLayout();
@@ -9,9 +10,18 @@ const NewRecommendationsPage = () => {
         return () => setHeadline("");
     }, []);
 
+    // handler für Nav nach Kategorie-Auswahl
+    const handleCategorySelect = (categoryId) => {
+        // setSelectedCategory(categoryId);
+        console.log("Selected category:", categoryId);
+    };
+
+
     return (
         <>
-            <p>Content</p>
+            <div className="recommendations-page">
+                <CategorySelection onCategorySelect={handleCategorySelect} />
+            </div>
         </>
     )
 }
