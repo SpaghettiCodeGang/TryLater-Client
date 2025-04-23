@@ -42,6 +42,7 @@ const apiService = {
     patch: (path, data) => request('PATCH', path, data),
     put: (path, data) => request('PUT', path, data),
     delete: (path, data) => request('DELETE', path, data),
+    getBaseUrl: () => BASE_URL,
 };
 
 export default apiService;

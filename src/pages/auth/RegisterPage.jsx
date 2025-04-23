@@ -68,14 +68,14 @@ const RegisterPage = () => {
                     <input type="password" className="form-control" id="confirmPassword" placeholder="Passwort wiederholen" />
                     <small className="text-danger ps-3 pe-3 d-inline-flex">{ passwordConfirmError?.confirmPassword }</small>
                 </div>
-                <button className="btn btn-primary form-control p-2 d-flex align-items-center justify-content-center" type="submit" disabled={ loading }>
+                <button className="btn btn-primary form-control" type="submit" disabled={ loading }>
                     {loading ? (
                         <>
                             <span className="btn-spinner me-2" />
-                            <strong>Sende...</strong>
+                            <span>Sende...</span>
                         </>
                     ) : (
-                        <strong>Registrieren</strong>
+                        <span>Registrieren</span>
                     )}
                 </button>
             </form>

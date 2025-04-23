@@ -15,6 +15,8 @@ $gray-600:   #797979;
 
 $danger:     #D40000;
 
+$body-color: $dark;
+
 // Fonts
 $font-family-base: 'Open Sans', sans-serif;
 
@@ -52,7 +54,9 @@ $border-light: 1px solid $light;
 $btn-padding-y: 0.5rem;
 $btn-padding-x: 1.25rem;
 $btn-font-size: 1.5rem;
+$btn-font-size-flat: 1.25rem;
 $btn-font-weight: 800;
+$btn-font-weight-flat: 400;
 $btn-box-shadow: $box-shadow;
 
 // Forms

@@ -4,7 +4,7 @@ import HomePage from '../pages/HomePage.jsx';
 import LoginPage from '../pages/auth/LoginPage.jsx';
 import RegisterPage from '../pages/auth/RegisterPage.jsx';
 import MyRecommendationsPage from '../pages/recommendation/MyRecommendationsPage.jsx';
-import SettingsPage from '../pages/SettingsPage.jsx';
+import SettingsPage from '../pages/settings/SettingsPage.jsx';
 import PublicLayout from '../layouts/PublicLayout';
 import PrivateLayout from '../layouts/PrivateLayout';
 import DiscoverRecommendationsPage from "../pages/recommendation/DiscoverRecommendationsPage.jsx";
@@ -35,7 +35,7 @@ const AppRouter = () => {
                     <Route path="/recommendations/received" element={user ? <DiscoverRecommendationsPage /> : <Navigate to="/login" />} />
                     <Route path="/recommendations/create" element={user ? <NewRecommendationsPage /> : <Navigate to="/login" />} />
                     <Route path="/contacts" element={user ? <ContactPage /> : <Navigate to="/login" />} />
-                    <Route path="/settings" element={user ? <SettingsPage /> : <Navigate to="/login" />} />
+                    <Route path="/settings" element={user ? <SettingsPage user={user} /> : <Navigate to="/login" />} />
                 </Route>
 
                 {/* Catch-all */}

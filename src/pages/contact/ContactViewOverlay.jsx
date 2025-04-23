@@ -18,7 +18,7 @@ const ContactViewOverlay = ({ activeOverlay, setActiveOverlay, contact, refetchC
     }, [isVisible]);
 
     const placeholderImg = "src/assets/profil.png";
-    const imgSrc = contactPartner?.imgPath && contactPartner?.imgPath.trim() !== "" ? contactPartner?.imgPath : placeholderImg;
+    const imgSrc = contactPartner?.imgPath && contactPartner?.imgPath.trim() !== "" ? `${apiService.getBaseUrl()}/images/${contactPartner?.imgPath}` : placeholderImg;
 
     const handleBlockContact = async (contactId) => {
         setBlockLoading(true)
@@ -72,7 +72,7 @@ const ContactViewOverlay = ({ activeOverlay, setActiveOverlay, contact, refetchC
                     </div>
                 </div>
 
-                <button className="btn btn-secondary form-control p-2 d-flex align-items-center justify-content-center mb-2"
+                <button className="btn btn-secondary form-control mb-2"
                         type="submit" disabled={ deleteLoading || blockLoading }
                         onClick={(e) => {
                             e.stopPropagation();
@@ -84,14 +84,14 @@ const ContactViewOverlay = ({ activeOverlay, setActiveOverlay, contact, refetchC
                     {blockLoading ? (
                         <>
                             <span className="btn-spinner me-2" />
-                            <strong>Sende...</strong>
+                            <span>Sende...</span>
                         </>
                     ) : (
-                        <strong>Kontakt blockieren</strong>
+                        <span>Kontakt blockieren</span>
                     )}
                 </button>
 
-                <button className="btn btn-secondary form-control p-2 d-flex align-items-center justify-content-center mb-3"
+                <button className="btn btn-secondary form-control mb-3"
                         type="submit" disabled={ deleteLoading || blockLoading }
                         onClick={(e) => {
                             e.stopPropagation();
@@ -103,10 +103,10 @@ const ContactViewOverlay = ({ activeOverlay, setActiveOverlay, contact, refetchC
                     {deleteLoading ? (
                         <>
                             <span className="btn-spinner me-2" />
-                            <strong>Sende...</strong>
+                            <span>Sende...</span>
                         </>
                     ) : (
-                        <strong>Kontakt löschen</strong>
+                        <span>Kontakt löschen</span>
                     )}
                 </button>
 
