@@ -17,7 +17,7 @@ const ContactViewOverlay = ({ activeOverlay, setActiveOverlay, contact, refetchC
         }
     }, [isVisible]);
 
-    const placeholderImg = "src/assets/profil.png";
+    const placeholderImg = "/assets/profil.png";
     const imgSrc = contactPartner?.imgPath && contactPartner?.imgPath.trim() !== "" ? `${apiService.getBaseUrl()}/images/${contactPartner?.imgPath}` : placeholderImg;
 
     const handleBlockContact = async (contactId) => {

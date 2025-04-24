@@ -9,7 +9,7 @@ const SettingsPage = ({ user }) => {
     const { logout, loading } = useAuth();
     const [activeOverlay, setActiveOverlay] = useState(null);
 
-    const placeholderImg = "src/assets/profil.png";
+    const placeholderImg = "/assets/profil.png";
     const imgSrc = user?.imgPath && user?.imgPath.trim() !== "" ? `${apiService.getBaseUrl()}/images/${user?.imgPath}` : placeholderImg;
 
     useEffect(() => {
