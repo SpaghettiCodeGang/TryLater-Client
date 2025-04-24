@@ -1,14 +1,16 @@
-import { useLayout } from "../../hooks/useLayout.jsx";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import CategorySelection from "./../../components/CategorySelection.jsx";
 import TagSelectionOverlay from "../newrecommendation/TagSelectionOverlay.jsx";
 import ContactSelectionOverlay from "../newrecommendation/ContactSelectionOverlay.jsx";
+import RecommendationCardForm from "./../../components/RecommendationCardForm.jsx"; // Neues Formular importieren
 import apiService from "../../service/apiService.jsx";
+import {useLayout} from "../../hooks/useLayout.jsx";
 
 const NewRecommendationsPage = () => {
     const { setHeadline } = useLayout();
     const [activeOverlay, setActiveOverlay] = useState(null);
-    const [ ,setSelectedCategory] = useState(null);
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedTags, setSelectedTags] = useState([]);
     const [tagGroups, setTagGroups] = useState([]);
 
     useEffect(() => {
@@ -16,7 +18,6 @@ const NewRecommendationsPage = () => {
         return () => setHeadline("");
     }, []);
 
-    // Handler für Kategorie-Auswahl
     const handleCategorySelect = async (categoryId) => {
         const upperCaseId = categoryId.toUpperCase(); // fix!
         setSelectedCategory(upperCaseId);
@@ -29,37 +30,41 @@ const NewRecommendationsPage = () => {
         }
     };
 
-    // Development-Buttons
-    const renderDebugButtons = () => (
-        <div style={{ marginTop: '20px', display: 'flex', gap: '10px', justifyContent: 'center' }}>
-            <button
-                onClick={() => setActiveOverlay('tagSelection')} style={{ padding: '8px 12px', backgroundColor: activeOverlay === 'tagSelection' ? '#FFA400' : '#E8E8E8' }}>Tags</button>
-            <button
-                onClick={() => setActiveOverlay('contactSelection')} style={{ padding: '8px 12px', backgroundColor: activeOverlay === 'contactSelection' ? '#FFA400' : '#E8E8E8' }}> Kontakt Auswahl</button>
-        </div>
-    );
+    const handleCreateRecommendation = (recommendationData) => {
+        console.log("Empfehlung wird erstellt mit den Daten:", recommendationData);
+    };
+
+    const handleAddTags = () => {
+        setActiveOverlay('tagSelection');
+    };
 
     return (
-        <>
-            <div className="recommendations-page">
+        <div className="recommendations-page">
+            {!selectedCategory ? (
                 <CategorySelection onCategorySelect={handleCategorySelect} />
-
-                {renderDebugButtons()}
-
-                <TagSelectionOverlay
-                    activeOverlay={activeOverlay}
-                    setActiveOverlay={setActiveOverlay}
-                    tagGroups={tagGroups}
+            ) : (
+                <RecommendationCardForm
+                    selectedTags={selectedTags}
+                    onSubmit={handleCreateRecommendation}
+                    onAddTags={handleAddTags} // Übergibt den Button-Handler zum Öffnen des Tag-Overlays
                 />
+            )}
 
-                <ContactSelectionOverlay
-                    activeOverlay={activeOverlay}
-                    setActiveOverlay={setActiveOverlay}
-                />
+            <TagSelectionOverlay
+                activeOverlay={activeOverlay}
+                setActiveOverlay={setActiveOverlay}
+                tagGroups={tagGroups}
+                selectedTags={selectedTags}
+                setSelectedTags={setSelectedTags}
+                onAddTags={handleAddTags}
+            />
 
-            </div>
-        </>
-    )
-}
+            <ContactSelectionOverlay
+                activeOverlay={activeOverlay}
+                setActiveOverlay={setActiveOverlay}
+            />
+        </div>
+    );
+};
 
 export default NewRecommendationsPage;
