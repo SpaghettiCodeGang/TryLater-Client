@@ -1,26 +1,35 @@
 import { useLayout } from "../../hooks/useLayout.jsx";
 import { useEffect, useState } from "react";
 import CategorySelection from "./../../components/CategorySelection.jsx";
-import TagSelectionOverlay from "./../newrecommendation/TagSelectOverlay.jsx";
-import ContactSelectionOverlay from "./../newrecommendation/ContactSelectOverlay.jsx";
+import TagSelectionOverlay from "../newrecommendation/TagSelectionOverlay.jsx";
+import ContactSelectionOverlay from "../newrecommendation/ContactSelectionOverlay.jsx";
+import apiService from "../../service/apiService.jsx";
 
 const NewRecommendationsPage = () => {
     const { setHeadline } = useLayout();
-    const [selectedCategory, setSelectedCategory] = useState(null);
     const [activeOverlay, setActiveOverlay] = useState(null);
+    const [ ,setSelectedCategory] = useState(null);
+    const [tagGroups, setTagGroups] = useState([]);
 
     useEffect(() => {
         setHeadline("Empfehlen");
         return () => setHeadline("");
     }, []);
 
-    // handler für Nav nach Kategorie-Auswahl
-    const handleCategorySelect = (categoryId) => {
-        setSelectedCategory(categoryId);
-        console.log("Selected category:", categoryId);
+    // Handler für Kategorie-Auswahl
+    const handleCategorySelect = async (categoryId) => {
+        const upperCaseId = categoryId.toUpperCase(); // fix!
+        setSelectedCategory(upperCaseId);
+
+        try {
+            const response = await apiService.get(`/recommendation/tags?category=${upperCaseId}`);
+            setTagGroups(response);
+        } catch (error) {
+            console.error("Fehler beim Laden der Tags:", error);
+        }
     };
 
-    // dev buttons
+    // Development-Buttons
     const renderDebugButtons = () => (
         <div style={{ marginTop: '20px', display: 'flex', gap: '10px', justifyContent: 'center' }}>
             <button
@@ -29,7 +38,6 @@ const NewRecommendationsPage = () => {
                 onClick={() => setActiveOverlay('contactSelection')} style={{ padding: '8px 12px', backgroundColor: activeOverlay === 'contactSelection' ? '#FFA400' : '#E8E8E8' }}> Kontakt Auswahl</button>
         </div>
     );
-
 
     return (
         <>
@@ -41,7 +49,7 @@ const NewRecommendationsPage = () => {
                 <TagSelectionOverlay
                     activeOverlay={activeOverlay}
                     setActiveOverlay={setActiveOverlay}
-                    selectedCategory={selectedCategory}
+                    tagGroups={tagGroups}
                 />
 
                 <ContactSelectionOverlay

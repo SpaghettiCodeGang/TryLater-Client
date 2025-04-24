@@ -1,0 +1,63 @@
+@use '../variables' as *;
+
+.tag-selection {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  &__group {
+    margin-bottom: 2rem;
+  }
+
+  &__title {
+    font-size: $h3-font-size;
+    font-weight: $headings-font-weight;
+    margin-bottom: 0.75rem;
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  &__tag {
+    padding: 0.25rem 0.5rem;
+    background-color: $gray-200;
+    border-radius: $border-radius-small;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: $tag-font-size;
+    font-weight: $tag-font-weight;
+
+    &:hover {
+      background-color: $gray-300;
+    }
+
+    &--selected {
+      background-color: $primary;
+      color: $white;
+      border-color: $primary;
+    }
+  }
+
+  &__button {
+    margin-top: auto;
+    align-self: flex-end;
+    padding: $btn-padding-y $btn-padding-x;
+    background-color: $gray-600;
+    color: $white;
+    border: none;
+    border-radius: $border-radius;
+    font-size: $btn-font-size-flat;
+    font-weight: $btn-font-weight-flat;
+    box-shadow: $btn-box-shadow;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: darken($primary, 5%);
+    }
+  }
+}
