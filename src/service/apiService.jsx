@@ -1,4 +1,5 @@
 const BASE_URL = '/api';
+const IMG_URL = 'http://localhost:8080/api/images/';
 
 const request = async (method, path, data = null) => {
     const options = {
@@ -43,6 +44,7 @@ const apiService = {
     put: (path, data) => request('PUT', path, data),
     delete: (path, data) => request('DELETE', path, data),
     getBaseUrl: () => BASE_URL,
+    getImgUrl: () => IMG_URL,
 };
 
 export default apiService;
