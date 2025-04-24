@@ -32,7 +32,9 @@
     header, main, footer {
       width: 576px;
     }
+  }
 
+  @media (min-width: 576px) and (min-height: 576px) {
     header {
       margin-top: 2.5%;
     }
