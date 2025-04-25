@@ -1,0 +1,19 @@
+.swipe-container {
+  height: 100%;
+  display: grid;
+}
+
+.swipe-card {
+  height: 100%;
+  grid-row: 1;
+  grid-column: 1;
+
+  &:hover {
+    cursor: grab;
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+
+}
