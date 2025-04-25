@@ -28,9 +28,9 @@ const RegisterPage = () => {
         }
 
         const userData = {
-            userName: form.userName.value,
-            email: form.email.value,
-            password: form.password.value,
+            userName: form.userName.value.trim(),
+            email: form.email.value.trim(),
+            password: form.password.value.trim(),
         }
 
         const success = await register(userData);

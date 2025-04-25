@@ -100,6 +100,15 @@
   }
 }
 
+// Modal overwrite
+.modal-dialog {
+  margin: 0 auto;
+  padding: 0 $body-padding;
+}
+
+.modal-footer {
+  border-top: none;
+}
 .form-control {
   &:disabled {
     background-color: $white;
