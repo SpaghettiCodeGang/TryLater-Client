@@ -6,6 +6,7 @@ import ContactSearchOverlay from "./ContactSearchOverlay.jsx";
 import ContactRequestOverlay from "./ContactRequestOverlay.jsx";
 import ContactViewOverlay from "./ContactViewOverlay.jsx";
 import { BootstrapIcons } from "../../components/BootstrapIcons.jsx";
+import { motion, AnimatePresence } from "framer-motion";
 
 const ContactPage = () => {
     const [activeOverlay, setActiveOverlay] = useState(null);
@@ -43,23 +44,34 @@ const ContactPage = () => {
 
     return (
         <>
-            <div className="contact_page">
-                <div className="contact_border"></div>
-                <h2 className="ms-2">Deine Kontakte</h2>
+            <AnimatePresence mode="wait">
+                {activeOverlay === null && (
+                    <motion.div
+                        className="contact_page"
+                        key="main-content"
+                        exit={{ opacity: 0 }}
+                        transition={{
+                            duration: 0.5
+                        }}
+                    >
+                        <div className="contact_border"></div>
+                        <h2 className="ms-2">Deine Kontakte</h2>
 
-                <ul className="contact_list">
-                    {contacts?.map((contact) => (
-                        <Contact
-                            key={contact.contactId}
-                            contactPartner={contact.contactPartner}
-                            onClick={() => {
-                                setActiveContact(contact);
-                                setActiveOverlay(activeOverlay === 'contactView' ? null : 'contactView')}
-                            }
-                        />
-                    ))}
-                </ul>
-            </div>
+                        <ul className="contact_list">
+                            {contacts?.map((contact) => (
+                                <Contact
+                                    key={contact.contactId}
+                                    contactPartner={contact.contactPartner}
+                                    onClick={() => {
+                                        setActiveContact(contact);
+                                        setActiveOverlay(activeOverlay === 'contactView' ? null : 'contactView')}
+                                    }
+                                />
+                            ))}
+                        </ul>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
             <ContactViewOverlay
                 activeOverlay={activeOverlay}

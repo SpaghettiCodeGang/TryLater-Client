@@ -5,6 +5,7 @@ import ChangeProfileOverlay from "./ChangeProfileOverlay.jsx";
 import { BootstrapIcons } from "../../components/BootstrapIcons.jsx";
 import apiService from "../../service/apiService.jsx";
 import { useFetch } from "../../hooks/useFetch.jsx";
+import { motion, AnimatePresence } from "framer-motion";
 
 const SettingsPage = () => {
     const { setHeadline } = useLayout();
@@ -30,68 +31,80 @@ const SettingsPage = () => {
 
     return (
         <>
-            <div className="settings_overview__data">
-                <img className="settings_overview__img" src={ imgSrc } alt={`${user?.displayName}`} />
-                <p className="settings_overview__displayname">{ user?.displayName }</p>
-                <p className="settings_overview__username">{ user?.userName }</p>
-            </div>
+            <AnimatePresence mode="wait">
+                {activeOverlay === null && (
+                    <motion.div
+                        key="main-content"
+                        exit={{ opacity: 0 }}
+                        transition={{
+                            duration: 0.5
+                        }}
+                    >
+                        <div className="settings_overview__data">
+                            <img className="settings_overview__img" src={ imgSrc } alt={`${user?.displayName}`} />
+                            <p className="settings_overview__displayname">{ user?.displayName }</p>
+                            <p className="settings_overview__username">{ user?.userName }</p>
+                        </div>
 
-            <button className="settings_overlay__btn" onClick={() => setActiveOverlay(activeOverlay === 'changeProfile' ? null : 'changeProfile')}>
-                <p>Profil bearbeiten</p>
-                <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
-            </button>
+                        <button className="settings_overlay__btn" onClick={() => setActiveOverlay(activeOverlay === 'changeProfile' ? null : 'changeProfile')}>
+                            <p>Profil bearbeiten</p>
+                            <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
+                        </button>
 
-            <button className="settings_overlay__btn">
-                <p>Passwort ändern</p>
-                <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
-            </button>
+                        <button className="settings_overlay__btn">
+                            <p>Passwort ändern</p>
+                            <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
+                        </button>
 
-            <button className="settings_overlay__btn">
-                <p>Blockierte Kontakte</p>
-                <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
-            </button>
+                        <button className="settings_overlay__btn">
+                            <p>Blockierte Kontakte</p>
+                            <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
+                        </button>
 
-            <button className="settings_overlay__btn">
-                <p>Sicherheit & Datenschutz</p>
-                <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
-            </button>
+                        <button className="settings_overlay__btn">
+                            <p>Sicherheit & Datenschutz</p>
+                            <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
+                        </button>
 
-            <button className="settings_overlay__btn">
-                <p>Kontakt & Impressum</p>
-                <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
-            </button>
+                        <button className="settings_overlay__btn">
+                            <p>Kontakt & Impressum</p>
+                            <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
+                        </button>
 
-            <button className="btn btn-secondary btn-flat form-control mb-3" onClick={handleLogout} disabled={ loading }>
-                {loading ? (
-                    <>
-                        <span className="btn-spinner me-2" />
-                        <span>Sende...</span>
-                    </>
-                ) : (
-                    <span>Ausloggen</span>
+                        <button className="btn btn-secondary btn-flat form-control mb-3" onClick={handleLogout} disabled={ loading }>
+                            {loading ? (
+                                <>
+                                    <span className="btn-spinner me-2" />
+                                    <span>Sende...</span>
+                                </>
+                            ) : (
+                                <span>Ausloggen</span>
+                            )}
+                        </button>
+
+                        {/*TODO: Profil löschen implementieren*/}
+                        <button className="btn btn-secondary btn-flat form-control">
+                            {loading ? (
+                                <>
+                                    <span className="btn-spinner me-2" />
+                                    <span>Sende...</span>
+                                </>
+                            ) : (
+                                <span>Profil löschen</span>
+                            )}
+                        </button>
+
+                        <div className="settings_banner">
+                            <p className="h1">
+                                <span className="text-primary">Try</span>
+                                <span className="text-dark">Later</span>
+                            </p>
+                            <small>Aktuelle Version: 1.0.0</small>
+                            <small>Empfehlungen für dich!</small>
+                        </div>
+                    </motion.div>
                 )}
-            </button>
-
-            {/*TODO: Profil löschen implementieren*/}
-            <button className="btn btn-secondary btn-flat form-control">
-                {loading ? (
-                    <>
-                        <span className="btn-spinner me-2" />
-                        <span>Sende...</span>
-                    </>
-                ) : (
-                    <span>Profil löschen</span>
-                )}
-            </button>
-
-            <div className="settings_banner">
-                <p className="h1">
-                    <span className="text-primary">Try</span>
-                    <span className="text-dark">Later</span>
-                </p>
-                <small>Aktuelle Version: 1.0.0</small>
-                <small>Empfehlungen für dich!</small>
-            </div>
+            </AnimatePresence>
 
             <ChangeProfileOverlay
                 activeOverlay={activeOverlay}
@@ -100,7 +113,6 @@ const SettingsPage = () => {
                 imgSrc={imgSrc}
                 user={user}
             />
-
         </>
     )
 }

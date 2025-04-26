@@ -150,7 +150,7 @@ const ChangeProfileOverlay = ({ activeOverlay, setActiveOverlay, user, refetchUs
                         <input type="text" className="form-control" id="userName" placeholder={user?.userName} />
                         <small className="text-danger ps-3 pe-3 d-inline-flex">{ error?.errors?.userName }</small>
                     </div>
-                    <div >
+                    <div>
                         <label htmlFor="email" className="form-label"><strong>E-Mail</strong></label>
                         <input type="email" className="form-control" id="email" placeholder={user?.email} />
                         <small className="text-danger ps-3 pe-3 d-inline-flex">{ error?.errors?.email }</small>
