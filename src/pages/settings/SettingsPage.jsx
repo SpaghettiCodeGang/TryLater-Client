@@ -18,7 +18,7 @@ const SettingsPage = () => {
         setHeadline("Einstellungen");
         setImgSrc(user?.imgPath && user?.imgPath.trim() !== "" ?
             `${apiService.getImgUrl()}${user?.imgPath}` :
-            "src/assets/profil.png");
+            "/assets/profil.png");
 
         return () => setHeadline("");
     }, [user]);
