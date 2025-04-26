@@ -12,7 +12,7 @@ const SettingsPage = () => {
     const { logout, loading } = useAuth();
     const [activeOverlay, setActiveOverlay] = useState(null);
     const [imgSrc, setImgSrc] = useState(null);
-  
+
     const { data: user, refetch: refetchUser } = useFetch('/user/me');
 
     useEffect(() => {
