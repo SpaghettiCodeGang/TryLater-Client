@@ -9,7 +9,7 @@ const Navbar = () => {
         <nav className="navbar">
 
             <NavLink to="/recommendations" className={getNavLinkClass} end>
-                <BootstrapIcons.HouseDoor size={24} />
+                <BootstrapIcons.HouseDoor width={24} height={24} />
             </NavLink>
 
             <NavLink to="/received" className={getNavLinkClass}>
@@ -21,11 +21,11 @@ const Navbar = () => {
             </NavLink>
 
             <NavLink to="/contacts" className={getNavLinkClass}>
-                <BootstrapIcons.Person size={24} />
+                <BootstrapIcons.Person width={28} height={28} />
             </NavLink>
 
             <NavLink to="/settings" className={getNavLinkClass}>
-                <BootstrapIcons.Gear size={24} />
+                <BootstrapIcons.Gear width={24} height={24} />
             </NavLink>
         </nav>
     );
