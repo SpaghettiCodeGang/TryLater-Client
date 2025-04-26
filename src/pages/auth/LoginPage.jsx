@@ -18,8 +18,8 @@ const LoginPage = () => {
         const form = e.target;
 
         const userData = {
-            loginName: form.loginName.value,
-            password: form.password.value,
+            loginName: form.loginName.value.trim(),
+            password: form.password.value.trim(),
         }
 
         await login(userData);

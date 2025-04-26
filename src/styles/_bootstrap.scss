@@ -100,7 +100,20 @@
   }
 }
 
-.form-control {
+// Modal overwrite
+.modal-dialog {
+  margin: 0 auto;
+  padding: 0 $body-padding;
+}
+
+.modal-footer {
+  border-top: none;
+}
+
+// Input overwrite
+input.form-control,
+textarea.form-control {
+  color: $secondary;
   &:disabled {
     background-color: $white;
   }

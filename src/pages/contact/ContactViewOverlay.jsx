@@ -62,11 +62,11 @@ const ContactViewOverlay = ({ activeOverlay, setActiveOverlay, contact, refetchC
             <div className="contact_view">
                 <img className="contact_view__img" src={ imgSrc } alt={`${contactPartner?.displayName}`} />
                 <div className="contact_view__data">
-                    <div className="mb-3">
+                    <div className="mb-4">
                         <label htmlFor="displayName" className="form-label"><strong>Anzeigename</strong></label>
                         <input type="text" className="form-control" id="displayName" placeholder={contactPartner?.displayName} disabled />
                     </div>
-                    <div className="mb-3">
+                    <div className="mb-4">
                         <label htmlFor="userName" className="form-label"><strong>Benutzername</strong></label>
                         <input type="text" className="form-control" id="userName" placeholder={contactPartner?.userName} disabled />
                     </div>

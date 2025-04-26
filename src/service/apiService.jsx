@@ -9,7 +9,7 @@ const request = async (method, path, data = null) => {
 
     if (data instanceof File) {
         const formData = new FormData();
-        formData.append('image', data);
+        formData.append('imageFile', data);
         options.body = formData;
     } else if (data !== null) {
         options.headers = { 'Content-Type': 'application/json' };
