@@ -109,3 +109,12 @@
 .modal-footer {
   border-top: none;
 }
+
+// Input overwrite
+input.form-control,
+textarea.form-control {
+  color: $secondary;
+  &:disabled {
+    background-color: $white;
+  }
+}
