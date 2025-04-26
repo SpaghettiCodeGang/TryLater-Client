@@ -60,6 +60,7 @@
 .h2, h2 { font-size: $h2-font-size }
 .h3, h3 { font-size: $h3-font-size }
 .btn { font-size: $btn-font-size}
+p, small {color: $secondary}
 
 // Button overwrite
 .btn {
@@ -109,7 +110,11 @@
 .modal-footer {
   border-top: none;
 }
-.form-control {
+
+// Input overwrite
+input.form-control,
+textarea.form-control {
+  color: $secondary;
   &:disabled {
     background-color: $white;
   }
