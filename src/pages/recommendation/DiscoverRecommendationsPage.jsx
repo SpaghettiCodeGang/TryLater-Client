@@ -3,11 +3,14 @@ import { useLayout } from "../../hooks/useLayout.jsx";
 import { useFetch } from "../../hooks/useFetch.jsx";
 import RecommendationCard from "../../components/RecommendationCard.jsx";
 import SwipeCard from "../../components/SwipeCard.jsx";
-import {BootstrapIcons} from "../../components/BootstrapIcons.jsx";
+import { BootstrapIcons } from "../../components/BootstrapIcons.jsx";
+import apiService from "../../service/apiService.jsx";
+import { motion } from "framer-motion";
 
 const DiscoverRecommendationsPage = () => {
     const { setHeadline } = useLayout();
     const [recommendations, setRecommendations] = useState([]);
+    const [error, setError] = useState(null);
 
     const { data: fetchedRecommendations } = useFetch('/recommendation?status=SENT');
 
@@ -23,29 +26,39 @@ const DiscoverRecommendationsPage = () => {
 
     const handleAccept = async (recommendation) => {
         try {
-            console.log("Accept");
+            await apiService.patch(`/recommendation/${recommendation.id}`, {
+                "recommendationAssignmentStatus": "ACCEPTED",
+            });
         } catch (error) {
-
+            setError(error?.data?.message);
         } finally {
             setTimeout(() => {
                 setRecommendations((prev) =>
                     prev.filter((swipedRecommendation) =>
                         swipedRecommendation.id !== recommendation.id));
                 }, 500);
+
+            setTimeout(() => {
+                setError(null);
+            }, 1000)
         }
     };
 
     const handleDelete = async (recommendation) => {
         try {
-            console.log("Delete");
+            await apiService.delete(`/recommendation/${recommendation.id}`);
         } catch (error) {
-
+            setError(error?.data?.message);
         } finally {
             setTimeout(() => {
                 setRecommendations((prev) =>
                     prev.filter((swipedRecommendation) =>
                         swipedRecommendation.id !== recommendation.id));
             }, 500);
+
+            setTimeout(() => {
+                setError(null);
+            }, 1000)
         }
     };
 
@@ -70,6 +83,16 @@ const DiscoverRecommendationsPage = () => {
                     <RecommendationCard activeRecommendation={recommendation} />
                 </SwipeCard>
             ))}
+
+            <motion.div
+                className="swipe-card_icon"
+                style={{
+                    zIndex: 1000,
+                    opacity: error ? 1 : 0
+                }}
+            >
+                <BootstrapIcons.XCircleFill width={120} height={120} fill="#D40000" />
+            </motion.div>
         </div>
     )
 }
