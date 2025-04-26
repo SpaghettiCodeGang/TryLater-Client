@@ -51,7 +51,8 @@ const DiscoverRecommendationsPage = () => {
 
     return (
         <div className="swipe-container">
-            <div className="d-flex justify-content-center align-items-center swipe-card">
+            <div className="d-flex justify-content-center align-items-center"
+                 style={{gridColumn: "1", gridRow: "1"}}>
                 <div className="d-flex flex-column align-items-center justify-content-center text-center">
                     <BootstrapIcons.HourglassBottom width={50} height={50} fill="#4A4044" className="mb-4"/>
                     <p className="m-0">Du hast keine Empfehlungen mehr.</p>
