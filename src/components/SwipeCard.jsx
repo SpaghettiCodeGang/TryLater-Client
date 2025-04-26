@@ -10,7 +10,7 @@ const SwipeCard = ({ children, onSwipeLeft, onSwipeRight, currentCard, allCards 
     const leftIconOpacity = useTransform(x, [-150, -50], [1, 0]);
 
     const [lockedDirection, setLockedDirection] = useState(null);
-    const [isDragging, setIsDragging] = useState(false);
+    const [swipeCompleted, setSwipeCompleted] = useState(false);
     const [isFront, setIsFront] = useState(false);
 
     useEffect(() => {
@@ -34,13 +34,13 @@ const SwipeCard = ({ children, onSwipeLeft, onSwipeRight, currentCard, allCards 
 
     const handleDragEnd = () => {
         if (x.get() > 150) {
-            setIsDragging(true);
+            setSwipeCompleted(true);
             onSwipeRight();
             setTimeout(() => {
                 setLockedDirection(null)
             }, 500)
         } else if (x.get() < -150) {
-            setIsDragging(true);
+            setSwipeCompleted(true);
             onSwipeLeft();
             setTimeout(() => {
                 setLockedDirection(null)
@@ -55,7 +55,7 @@ const SwipeCard = ({ children, onSwipeLeft, onSwipeRight, currentCard, allCards 
                 style={{
                     x,
                     opacity,
-                    display: isDragging ? "none" : "",
+                    display: swipeCompleted ? "none" : "",
                 }}
                 initial={{
                     filter: "grayscale(100%)",
