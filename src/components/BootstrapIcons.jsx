@@ -18,6 +18,7 @@ import HouseDoor from '../assets/icons/Bootstrap/house-door.svg?react';
 import PencilFill from '../assets/icons/Bootstrap/pencil-fill.svg?react';
 import Person from '../assets/icons/Bootstrap/person.svg?react';
 import Plus from '../assets/icons/Bootstrap/plus.svg?react';
+import PlusLG from '../assets/icons/Bootstrap/plus-lg.svg?react';
 import PlusCircleFill from '../assets/icons/Bootstrap/plus-circle-fill.svg?react';
 import Search from '../assets/icons/Bootstrap/search.svg?react';
 import X from '../assets/icons/Bootstrap/x.svg?react';
@@ -44,6 +45,7 @@ export const BootstrapIcons = {
     PencilFill,
     Person,
     Plus,
+    PlusLG,
     PlusCircleFill,
     Search,
     X,

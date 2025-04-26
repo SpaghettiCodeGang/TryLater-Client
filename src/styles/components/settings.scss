@@ -73,4 +73,30 @@
       color: $secondary;
     }
   }
+
+  &_profile {
+    &__img-upload {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin: 0 0 1rem;
+
+      img {
+        width: 30%;
+        height: auto;
+        border-radius: 50%;
+        margin-bottom: 0.5rem;
+      }
+
+      small {
+        font-weight: $lead-font-weight;
+      }
+
+      input {
+        display: none;
+      }
+    }
+  }
 }

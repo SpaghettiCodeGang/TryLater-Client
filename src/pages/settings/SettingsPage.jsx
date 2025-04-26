@@ -1,21 +1,27 @@
 import { useLayout } from "../../hooks/useLayout.jsx";
 import { useAuth } from "../../hooks/useAuth.jsx";
 import { useEffect, useState } from "react";
+import ChangeProfileOverlay from "./ChangeProfileOverlay.jsx";
 import { BootstrapIcons } from "../../components/BootstrapIcons.jsx";
 import apiService from "../../service/apiService.jsx";
+import { useFetch } from "../../hooks/useFetch.jsx";
 
-const SettingsPage = ({ user }) => {
+const SettingsPage = () => {
     const { setHeadline } = useLayout();
     const { logout, loading } = useAuth();
     const [activeOverlay, setActiveOverlay] = useState(null);
-
-    const placeholderImg = "src/assets/profil.png";
-    const imgSrc = user?.imgPath && user?.imgPath.trim() !== "" ? `${apiService.getBaseUrl()}/images/${user?.imgPath}` : placeholderImg;
+    const [imgSrc, setImgSrc] = useState(null);
+  
+    const { data: user, refetch: refetchUser } = useFetch('/user/me');
 
     useEffect(() => {
         setHeadline("Einstellungen");
+        setImgSrc(user?.imgPath && user?.imgPath.trim() !== "" ?
+            `${apiService.getImgUrl()}${user?.imgPath}` :
+            "/assets/profil.png");
+
         return () => setHeadline("");
-    }, []);
+    }, [user]);
 
     const handleLogout = async (e) => {
         e.preventDefault();
@@ -30,7 +36,7 @@ const SettingsPage = ({ user }) => {
                 <p className="settings_overview__username">{ user?.userName }</p>
             </div>
 
-            <button className="settings_overlay__btn">
+            <button className="settings_overlay__btn" onClick={() => setActiveOverlay(activeOverlay === 'changeProfile' ? null : 'changeProfile')}>
                 <p>Profil bearbeiten</p>
                 <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
             </button>
@@ -86,6 +92,15 @@ const SettingsPage = ({ user }) => {
                 <small>Aktuelle Version: 1.0.0</small>
                 <small>Empfehlungen für dich!</small>
             </div>
+
+            <ChangeProfileOverlay
+                activeOverlay={activeOverlay}
+                setActiveOverlay={setActiveOverlay}
+                refetchUser={refetchUser}
+                imgSrc={imgSrc}
+                user={user}
+            />
+
         </>
     )
 }
