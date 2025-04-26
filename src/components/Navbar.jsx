@@ -12,12 +12,12 @@ const Navbar = () => {
                 <BootstrapIcons.HouseDoor size={24} />
             </NavLink>
 
-            <NavLink to="/recommendations/received" className={getNavLinkClass}>
-                <BootstrapIcons.Search size={24} />
+            <NavLink to="/received" className={getNavLinkClass}>
+                <BootstrapIcons.Search width={24} height={24} />
             </NavLink>
 
-            <NavLink to="/recommendations/create" className={getNavLinkClass}>
-                <BootstrapIcons.Plus size={24} />
+            <NavLink to="/create" className={getNavLinkClass}>
+                <BootstrapIcons.PlusLG width={32} height={32} />
             </NavLink>
 
             <NavLink to="/contacts" className={getNavLinkClass}>
