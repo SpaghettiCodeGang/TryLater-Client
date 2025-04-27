@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import CategorySelection from "./../../components/CategorySelection.jsx";
 import TagSelectionOverlay from "../newrecommendation/TagSelectionOverlay.jsx";
 import ContactSelectionOverlay from "../newrecommendation/ContactSelectionOverlay.jsx";
-import RecommendationCardForm from "./../../components/RecommendationCardForm.jsx"; // Neues Formular importieren
+import RecommendationCardForm from "./../../components/RecommendationCardForm.jsx";
+import RecommendationSuccessModal from "../newrecommendation/RecommendationSuccessModal.jsx";
 import apiService from "../../service/apiService.jsx";
 import {useLayout} from "../../hooks/useLayout.jsx";
 import {useFetch} from "../../hooks/useFetch.jsx";
@@ -15,6 +16,12 @@ const NewRecommendationsPage = () => {
     const [selectedTags, setSelectedTags] = useState([]); /* Welche Tags der Nutzer ausgewählt hat */
     const [tagGroups, setTagGroups] = useState([]); /* Die Gruppierten Tags, die vom Server geladen werden */
     const { data: currentUser } = useFetch('/user/me');
+
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [url, setUrl] = useState('');
+    const [rating, setRating] = useState(3);
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
 
     useEffect(() => {
         setHeadline("Empfehlen");
@@ -58,7 +65,15 @@ const NewRecommendationsPage = () => {
                     onSubmit={handleCreateRecommendation}
                     onAddTags={handleAddTags}
                     onOpenContacts={() => setActiveOverlay('contactSelection')}
-                    tagGroups={tagGroups} // <--- DAS HINZUFÜGEN!!
+                    tagGroups={tagGroups}
+                    title={title}
+                    setTitle={setTitle}
+                    description={description}
+                    setDescription={setDescription}
+                    url={url}
+                    setUrl={setUrl}
+                    rating={rating}
+                    setRating={setRating}
                 />
             )}
 
@@ -76,6 +91,18 @@ const NewRecommendationsPage = () => {
                 activeOverlay={activeOverlay}
                 setActiveOverlay={setActiveOverlay}
                 currentUser={currentUser}
+                title={title}
+                description={description}
+                url={url}
+                rating={rating}
+                selectedCategory={selectedCategory}
+                selectedTags={selectedTags}
+                setShowSuccessModal={setShowSuccessModal} // NEU!
+            />
+
+            <RecommendationSuccessModal
+                show={showSuccessModal}
+                onClose={() => setShowSuccessModal(false)}
             />
         </div>
     );

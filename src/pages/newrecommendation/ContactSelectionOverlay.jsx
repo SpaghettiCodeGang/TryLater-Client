@@ -4,7 +4,8 @@ import { useFetch } from "../../hooks/useFetch.jsx";
 import Contact from "../../components/Contact.jsx";
 import apiService from "./../../service/apiService.jsx";
 
-const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay, currentUser }) => {
+const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay, currentUser, title, description, url, rating, selectedCategory, selectedTags, setShowSuccessModal }) => {
+
     const [selectedContacts, setSelectedContacts] = useState([]); /* Array mit IDs der gewählten Kontakte */
     const { data: contacts } = useFetch('/contact?status=ACCEPTED'); /* Alle Kontakte, die vom Server geladen werden */
     const [selfSelected, setSelfSelected] = useState(false); /* Boolean (true/false), ob selbst ausgewählt */
@@ -24,13 +25,38 @@ const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay, currentUser 
     };
 
     /* Absenden */
-    const handleSendToContacts = () => {
-        // senden an gewählte Kontakte
-        console.log("Sending to self:", selfSelected);
-        console.log("Sending to contacts:", selectedContacts);
-        // navigate back or confirmation??
-        setActiveOverlay(null);
+    const handleSendToContacts = async () => {
+        const receiverIds = [...selectedContacts];
+        if (selfSelected && currentUser?.id) {
+            receiverIds.push(currentUser.id);
+        }
+
+        const recommendationData = {
+            title,
+            description,
+            url,
+            imgId: "",
+            rating,
+            category: selectedCategory,
+            receiverIds: receiverIds,
+            tagIds: selectedTags
+        };
+
+        try {
+            await apiService.post('/recommendation', recommendationData);
+            console.log("Empfehlung erfolgreich erstellt!");
+
+            setActiveOverlay(null); // <<< ContactSelectionOverlay schließen!
+            setTimeout(() => {
+                setShowSuccessModal(true); // <<< danach Modal zeigen
+            }, 300); // kleine Verzögerung (~300ms für schönes Schließen)
+            // <-- Hier! Zeige schönes Overlay!
+        } catch (error) {
+            console.error("Fehler beim Erstellen der Empfehlung:", error);
+            alert("Fehler beim Verschicken der Empfehlung 😞");
+        }
     };
+
 
     return (
         /* Slide-In Overlay */

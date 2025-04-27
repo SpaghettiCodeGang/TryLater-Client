@@ -3,7 +3,22 @@ import apiService from "../service/apiService.jsx";
 import { BootstrapIcons } from "./BootstrapIcons.jsx";
 
 
-const RecommendationCard = ({ selectedCategory, selectedTags, onAddTags, onOpenContacts, tagGroups }) => {
+const RecommendationCard = ({
+                                selectedCategory,
+                                selectedTags,
+                                onAddTags,
+                                onOpenContacts,
+                                tagGroups,
+                                title,
+                                setTitle,
+                                description,
+                                setDescription,
+                                url,
+                                setUrl,
+                                rating,
+                                setRating
+                            }) => {
+
     const [imgSrc, setImgSrc] = useState(null);
     const activeRecommendation = {
         category: selectedCategory,
@@ -67,7 +82,9 @@ const RecommendationCard = ({ selectedCategory, selectedTags, onAddTags, onOpenC
                                     type="text"
                                     className="recommendation-card-f_title--form"
                                     id="title"
-                                    placeholder={activeRecommendation?.title || "Titel deiner tollen Empfehlung"}
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)}
+                                    placeholder="Titel deiner tollen Empfehlung"
                                 />
                                 <BootstrapIcons.PencilFill width={30} height={30} color="white" style={{paddingTop: '0.3rem'}}/>
                             </div>
@@ -102,15 +119,26 @@ const RecommendationCard = ({ selectedCategory, selectedTags, onAddTags, onOpenC
                         {/* Link Section */}
                         <div className="mb-3">
                             <label htmlFor="link" className="form-label">Link<BootstrapIcons.PencilFill width={20} height={20} color="$dark" style={{marginLeft: '0.5rem', paddingBottom: '0.1rem'}} /></label>
-                            <input type="text" className="form-control" id="link"
-                                   placeholder={activeRecommendation?.url ? activeRecommendation?.url : "Kein Link vorhanden"} />
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="link"
+                                value={url}
+                                onChange={(e) => setUrl(e.target.value)}
+                                placeholder="Kein Link vorhanden"
+                            />
                         </div>
 
                         {/* Beschreibung Section */}
                         <div className="mb-3">
                             <label htmlFor="description" className="form-label">Notizen<BootstrapIcons.PencilFill width={20} height={20} color="$dark" style={{marginLeft: '0.5rem', paddingBottom: '0.1rem'}} /></label>
-                            <textarea className="form-control" id="description"
-                                      placeholder={activeRecommendation?.description ? activeRecommendation?.description : "Keine Beschreibung vorhanden"} />
+                            <textarea
+                                className="form-control"
+                                id="description"
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                                placeholder="Keine Beschreibung vorhanden"
+                            />
                         </div>
                     </div>
 
