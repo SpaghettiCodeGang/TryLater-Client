@@ -60,6 +60,7 @@
     }
 
     &_rating {
+      background-color: transparent;
       display: flex;
       align-items: center;
       gap: 0.5rem;
@@ -67,6 +68,11 @@
       border: $white 0.1rem solid;
       border-radius: $border-radius-small;
       padding: 0.1rem 0.3rem;
+
+      &:hover {
+        background-color: $white;
+        color: $dark;
+      }
     }
 
     &_tags {
@@ -101,10 +107,41 @@
     }
 
     &_text {
+      background-color: transparent;
       color: $white;
       border: $white 0.1rem solid;
       border-radius: $border-radius-small;
       padding: 0.1rem 0.3rem;
+
+      &:hover {
+        background-color: $white;
+        color: $dark;
+      }
+    }
+
+    &_title {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      background-color: transparent;
+      border: $white 0.1rem solid;
+      border-radius: $border-radius-small;
+      padding: 0.1rem 0.3rem;
+
+      &--form {
+        all: unset;
+        width: 100%;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: $white;
+        font-size: $h2-font-size;
+
+        &::placeholder {
+          color: $white;
+          opacity: 1;
+        }
+      }
     }
 
     &_body {

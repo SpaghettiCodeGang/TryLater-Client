@@ -36,25 +36,33 @@ const RecommendationCard = ({ activeRecommendation, onAddTags }) => {
                                   : 'Kategorie'}
                             </span>
                             {/* Bewertung */}
-                            <div className="recommendation-card-f_rating"><BootstrapIcons.PencilFill width={20} height={20} style={{marginRight: '0.25rem', paddingBottom: '0.1rem'}}/>
+                            <button className="recommendation-card-f_rating"><BootstrapIcons.PencilFill width={20} height={20} style={{marginRight: '0.25rem', paddingBottom: '0.1rem'}}/>
                                 {Array.from({ length: activeRecommendation?.rating ?? 3 }).map((_, i) => (
                                     <BootstrapIcons.HeartFill key={i} width={18} height={18} />
                                 ))}
-                            </div>
+                            </button>
                         </div>
 
                         {/* Image Upload Button */}
                         <div className="recommendation-card-f_header__middle">
-                            <span className="recommendation-card-f_text">
+                            <button className="recommendation-card-f_text">
                                 Bild hochladen
                                 <BootstrapIcons.CameraFill width={30} height={30} color="$white" style={{marginLeft: '0.5rem', paddingBottom: '0.25rem'}}/>
-                            </span>
+                            </button>
                         </div>
 
                         {/* Wer empfiehlt und Titel */}
                         <div className="recommendation-card-f_header__bottom">
                             <span className="recommendation-card-f_tag">{ 'Du' } empfiehlst</span>
-                            <h2>{activeRecommendation?.title || 'Titel der Empfehlung' } <BootstrapIcons.PencilFill width={30} height={30} color="$white" style={{marginLeft: '0.5rem', paddingBottom: '0.1rem'}}/></h2>
+                            <div className="recommendation-card-f_title">
+                                <input
+                                    type="text"
+                                    className="recommendation-card-f_title--form"
+                                    id="title"
+                                    placeholder={activeRecommendation?.title || "Titel deiner tollen Empfehlung"}
+                                />
+                                <BootstrapIcons.PencilFill width={30} height={30} color="white" style={{paddingTop: '0.3rem'}}/>
+                            </div>
                         </div>
 
                     </div>
@@ -85,14 +93,14 @@ const RecommendationCard = ({ activeRecommendation, onAddTags }) => {
                         {/* Link Section */}
                         <div className="mb-3">
                             <label htmlFor="link" className="form-label">Link<BootstrapIcons.PencilFill width={20} height={20} color="$dark" style={{marginLeft: '0.5rem', paddingBottom: '0.1rem'}} /></label>
-                            <input type="text" className="form-control" id="link" disabled
+                            <input type="text" className="form-control" id="link"
                                    placeholder={activeRecommendation?.url ? activeRecommendation?.url : "Kein Link vorhanden"} />
                         </div>
 
                         {/* Beschreibung Section */}
                         <div className="mb-3">
                             <label htmlFor="description" className="form-label">Notizen<BootstrapIcons.PencilFill width={20} height={20} color="$dark" style={{marginLeft: '0.5rem', paddingBottom: '0.1rem'}} /></label>
-                            <textarea className="form-control" id="description" disabled
+                            <textarea className="form-control" id="description"
                                       placeholder={activeRecommendation?.description ? activeRecommendation?.description : "Keine Beschreibung vorhanden"} />
                         </div>
                     </div>
