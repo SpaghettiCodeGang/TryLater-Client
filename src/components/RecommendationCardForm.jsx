@@ -3,18 +3,18 @@ import apiService from "../service/apiService.jsx";
 import { BootstrapIcons } from "./BootstrapIcons.jsx";
 
 
-const RecommendationCard = ({ activeRecommendation, onAddTags }) => {
+const RecommendationCard = ({ selectedCategory, selectedTags, onAddTags, onOpenContacts }) => {
     const [imgSrc, setImgSrc] = useState(null);
+    const activeRecommendation = {
+        category: selectedCategory,
+        tagGroups: selectedTags
+    };
 
     // Bild Url wird gesetzt ansonsten wird default Bild genommen
     useEffect(() => {
         setImgSrc(activeRecommendation?.imgPath && activeRecommendation?.imgPath.trim() !== "" ?
-            `${apiService.getImgUrl()}${activeRecommendation?.imgPath}` :
-            `/assets/recipe.png`);
-        //`/assets/${activeRecommendation?.category.toLowerCase()}.png`);
+            `${apiService.getImgUrl()}${activeRecommendation?.imgPath}` : `/assets/${activeRecommendation?.category.toLowerCase()}.png`);
     }, [activeRecommendation]);
-
-
 
 // Content
     return (
@@ -107,7 +107,7 @@ const RecommendationCard = ({ activeRecommendation, onAddTags }) => {
 
                     {/* Footer mit Action z.B. ein Button */}
                     <div className="recommendation-card-f_footer">
-                           <button className="btn btn-primary form-control mb-4" style={{width: "70%", marginLeft: "15%", marginRight: "15%"}}>An Kontakte senden</button>
+                           <button className="btn btn-primary form-control mb-4" onClick={onOpenContacts} style={{width: "70%", marginLeft: "15%", marginRight: "15%"}}>An Kontakte senden</button>
                     </div>
                 </div>
             </div>

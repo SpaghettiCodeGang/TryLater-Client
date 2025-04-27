@@ -31,7 +31,7 @@ const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay }) => {
     return (
         <SlideInOverlay
             isVisible={activeOverlay === 'contactSelection'}
-            onClose={() => setActiveOverlay('tagSelection')} // Go back to tag selection
+            onClose={() => setActiveOverlay(null)}
             title="Wem möchtest du deine Empfehlung senden?"
         >
             <div className="contact-selection">
@@ -61,8 +61,9 @@ const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay }) => {
                 </ul>
 
                 <button
-                    className="contact-selection__button"
+                    className="btn btn-primary form-control mb-4"
                     onClick={handleSendToContacts}
+                    style={{width: "70%", marginLeft: "15%", marginRight: "15%"}}
                 >
                     An Kontakte senden!
                 </button>
