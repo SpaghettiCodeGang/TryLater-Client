@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import { Modal } from "bootstrap";
+import { useNavigate } from "react-router-dom";
 
-const RecommendationSuccessModal = ({ show, onClose }) => {
+const RecommendationSuccessModal = ({ show, onClose, isError = false }) => {
     const modalRef = useRef(null);
     const modalInstanceRef = useRef(null);
     const navigate = useNavigate();
@@ -40,8 +40,11 @@ const RecommendationSuccessModal = ({ show, onClose }) => {
     }, [onClose]);
 
     const handleContinue = () => {
-        modalInstanceRef.current?.hide(); // Modal schließen
-        navigate("/home"); // oder die Route zu deiner Startseite anpassen
+        modalInstanceRef.current?.hide();
+        if (!isError) {
+            navigate("/home"); // nur bei Erfolg weiterleiten
+        }
+        // bei Fehler passiert nichts, Modal schließt nur
     };
 
     return (
@@ -56,7 +59,9 @@ const RecommendationSuccessModal = ({ show, onClose }) => {
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h2 className="modal-title">Empfehlung verschickt!</h2>
+                        <h2 className="modal-title">
+                            {isError ? "Fehler aufgetreten" : "Empfehlung verschickt!"}
+                        </h2>
                         <button
                             type="button"
                             className="btn-close"
@@ -66,16 +71,25 @@ const RecommendationSuccessModal = ({ show, onClose }) => {
                         ></button>
                     </div>
                     <div className="modal-body text-center">
-                        <p className="h5">Deine Empfehlung wurde erfolgreich versendet! 🎉</p>
-                        <p className="mt-2">Teile deine Freude mit deinen Kontakten!</p>
+                        {isError ? (
+                            <>
+                                <p className="h5">Beim Versenden der Empfehlung ist ein Fehler aufgetreten.</p>
+                                <p className="mt-2">Bitte überprüfe deine Eingaben und versuche es erneut.</p>
+                            </>
+                        ) : (
+                            <>
+                                <p className="h5">Deine Empfehlung wurde erfolgreich versendet!</p>
+
+                            </>
+                        )}
                     </div>
                     <div className="modal-footer">
                         <button
                             type="button"
-                            className="btn btn-primary form-control"
+                            className={`btn ${isError ? 'btn-danger' : 'btn-primary'} form-control`}
                             onClick={handleContinue}
                         >
-                            Weiter
+                            {isError ? "Zurück" : "Weiter"}
                         </button>
                     </div>
                 </div>

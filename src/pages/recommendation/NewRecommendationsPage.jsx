@@ -22,6 +22,7 @@ const NewRecommendationsPage = () => {
     const [url, setUrl] = useState('');
     const [rating, setRating] = useState(3);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [isErrorModal, setIsErrorModal] = useState(false);
 
     useEffect(() => {
         setHeadline("Empfehlen");
@@ -97,12 +98,14 @@ const NewRecommendationsPage = () => {
                 rating={rating}
                 selectedCategory={selectedCategory}
                 selectedTags={selectedTags}
-                setShowSuccessModal={setShowSuccessModal} // NEU!
+                setShowSuccessModal={setShowSuccessModal}
+                setIsErrorModal={setIsErrorModal}
             />
 
             <RecommendationSuccessModal
                 show={showSuccessModal}
                 onClose={() => setShowSuccessModal(false)}
+                isError={isErrorModal}
             />
         </div>
     );

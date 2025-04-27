@@ -4,7 +4,7 @@ import { useFetch } from "../../hooks/useFetch.jsx";
 import Contact from "../../components/Contact.jsx";
 import apiService from "./../../service/apiService.jsx";
 
-const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay, currentUser, title, description, url, rating, selectedCategory, selectedTags, setShowSuccessModal }) => {
+const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay, currentUser, title, description, url, rating, selectedCategory, selectedTags, setShowSuccessModal, setIsErrorModal }) => {
 
     const [selectedContacts, setSelectedContacts] = useState([]); /* Array mit IDs der gewählten Kontakte */
     const { data: contacts } = useFetch('/contact?status=ACCEPTED'); /* Alle Kontakte, die vom Server geladen werden */
@@ -46,14 +46,18 @@ const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay, currentUser,
             await apiService.post('/recommendation', recommendationData);
             console.log("Empfehlung erfolgreich erstellt!");
 
-            setActiveOverlay(null); // <<< ContactSelectionOverlay schließen!
+            setActiveOverlay(null);
             setTimeout(() => {
-                setShowSuccessModal(true); // <<< danach Modal zeigen
-            }, 300); // kleine Verzögerung (~300ms für schönes Schließen)
-            // <-- Hier! Zeige schönes Overlay!
+                setIsErrorModal(false);
+                setShowSuccessModal(true);
+            }, 300);
         } catch (error) {
             console.error("Fehler beim Erstellen der Empfehlung:", error);
-            alert("Fehler beim Verschicken der Empfehlung 😞");
+            setActiveOverlay(null);
+            setTimeout(() => {
+                setIsErrorModal(true);
+                setShowSuccessModal(false);
+            }, 300);
         }
     };
 

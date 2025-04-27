@@ -1,29 +1,18 @@
 import {useEffect, useState} from "react";
 import apiService from "../service/apiService.jsx";
 import { BootstrapIcons } from "./BootstrapIcons.jsx";
+import useImageProcessor from "../hooks/useImageProcessor.jsx";
 
 
-const RecommendationCard = ({
-                                selectedCategory,
-                                selectedTags,
-                                onAddTags,
-                                onOpenContacts,
-                                tagGroups,
-                                title,
-                                setTitle,
-                                description,
-                                setDescription,
-                                url,
-                                setUrl,
-                                rating,
-                                setRating
-                            }) => {
-
+const RecommendationCard = ({ selectedCategory, selectedTags, onAddTags, onOpenContacts, tagGroups, title, setTitle, description, setDescription, url, setUrl, rating, setRating }) => {
     const [imgSrc, setImgSrc] = useState(null);
     const activeRecommendation = {
         category: selectedCategory,
         tagGroups: selectedTags
     };
+    const { processImage } = useImageProcessor({ targetWidth: 644, targetHeight: 1000 });
+    const [processedImage, setProcessedImage] = useState(null);
+    const [uploadedImgPath, setUploadedImgPath] = useState(null);
 
     const getTagNameById = (tagId) => {
         for (const group of tagGroups) {
@@ -33,13 +22,48 @@ const RecommendationCard = ({
         return "Unbekanntes Tag";
     };
 
-    // Bild Url wird gesetzt ansonsten wird default Bild genommen
-    useEffect(() => {
-        setImgSrc(activeRecommendation?.imgPath && activeRecommendation?.imgPath.trim() !== "" ?
-            `${apiService.getImgUrl()}${activeRecommendation?.imgPath}` : `/assets/${activeRecommendation?.category.toLowerCase()}.png`);
-    }, [activeRecommendation]);
+    const handleRatingClick = () => {
+        const newRating = rating >= 3 ? 1 : rating + 1;
+        setRating(newRating);
+    };
 
-// Content
+    // Bild Url wird gesetzt ansonsten wird default Bild genommen
+    const handleFileChange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        try {
+            const processedFile = await processImage(file);
+
+            // Direkt die Datei übergeben wie in ChangeProfileOverlay.jsx
+            const response = await apiService.post("/image", processedFile);
+            console.log("Upload erfolgreich:", response);
+
+            if (Array.isArray(response) && response[0]?.imgPath) {
+                setUploadedImgPath(response[0].imgPath);
+                setImgSrc(`${apiService.getImgUrl()}${response[0].imgPath}`);
+            }
+            else if (response?.imgPath) {
+                setUploadedImgPath(response.imgPath);
+                setImgSrc(`${apiService.getImgUrl()}${response.imgPath}`);
+            }
+
+            setProcessedImage(processedFile);
+        } catch (error) {
+            console.error("Fehler beim Hochladen des Bildes:", error);
+        }
+    };
+
+    useEffect(() => {
+        if (uploadedImgPath) {
+            setImgSrc(`${apiService.getImgUrl()}${uploadedImgPath}`);
+        } else {
+            setImgSrc(activeRecommendation?.imgPath && activeRecommendation?.imgPath.trim() !== ""
+                ? `${apiService.getImgUrl()}${activeRecommendation?.imgPath}`
+                : `/assets/${activeRecommendation?.category.toLowerCase()}.png`);
+        }
+    }, [activeRecommendation, uploadedImgPath]);
+
     return (
         <>
            {/* Bau der eigentlichen Karte */}
@@ -59,19 +83,27 @@ const RecommendationCard = ({
                                   : 'Kategorie'}
                             </span>
                             {/* Bewertung */}
-                            <button className="recommendation-card-f_rating"><BootstrapIcons.PencilFill width={20} height={20} style={{marginRight: '0.25rem', paddingBottom: '0.1rem'}}/>
-                                {Array.from({ length: activeRecommendation?.rating ?? 3 }).map((_, i) => (
+                            <button
+                                type="button"
+                                className="recommendation-card-f_rating"
+                                onClick={handleRatingClick}
+                                style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
+                            >
+                                <BootstrapIcons.PencilFill width={20} height={20} style={{ marginRight: '0.25rem', paddingBottom: '0.1rem' }} />
+                                {Array.from({ length: rating }).map((_, i) => (
                                     <BootstrapIcons.HeartFill key={i} width={18} height={18} />
                                 ))}
                             </button>
+
                         </div>
 
                         {/* Image Upload Button */}
                         <div className="recommendation-card-f_header__middle">
-                            <button className="recommendation-card-f_text">
+                            <label className="recommendation-card-f_text" style={{ cursor: "pointer" }}>
                                 Bild hochladen
-                                <BootstrapIcons.CameraFill width={30} height={30} color="$white" style={{marginLeft: '0.5rem', paddingBottom: '0.25rem'}}/>
-                            </button>
+                                <BootstrapIcons.CameraFill width={30} height={30} color="$white" style={{ marginLeft: '0.5rem', paddingBottom: '0.25rem' }} />
+                                <input type="file" accept="image/*" style={{ display: "none" }} onChange={handleFileChange} />
+                            </label>
                         </div>
 
                         {/* Wer empfiehlt und Titel */}
@@ -92,7 +124,6 @@ const RecommendationCard = ({
 
                     </div>
                     {/* Ende Headerbild */}
-
 
                     {/* Body Empfehlung (Tags, Link, Beschreibung) */}
                     <div className="recommendation-card-f_body">
