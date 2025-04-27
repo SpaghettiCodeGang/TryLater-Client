@@ -18,32 +18,40 @@ const RecommendationCard = ({ activeRecommendation, action }) => {
     return (
         <>
            {/* Bau der eigentlichen Karte */}
-            <div className="recommendation-card">
+            <div className="recommendation-card-f">
 
                 {/* Karte innen */}
-                <div className="recommendation-card_inner">
+                <div className="recommendation-card-f_inner">
 
                     {/* Headerbild und alles im Bild */}
-                    <div className="recommendation-card_header" style={{backgroundImage: "url(" + imgSrc + ")", minHeight: "60vh"}}>
+                    <div className="recommendation-card-f_header" style={{backgroundImage: "url(" + imgSrc + ")", minHeight: "60vh"}}>
 
                         {/* Kategorie-Tag und Herzbewertung */}
-                        <div className="recommendation-card_header__top">
-                            <span className="recommendation-card_tag">
+                        <div className="recommendation-card-f_header__top">
+                            <span className="recommendation-card-f_tag">
                               {typeof activeRecommendation?.category === 'string'
                                   ? activeRecommendation.category.charAt(0).toUpperCase() + activeRecommendation.category.slice(1).toLowerCase()
                                   : 'Kategorie'}
                             </span>
                             {/* Bewertung */}
-                            <div className="recommendation-card_rating"><BootstrapIcons.PencilFill width={20} height={20}  style={{marginRight: '0.25rem', paddingBottom: '0.1rem', color:'$white'}}/>
+                            <div className="recommendation-card-f_rating"><BootstrapIcons.PencilFill width={20} height={20} style={{marginRight: '0.25rem', paddingBottom: '0.1rem'}}/>
                                 {Array.from({ length: activeRecommendation?.rating ?? 3 }).map((_, i) => (
                                     <BootstrapIcons.HeartFill key={i} width={18} height={18} />
                                 ))}
                             </div>
                         </div>
 
+                        {/* Image Upload Button */}
+                        <div className="recommendation-card-f_header__middle">
+                            <span className="recommendation-card-f_text">
+                                Bild hochladen
+                                <BootstrapIcons.CameraFill width={30} height={30} color="$white" style={{marginLeft: '0.5rem', paddingBottom: '0.25rem'}}/>
+                            </span>
+                        </div>
+
                         {/* Wer empfiehlt und Titel */}
-                        <div className="recommendation-card_header__bottom">
-                            <span className="recommendation-card_tag">{ 'Du' } empfiehlst</span>
+                        <div className="recommendation-card-f_header__bottom">
+                            <span className="recommendation-card-f_tag">{ 'Du' } empfiehlst</span>
                             <h2>{activeRecommendation?.title || 'Titel der Empfehlung' } <BootstrapIcons.PencilFill width={30} height={30} color="$white" style={{marginLeft: '0.5rem', paddingBottom: '0.1rem'}}/></h2>
                         </div>
 
@@ -52,15 +60,15 @@ const RecommendationCard = ({ activeRecommendation, action }) => {
 
 
                     {/* Body Empfehlung (Tags, Link, Beschreibung) */}
-                    <div className="recommendation-card_body">
+                    <div className="recommendation-card-f_body">
 
                         {/* Tag Section */}
                         <div className="mb-3">
                             <label htmlFor="tags" className="form-label">Tags<BootstrapIcons.PencilFill width={20} height={20} color="$dark" style={{marginLeft: '0.5rem', paddingBottom: '0.1rem'}}/></label>
-                            <div className="recommendation-card_tags" id="tags">
+                            <div className="recommendation-card-f_tags" id="tags">
                                 {activeRecommendation?.tagGroups?.map((tagGroup, t) =>
                                     tagGroup.tags.map((tag, i) => (
-                                        <div className="recommendation-card_tag recommendation-card_tag--gray" key={`${t}-${i}`}>
+                                        <div className="recommendation-card-f_tag recommendation-card-f_tag--gray" key={`${t}-${i}`}>
                                             {tag.tagName}
                                         </div>
                                     ))
@@ -85,7 +93,7 @@ const RecommendationCard = ({ activeRecommendation, action }) => {
                     </div>
 
                     {/* Footer mit Action z.B. ein Button */}
-                    <div className="recommendation-card_footer">
+                    <div className="recommendation-card-f_footer">
                         { action }
                     </div>
                 </div>

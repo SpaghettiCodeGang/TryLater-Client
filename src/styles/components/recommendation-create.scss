@@ -1,83 +1,107 @@
 @use '../variables' as *;
+@use "sass:color";
 
-.recommendation-card-form {
-  background-color: $white;
-  border-radius: $border-radius-large;
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-
-  .recommendation-card-header {
+.recommendation {
+  &-card-f {
+    background-color: $white;
+    border-radius: $border-radius-large;
+    height: 100%;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
 
-    .recommendation-card-category {
-      background-color: #FFA400;
-      padding: 0.5rem;
-      border-radius: 5px;
-      font-weight: bold;
-      color: white;
+    &_inner {
+      height: 100%;
+      overflow-y: auto;
+
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
 
-    .button {
-      background-color: $primary;
-      color: $white;
-      padding: $btn-padding-y $btn-padding-x;
-      font-size: $btn-font-size;
-      font-weight: $btn-font-weight;
+    &_header {
+      height: 85%;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-radius: $border-radius-large;
+      padding: 1.5rem;
+
+      h2 {
+        font-size: 2rem;
+        color: $white;
+        padding: 0.1rem 0.3rem;
+        border: $white 0.1rem solid;
+        border-radius: $border-radius-small;
+      }
+
+      &__top {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      &__middle {
+        display: block;
+        margin-top: 55%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      &__bottom {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: start;
+        gap: 0.5rem;
+      }
+    }
+
+    &_rating {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: $primary;
+      border: $white 0.1rem solid;
       border-radius: $border-radius-small;
-      border: none;
-      cursor: pointer;
-      transition: background-color 0.3s;
+      padding: 0.1rem 0.3rem;
+    }
 
-      &.rating-button {
-        font-size: 1.25rem;
-        background-color: transparent;
-        color: $primary;
-      }
+    &_tags {
+      display: flex;
+      gap: 0.5rem;
+    }
 
-      &:hover {
-        background-color: darken($primary, 10%);
+    &_tag {
+      background-color: $white;
+      color: $dark;
+      border-radius: $border-radius-small;
+      font-size: $tag-font-size;
+      font-weight: $tag-font-weight;
+      padding: 0.25rem 0.5rem;
+
+      &--gray {
+        background-color: $gray-200;
       }
     }
-  }
 
-
-  .form-label {
-    font-size: $form-label-font-size;
-    font-weight: $form-label-font-weight;
-    margin-bottom: $form-label-margin-bottom;
-  }
-
-  .form-control {
-    padding: $input-padding-y $input-padding-x;
-    font-size: $input-font-size;
-    border: 1px solid $input-border-color;
-    border-radius: $border-radius-small;
-    margin-bottom: 1rem;
-  }
-
-  .button {
-    background-color: $primary;
-    color: $white;
-    padding: $btn-padding-y $btn-padding-x;
-    font-size: $btn-font-size;
-    font-weight: $btn-font-weight;
-    border-radius: $border-radius-small;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
-
-    &:hover {
-      background-color: darken($primary, 10%);
+    &_text {
+      color: $white;
+      border: $white 0.1rem solid;
+      border-radius: $border-radius-small;
+      padding: 0.1rem 0.3rem;
     }
-  }
 
-  .recommendation-card-footer {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 1rem;
+    &_body {
+      padding: 1.5rem;
+    }
+
+    &_footer {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 1rem;
+    }
   }
 }
