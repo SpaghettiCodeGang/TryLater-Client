@@ -3,7 +3,7 @@ import apiService from "../service/apiService.jsx";
 import { BootstrapIcons } from "./BootstrapIcons.jsx";
 
 
-const RecommendationCard = ({ activeRecommendation, action }) => {
+const RecommendationCard = ({ activeRecommendation, action, onClose }) => {
     const [imgSrc, setImgSrc] = useState(null);
 
     useEffect(() => {
@@ -23,6 +23,9 @@ const RecommendationCard = ({ activeRecommendation, action }) => {
                                   ? activeRecommendation.category.charAt(0).toUpperCase() + activeRecommendation.category.slice(1).toLowerCase()
                                   : ''}
                             </span>
+
+                            { onClose }
+
                             <div className="recommendation-card_rating">
                                 {Array.from({ length: activeRecommendation?.rating }).map((_, i) => (
                                     <BootstrapIcons.HeartFill key={i} width={18} height={18} />
@@ -52,14 +55,24 @@ const RecommendationCard = ({ activeRecommendation, action }) => {
 
                         <div className="mb-3">
                             <label htmlFor="link" className="form-label">Link</label>
-                            <input type="text" className="form-control" id="link" disabled
-                                   placeholder={activeRecommendation?.url ? activeRecommendation?.url : "Kein Link vorhanden"} />
+                            <div className="form-control" id="link">
+                                {activeRecommendation?.url ? (
+                                    <a href={activeRecommendation?.url} target="_blank">{activeRecommendation?.url}</a>
+                                ) : (
+                                    <p className="m-0">Kein Link vorhanden</p>
+                                )}
+                            </div>
                         </div>
 
                         <div className="mb-3">
                             <label htmlFor="description" className="form-label">Notizen</label>
-                            <textarea className="form-control" id="description" disabled
-                                      placeholder={activeRecommendation?.description ? activeRecommendation?.description : "Keine Beschreibung vorhanden"} />
+                            <div className="form-control" id="description">
+                                 {activeRecommendation?.description ? (
+                                     <p className="m-0">{activeRecommendation?.description}</p>
+                                 ) : (
+                                     <p className="m-0">Keine Beschreibung vorhanden</p>
+                                 )}
+                            </div>
                         </div>
                     </div>
 

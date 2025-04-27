@@ -6,8 +6,6 @@
 @use './components/navbar';
 @use './components/contact';
 @use './components/settings';
-@use './components/recommendation';
-@use './components/recommendation-create';
+@use './components/swipe-card';
 @use './components/slide-in-overlay';
-@use './components/category-selection';
-@use './components/tag-selection';
+@use './components/recommendation-card';

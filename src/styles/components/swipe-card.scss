@@ -1,0 +1,30 @@
+.swipe-container {
+  height: 100%;
+  display: grid;
+}
+
+.swipe-card {
+  height: 100%;
+  grid-row: 1;
+  grid-column: 1;
+
+  &:hover {
+    cursor: grab;
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+
+  &_icon {
+    height: 85%;
+    grid-row: 1;
+    grid-column: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    transition: opacity 0.25s ease-out;
+  }
+
+}
