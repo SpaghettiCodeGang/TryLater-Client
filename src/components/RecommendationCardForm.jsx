@@ -3,11 +3,19 @@ import apiService from "../service/apiService.jsx";
 import { BootstrapIcons } from "./BootstrapIcons.jsx";
 
 
-const RecommendationCard = ({ selectedCategory, selectedTags, onAddTags, onOpenContacts }) => {
+const RecommendationCard = ({ selectedCategory, selectedTags, onAddTags, onOpenContacts, tagGroups }) => {
     const [imgSrc, setImgSrc] = useState(null);
     const activeRecommendation = {
         category: selectedCategory,
         tagGroups: selectedTags
+    };
+
+    const getTagNameById = (tagId) => {
+        for (const group of tagGroups) {
+            const foundTag = group.tags.find(tag => tag.id === tagId);
+            if (foundTag) return foundTag.tagName;
+        }
+        return "Unbekanntes Tag";
     };
 
     // Bild Url wird gesetzt ansonsten wird default Bild genommen
@@ -76,17 +84,18 @@ const RecommendationCard = ({ selectedCategory, selectedTags, onAddTags, onOpenC
                         <div className="mb-3">
                             <label htmlFor="tags" className="form-label">Tags<BootstrapIcons.PencilFill width={20} height={20} color="$dark" style={{marginLeft: '0.5rem', paddingBottom: '0.1rem'}}/></label>
                             <div className="recommendation-card-f_tags" id="tags">
-                                {activeRecommendation?.tagGroups && activeRecommendation.tagGroups.length > 0
-                                    ? activeRecommendation.tagGroups.map((tagGroup, t) =>
-                                        tagGroup.tags.map((tag, i) => (
-                                            <div className="recommendation-card-f_tag recommendation-card-f_tag--gray" key={`${t}-${i}`}>
-                                                {tag.tagName}
-                                            </div>
-                                        ))
-                                    ) : ( <button type="button" className="recommendation-card-f_addtag" onClick={onAddTags}>
-                                        <BootstrapIcons.PlusCircleFill width={18} height={18} color="$dark" style={{marginRight: '0.5rem', paddingBottom: '0.15rem'}}/>Tags hinzufügen
-                                    </button> )
-                                }
+                                {/* Tags (falls welche ausgewählt sind) */}
+                                {selectedTags && selectedTags.length > 0 && selectedTags.map((tagId, index) => (
+                                    <div className="recommendation-card-f_tag recommendation-card-f_tag--gray" key={index}>
+                                        {getTagNameById(tagId)}
+                                    </div>
+                                ))}
+
+                                {/* IMMER den Button zeigen */}
+                                <button type="button" className="recommendation-card-f_addtag" onClick={onAddTags}>
+                                    <BootstrapIcons.PlusCircleFill width={18} height={18} color="$dark" style={{marginRight: '0.5rem', paddingBottom: '0.15rem'}}/>
+                                    Tags hinzufügen
+                                </button>
                             </div>
                         </div>
 

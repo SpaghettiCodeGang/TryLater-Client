@@ -19,9 +19,6 @@ const NewRecommendationsPage = () => {
         return () => setHeadline("");
     }, []);
 
-
-
-
     /* Auswählen und speichern der Kategorie */
     const handleCategorySelect = async (categoryId) => {
         const upperCaseId = categoryId.toUpperCase(); // fix!
@@ -59,6 +56,7 @@ const NewRecommendationsPage = () => {
                     onSubmit={handleCreateRecommendation}
                     onAddTags={handleAddTags}
                     onOpenContacts={() => setActiveOverlay('contactSelection')}
+                    tagGroups={tagGroups} // <--- DAS HINZUFÜGEN!!
                 />
             )}
 
@@ -69,7 +67,6 @@ const NewRecommendationsPage = () => {
                 tagGroups={tagGroups}
                 selectedTags={selectedTags}
                 setSelectedTags={setSelectedTags}
-                onAddTags={handleAddTags}
             />
 
             {/* zeigen des Contact Overlays nach bedarf */}
