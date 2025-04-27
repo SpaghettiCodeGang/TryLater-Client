@@ -2,8 +2,8 @@ import {useEffect, useState} from "react";
 import apiService from "../service/apiService.jsx";
 import { BootstrapIcons } from "./BootstrapIcons.jsx";
 
-// Speichert Bild URL
-const RecommendationCard = ({ activeRecommendation, action }) => {
+
+const RecommendationCard = ({ activeRecommendation, action, onAddTags }) => {
     const [imgSrc, setImgSrc] = useState(null);
 
     // Bild Url wird gesetzt ansonsten wird default Bild genommen
@@ -13,6 +13,8 @@ const RecommendationCard = ({ activeRecommendation, action }) => {
             `/assets/recipe.png`);
         //`/assets/${activeRecommendation?.category.toLowerCase()}.png`);
     }, [activeRecommendation]);
+
+
 
 // Content
     return (
@@ -66,15 +68,18 @@ const RecommendationCard = ({ activeRecommendation, action }) => {
                         <div className="mb-3">
                             <label htmlFor="tags" className="form-label">Tags<BootstrapIcons.PencilFill width={20} height={20} color="$dark" style={{marginLeft: '0.5rem', paddingBottom: '0.1rem'}}/></label>
                             <div className="recommendation-card-f_tags" id="tags">
-                                {activeRecommendation?.tagGroups?.map((tagGroup, t) =>
-                                    tagGroup.tags.map((tag, i) => (
-                                        <div className="recommendation-card-f_tag recommendation-card-f_tag--gray" key={`${t}-${i}`}>
-                                            {tag.tagName}
-                                        </div>
-                                    ))
-                                )}
+                                {activeRecommendation?.tagGroups && activeRecommendation.tagGroups.length > 0
+                                    ? activeRecommendation.tagGroups.map((tagGroup, t) =>
+                                        tagGroup.tags.map((tag, i) => (
+                                            <div className="recommendation-card-f_tag recommendation-card-f_tag--gray" key={`${t}-${i}`}>
+                                                {tag.tagName}
+                                            </div>
+                                        ))
+                                    ) : ( <button type="button" className="recommendation-card-f_addtag" onClick={onAddTags}>
+                                        <BootstrapIcons.PlusCircleFill width={18} height={18} color="$dark" style={{marginRight: '0.5rem', paddingBottom: '0.15rem'}}/>Tags hinzufügen
+                                    </button> )
+                                }
                             </div>
-
                         </div>
 
                         {/* Link Section */}
@@ -94,7 +99,7 @@ const RecommendationCard = ({ activeRecommendation, action }) => {
 
                     {/* Footer mit Action z.B. ein Button */}
                     <div className="recommendation-card-f_footer">
-                        { action }
+                           <button className="btn btn-primary form-control mb-4" style={{width: "70%", marginLeft: "15%", marginRight: "15%"}}>An Kontakte senden</button>
                     </div>
                 </div>
             </div>

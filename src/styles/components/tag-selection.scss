@@ -1,4 +1,5 @@
 @use '../variables' as *;
+@use "sass:color";
 
 .tag-selection {
   display: flex;
@@ -55,9 +56,5 @@
     box-shadow: $btn-box-shadow;
     cursor: pointer;
     transition: background-color 0.3s;
-
-    &:hover {
-      background-color: darken($primary, 5%);
-    }
   }
 }

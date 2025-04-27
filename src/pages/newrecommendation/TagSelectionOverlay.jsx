@@ -27,14 +27,16 @@ const TagSelectionOverlay = ({ activeOverlay, setActiveOverlay, tagGroups = [], 
             <div className="tag-selection">
                 {tagGroups.map((group) => (
                     <div key={group.tagGroupId} className="tag-selection__group">
+
+                        {/* Untergruppennamen der Tags */}
                         <h3 className="tag-selection__title">{group.tagGroupName}</h3>
 
+                        {/* Ausgabe der eigentlichen Tags */}
                         <div className="tag-selection__tags">
                             {group.tags.map((tag) => (
-                                <button
-                                    key={tag.tagId}
+                                <button key={tag.tagId}
                                     className={`tag-selection__tag ${selectedTags.includes(tag.tagId) ? 'tag-selection__tag--selected' : ''}`}
-                                    onClick={() => toggleTag(tag.tagId)}  // Einzeln auswählbare Tags
+                                    onClick={() => toggleTag(tag.tagId)}
                                 >
                                     {tag.tagName}
                                 </button>
@@ -42,6 +44,8 @@ const TagSelectionOverlay = ({ activeOverlay, setActiveOverlay, tagGroups = [], 
                         </div>
                     </div>
                 ))}
+
+                {/* Hinzufügen der Tags Button */}
                 <button className="btn btn-secondary form-control mb-2" onClick={handleAddTags}>Tags hinzufügen</button>
             </div>
         </SlideInOverlay>
