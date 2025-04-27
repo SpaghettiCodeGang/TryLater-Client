@@ -11,16 +11,9 @@
   min-height: calc(100% - 2px);
   border: $border-light;
   box-shadow: $box-shadow;
-  transition: transform 0.5s ease;
-  transform: translateX(-120%);
   padding: $body-padding;
   display: flex;
   flex-direction: column;
-
-  &--visible {
-    transform: translateX(0%);
-    pointer-events: auto;
-  }
 
   &__btn {
     background-color: $white;
