@@ -5,6 +5,7 @@ import ContactSelectionOverlay from "../newrecommendation/ContactSelectionOverla
 import RecommendationCardForm from "./../../components/RecommendationCardForm.jsx"; // Neues Formular importieren
 import apiService from "../../service/apiService.jsx";
 import {useLayout} from "../../hooks/useLayout.jsx";
+import {useFetch} from "../../hooks/useFetch.jsx";
 
 /* Zustände */
 const NewRecommendationsPage = () => {
@@ -13,6 +14,7 @@ const NewRecommendationsPage = () => {
     const [selectedCategory, setSelectedCategory] = useState(null); /* Welche Kategorie der Nutzer gewählt hat */
     const [selectedTags, setSelectedTags] = useState([]); /* Welche Tags der Nutzer ausgewählt hat */
     const [tagGroups, setTagGroups] = useState([]); /* Die Gruppierten Tags, die vom Server geladen werden */
+    const { data: currentUser } = useFetch('/user/me');
 
     useEffect(() => {
         setHeadline("Empfehlen");
@@ -73,6 +75,7 @@ const NewRecommendationsPage = () => {
             <ContactSelectionOverlay
                 activeOverlay={activeOverlay}
                 setActiveOverlay={setActiveOverlay}
+                currentUser={currentUser}
             />
         </div>
     );

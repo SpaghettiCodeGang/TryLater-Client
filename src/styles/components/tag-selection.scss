@@ -62,3 +62,8 @@
 .contact-selection__button {
   background-color: red;
 }
+
+.contact_list__item--selected {
+  background-color: $gray-200;
+  transition: background-color 0.2s ease;
+}
