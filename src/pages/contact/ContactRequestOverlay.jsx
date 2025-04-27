@@ -50,7 +50,9 @@ const ContactRequestOverlay = ({ activeOverlay, setActiveOverlay, incomingContac
                                         e.stopPropagation();
                                         void handleAddContact(
                                             contactRequest.contactId
-                                        );                                    }}                                    >
+                                        );
+                                    }}
+                                >
                                     <BootstrapIcons.Check width={24} height={24} fill="white" />
                                 </button>
                                 <button
