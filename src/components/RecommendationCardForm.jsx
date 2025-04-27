@@ -3,7 +3,7 @@ import apiService from "../service/apiService.jsx";
 import { BootstrapIcons } from "./BootstrapIcons.jsx";
 
 
-const RecommendationCard = ({ activeRecommendation, action, onAddTags }) => {
+const RecommendationCard = ({ activeRecommendation, onAddTags }) => {
     const [imgSrc, setImgSrc] = useState(null);
 
     // Bild Url wird gesetzt ansonsten wird default Bild genommen
