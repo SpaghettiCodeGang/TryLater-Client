@@ -19,11 +19,6 @@ const request = async (method, path, data = null) => {
     const response = await fetch(`${BASE_URL}${path}`, options);
 
     if (!response.ok) {
-        if (response.status === 401 || response.status === 403) {
-            // TODO: Auf HomePage weiterleiten
-            console.log("Weiterleitung auf HomePage fehlt...")
-        }
-
         const errorData = await response.json().catch(() => ({}));
         const error = new Error(errorData.message || 'Unbekannter Fehler');
         error.status = response.status;
