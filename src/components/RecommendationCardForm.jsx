@@ -5,7 +5,7 @@ import useImageProcessor from "../hooks/useImageProcessor.jsx";
 
 /* RecommendationCardForm - Empfehlung erstellen */
 const RecommendationCardForm = ({
-                                    selectedCategory, selectedTags, onAddTags, onOpenContacts, tagGroups, title, setTitle, description, setDescription, url, setUrl, rating, setRating, uploadedImgPath, setUploadedImgPath }) => {
+                                    selectedCategory, selectedTags, onAddTags, onOpenContacts, tagGroups, data, updateData }) => {
     const [imgSrc, setImgSrc] = useState(null);
 
     /* Empfehlung aktiv (Memo, damit sich der Wert nur bei Änderungen ändert) */
@@ -26,8 +26,8 @@ const RecommendationCardForm = ({
     };
 
     const handleRatingClick = () => {
-        const newRating = rating >= 3 ? 1 : rating + 1;
-        setRating(newRating);
+        const newRating = data.rating >= 3 ? 1 : data.rating + 1;
+        updateData("rating", newRating);
     };
 
     const handleFileChange = async (e) => {
@@ -40,10 +40,10 @@ const RecommendationCardForm = ({
             console.log("Upload erfolgreich:", response);
 
             if (Array.isArray(response) && response[0]?.imgPath) {
-                setUploadedImgPath(response[0].imgPath);
+                updateData("uploadedImgPath", response[0].imgPath);
                 setImgSrc(`${apiService.getImgUrl()}${response[0].imgPath}`);
             } else if (response?.imgPath) {
-                setUploadedImgPath(response.imgPath);
+                updateData("uploadedImgPath", response.imgPath);
                 setImgSrc(`${apiService.getImgUrl()}${response.imgPath}`);
             }
         } catch (error) {
@@ -51,10 +51,11 @@ const RecommendationCardForm = ({
         }
     };
 
+
     /* Bildquelle automatisch aktualisieren */
     useEffect(() => {
-        if (uploadedImgPath) {
-            setImgSrc(`${apiService.getImgUrl()}${uploadedImgPath}`);
+        if (data.uploadedImgPath) {
+            setImgSrc(`${apiService.getImgUrl()}${data.uploadedImgPath}`);
         } else {
             setImgSrc(
                 activeRecommendation?.imgPath?.trim()
@@ -62,7 +63,7 @@ const RecommendationCardForm = ({
                     : `/assets/${activeRecommendation.category?.toLowerCase()}.png`
             );
         }
-    }, [activeRecommendation, uploadedImgPath]);
+    }, [activeRecommendation, data.uploadedImgPath]);
 
     return (
         <>
@@ -89,7 +90,7 @@ const RecommendationCardForm = ({
                                 style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
                             >
                                 <BootstrapIcons.PencilFill width={20} height={20} style={{ marginRight: "0.25rem", paddingBottom: "0.1rem" }} />
-                                {Array.from({ length: rating }).map((_, i) => (
+                                {Array.from({ length: data.rating }).map((_, i) => (
                                     <BootstrapIcons.HeartFill key={i} width={18} height={18} />
                                 ))}
                             </button>
@@ -112,8 +113,8 @@ const RecommendationCardForm = ({
                                     type="text"
                                     className="recommendation-card-f_title--form"
                                     id="title"
-                                    value={title}
-                                    onChange={(e) => setTitle(e.target.value)}
+                                    value={data.title}
+                                    onChange={(e) => updateData("title", e.target.value)}
                                     placeholder="Titel (Pflichtfeld)"
                                 />
                                 <BootstrapIcons.PencilFill width={30} height={30} color="white" style={{ paddingTop: "0.3rem" }} />
@@ -152,8 +153,8 @@ const RecommendationCardForm = ({
                                 type="text"
                                 className="form-control"
                                 id="link"
-                                value={url}
-                                onChange={(e) => setUrl(e.target.value)}
+                                value={data.url}
+                                onChange={(e) => updateData("url", e.target.value)}
                                 placeholder="Kein Link vorhanden (optional)"
                             />
                         </div>
@@ -167,8 +168,8 @@ const RecommendationCardForm = ({
                             <textarea
                                 className="form-control"
                                 id="description"
-                                value={description}
-                                onChange={(e) => setDescription(e.target.value)}
+                                value={data.description}
+                                onChange={(e) => updateData("description", e.target.value)}
                                 placeholder="Keine Beschreibung vorhanden (optional)"
                             />
                         </div>

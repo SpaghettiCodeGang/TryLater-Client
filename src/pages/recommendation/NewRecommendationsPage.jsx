@@ -19,14 +19,24 @@ const NewRecommendationsPage = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedTags, setSelectedTags] = useState([]);
     const [tagGroups, setTagGroups] = useState([]);
-
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [url, setUrl] = useState("");
-    const [rating, setRating] = useState(3);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [isErrorModal, setIsErrorModal] = useState(false);
-    const [uploadedImgPath, setUploadedImgPath] = useState(null);
+
+    const [data, setData] = useState({
+        title: "",
+        description: "",
+        url: "",
+        rating: 3,
+        uploadedImgPath: null,
+    });
+
+// Updatefunktion für einzelne Felder
+    const updateData = (field, value) => {
+        setData(prevData => ({
+            ...prevData,
+            [field]: value
+        }));
+    };
 
     useEffect(() => {
         setHeadline("Empfehlen");
@@ -75,16 +85,8 @@ const NewRecommendationsPage = () => {
                                 onAddTags={handleAddTags}
                                 onOpenContacts={() => setActiveOverlay("contactSelection")}
                                 tagGroups={tagGroups}
-                                title={title}
-                                setTitle={setTitle}
-                                description={description}
-                                setDescription={setDescription}
-                                url={url}
-                                setUrl={setUrl}
-                                rating={rating}
-                                setRating={setRating}
-                                uploadedImgPath={uploadedImgPath}
-                                setUploadedImgPath={setUploadedImgPath}
+                                data={data}
+                                updateData={updateData}
                             />
                         )}
 
@@ -106,15 +108,11 @@ const NewRecommendationsPage = () => {
                 activeOverlay={activeOverlay}
                 setActiveOverlay={setActiveOverlay}
                 currentUser={currentUser}
-                title={title}
-                description={description}
-                url={url}
-                rating={rating}
+                data={data}
                 selectedCategory={selectedCategory}
                 selectedTags={selectedTags}
                 setShowSuccessModal={setShowSuccessModal}
                 setIsErrorModal={setIsErrorModal}
-                uploadedImgPath={uploadedImgPath}
             />
 
             {/* Popup für erfolgreiche Empfehlung */}

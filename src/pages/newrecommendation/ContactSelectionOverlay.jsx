@@ -4,7 +4,7 @@ import { useFetch } from "../../hooks/useFetch.jsx";
 import Contact from "../../components/Contact.jsx";
 import apiService from "./../../service/apiService.jsx";
 
-const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay, currentUser, title, description, url, rating, selectedCategory, selectedTags, setShowSuccessModal, setIsErrorModal, uploadedImgPath }) => {
+const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay, currentUser, data, selectedCategory, selectedTags, setShowSuccessModal, setIsErrorModal, onSubmit }) => {
 
     const [selectedContacts, setSelectedContacts] = useState([]); /* Array mit IDs der gewählten Kontakte */
     const { data: contacts } = useFetch('/contact?status=ACCEPTED'); /* Alle Kontakte, die vom Server geladen werden */
@@ -35,14 +35,14 @@ const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay, currentUser,
         }
 
         const recommendationData = {
-            title,
-            description,
-            url,
-            rating,
+            title: data.title,
+            description: data.description,
+            url: data.url,
+            rating: data.rating,
             category: selectedCategory,
             receiverIds: receiverIds,
             tagIds: selectedTags,
-            imgPath: uploadedImgPath
+            imgPath: data.uploadedImgPath
         };
 
         console.log("Daten die gesendet werden:", recommendationData);
@@ -50,6 +50,10 @@ const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay, currentUser,
         try {
             await apiService.post('/recommendation', recommendationData);
             console.log("Empfehlung erfolgreich erstellt!");
+
+            if (onSubmit) {
+                onSubmit(recommendationData);
+            }
 
             setActiveOverlay(null);
             setTimeout(() => {
@@ -61,7 +65,7 @@ const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay, currentUser,
             setActiveOverlay(null);
             setTimeout(() => {
                 setIsErrorModal(true);
-                setShowSuccessModal(false);
+                setShowSuccessModal(true);
             });
         }
     };
