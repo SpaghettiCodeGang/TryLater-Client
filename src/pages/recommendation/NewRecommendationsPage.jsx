@@ -1,20 +1,16 @@
 import { useState, useEffect } from "react";
 import { useLayout } from "../../hooks/useLayout.jsx";
-import { useFetch } from "../../hooks/useFetch.jsx";
 import apiService from "../../service/apiService.jsx";
 import CategorySelection from "../../components/CategorySelection.jsx";
 import RecommendationCardForm from "../../components/RecommendationCardForm.jsx";
 import TagSelectionOverlay from "../newrecommendation/TagSelectionOverlay.jsx";
 import ContactSelectionOverlay from "../newrecommendation/ContactSelectionOverlay.jsx";
 import RecommendationSuccessModal from "../newrecommendation/RecommendationSuccessModal.jsx";
-import { motion, AnimatePresence} from "framer-motion";
 
-const NewRecommendationsPage = () => {
+const NewRecommendationsPage = ({ user }) => {
 
     /* Zustände */
     const { setHeadline } = useLayout();
-    const { data: currentUser } = useFetch("/user/me");
-
     const [activeOverlay, setActiveOverlay] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedTags, setSelectedTags] = useState([]);
@@ -99,13 +95,6 @@ const NewRecommendationsPage = () => {
         }
     };
 
-    /* Speichern der Empfehlung */
-    const handleCreateRecommendation = (recommendationData) => {
-        if (validateForm()) {
-            console.log("Empfehlung wird erstellt mit den Daten:", recommendationData);
-        }
-    };
-
     /* Tags hinzufügen öffnen */
     const handleAddTags = () => setActiveOverlay("tagSelection");
 
@@ -118,35 +107,25 @@ const NewRecommendationsPage = () => {
 
     return (
         <div className="recommendations-page">
-            <AnimatePresence mode="wait">
-                {!activeOverlay && (
-                    <motion.div
-                        key="main-content"
-                        exit={{ opacity: 0 }}
-                        transition={{
-                            duration: 0.5
-                        }}
-                    >
-                        {!selectedCategory ? (
-                            <CategorySelection onCategorySelect={handleCategorySelect} />
-                        ) : (
-                            /* Zeige das RecommendationCardForm zum Schreiben der Empfehlung */
-                            <RecommendationCardForm
-                                selectedTags={selectedTags}
-                                selectedCategory={selectedCategory}
-                                onSubmit={handleCreateRecommendation}
-                                onAddTags={handleAddTags}
-                                onOpenContacts={handleOpenContacts}
-                                tagGroups={tagGroups}
-                                data={data}
-                                updateData={updateData}
-                                errors={errors}
-                            />
-                        )}
-
-                    </motion.div>
-                )}
-            </AnimatePresence>
+            {!activeOverlay && (
+                <>
+                    {!selectedCategory ? (
+                        <CategorySelection onCategorySelect={handleCategorySelect} />
+                    ) : (
+                        /* Zeige das RecommendationCardForm zum Schreiben der Empfehlung */
+                        <RecommendationCardForm
+                            selectedTags={selectedTags}
+                            selectedCategory={selectedCategory}
+                            onAddTags={handleAddTags}
+                            onOpenContacts={handleOpenContacts}
+                            tagGroups={tagGroups}
+                            data={data}
+                            updateData={updateData}
+                            errors={errors}
+                        />
+                    )}
+                </>
+            )}
 
             {/* Zeigen des Tag Overlays nach bedarf */}
             <TagSelectionOverlay
@@ -161,7 +140,7 @@ const NewRecommendationsPage = () => {
             <ContactSelectionOverlay
                 activeOverlay={activeOverlay}
                 setActiveOverlay={setActiveOverlay}
-                currentUser={currentUser}
+                currentUser={user}
                 data={data}
                 selectedCategory={selectedCategory}
                 selectedTags={selectedTags}

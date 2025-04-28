@@ -35,7 +35,6 @@ const RecommendationCardForm = ({ selectedCategory, selectedTags, onAddTags, onO
         try {
             const processedFile = await processImage(file);
             const response = await apiService.post("/image", processedFile);
-            console.log("Upload erfolgreich:", response);
 
             if (Array.isArray(response) && response[0]?.imgPath) {
                 updateData("uploadedImgPath", response[0].imgPath);

@@ -56,11 +56,8 @@ const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay, currentUser,
             imgPath: data.uploadedImgPath
         };
 
-        console.log("Daten die gesendet werden:", recommendationData);
-
         try {
             await apiService.post('/recommendation', recommendationData);
-            console.log("Empfehlung erfolgreich erstellt!");
 
             if (onSubmit) {
                 onSubmit(recommendationData);
