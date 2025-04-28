@@ -171,6 +171,7 @@ const RecommendationCardForm = ({
                                 value={data.description}
                                 onChange={(e) => updateData("description", e.target.value)}
                                 placeholder="Keine Beschreibung vorhanden (optional)"
+                                maxLength={2000}
                             />
                         </div>
                     </div>
