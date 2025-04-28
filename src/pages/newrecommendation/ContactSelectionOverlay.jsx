@@ -4,7 +4,7 @@ import { useFetch } from "../../hooks/useFetch.jsx";
 import Contact from "../../components/Contact.jsx";
 import apiService from "./../../service/apiService.jsx";
 
-const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay, currentUser, title, description, url, rating, selectedCategory, selectedTags, setShowSuccessModal, setIsErrorModal }) => {
+const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay, currentUser, title, description, url, rating, selectedCategory, selectedTags, setShowSuccessModal, setIsErrorModal, uploadedImgPath }) => {
 
     const [selectedContacts, setSelectedContacts] = useState([]); /* Array mit IDs der gewählten Kontakte */
     const { data: contacts } = useFetch('/contact?status=ACCEPTED'); /* Alle Kontakte, die vom Server geladen werden */
@@ -26,21 +26,26 @@ const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay, currentUser,
 
     /* Absenden */
     const handleSendToContacts = async () => {
-        const receiverIds = [...selectedContacts];
+        let receiverIds = [...selectedContacts];
+
         if (selfSelected && currentUser?.id) {
-            receiverIds.push(currentUser.id);
+            if (!receiverIds.includes(currentUser.id)) {
+                receiverIds.push(currentUser.id);
+            }
         }
 
         const recommendationData = {
             title,
             description,
             url,
-            imgId: "",
             rating,
             category: selectedCategory,
             receiverIds: receiverIds,
-            tagIds: selectedTags
+            tagIds: selectedTags,
+            imgPath: uploadedImgPath
         };
+
+        console.log("Daten die gesendet werden:", recommendationData); // <<< LOG!
 
         try {
             await apiService.post('/recommendation', recommendationData);
@@ -60,7 +65,6 @@ const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay, currentUser,
             }, 300);
         }
     };
-
 
     return (
         /* Slide-In Overlay */
@@ -90,10 +94,10 @@ const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay, currentUser,
                 <ul className="contact_list">
                     {contacts?.map((contact) => (
                         <Contact
-                            key={contact.contactId}
+                            key={contact.contactPartner.id}
                             contactPartner={contact.contactPartner}
-                            onClick={() => toggleContact(contact.contactId)}
-                            isSelected={selectedContacts.includes(contact.contactId)}
+                            onClick={() => toggleContact(contact.contactPartner.id)}
+                            isSelected={selectedContacts.includes(contact.contactPartner.id)}
                         />
                     ))}
                 </ul>

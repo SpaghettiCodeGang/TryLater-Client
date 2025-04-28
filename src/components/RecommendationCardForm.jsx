@@ -4,7 +4,7 @@ import { BootstrapIcons } from "./BootstrapIcons.jsx";
 import useImageProcessor from "../hooks/useImageProcessor.jsx";
 
 
-const RecommendationCard = ({ selectedCategory, selectedTags, onAddTags, onOpenContacts, tagGroups, title, setTitle, description, setDescription, url, setUrl, rating, setRating }) => {
+const RecommendationCardForm = ({ selectedCategory, selectedTags, onAddTags, onOpenContacts, tagGroups, title, setTitle, description, setDescription, url, setUrl, rating, setRating, uploadedImgPath, setUploadedImgPath }) => {
     const [imgSrc, setImgSrc] = useState(null);
     const activeRecommendation = {
         category: selectedCategory,
@@ -12,7 +12,6 @@ const RecommendationCard = ({ selectedCategory, selectedTags, onAddTags, onOpenC
     };
     const { processImage } = useImageProcessor({ targetWidth: 644, targetHeight: 1000 });
     const [processedImage, setProcessedImage] = useState(null);
-    const [uploadedImgPath, setUploadedImgPath] = useState(null);
 
     const getTagNameById = (tagId) => {
         for (const group of tagGroups) {
@@ -22,6 +21,7 @@ const RecommendationCard = ({ selectedCategory, selectedTags, onAddTags, onOpenC
         return "Unbekanntes Tag";
     };
 
+    // Rating wird geändert
     const handleRatingClick = () => {
         const newRating = rating >= 3 ? 1 : rating + 1;
         setRating(newRating);
@@ -40,11 +40,11 @@ const RecommendationCard = ({ selectedCategory, selectedTags, onAddTags, onOpenC
             console.log("Upload erfolgreich:", response);
 
             if (Array.isArray(response) && response[0]?.imgPath) {
-                setUploadedImgPath(response[0].imgPath);
+                setUploadedImgPath(response[0].imgPath); // Prop-Funktion verwenden
                 setImgSrc(`${apiService.getImgUrl()}${response[0].imgPath}`);
             }
             else if (response?.imgPath) {
-                setUploadedImgPath(response.imgPath);
+                setUploadedImgPath(response.imgPath); // Prop-Funktion verwenden
                 setImgSrc(`${apiService.getImgUrl()}${response.imgPath}`);
             }
 
@@ -66,7 +66,7 @@ const RecommendationCard = ({ selectedCategory, selectedTags, onAddTags, onOpenC
 
     return (
         <>
-           {/* Bau der eigentlichen Karte */}
+            {/* Bau der eigentlichen Karte */}
             <div className="recommendation-card-f">
 
                 {/* Karte innen */}
@@ -156,7 +156,7 @@ const RecommendationCard = ({ selectedCategory, selectedTags, onAddTags, onOpenC
                                 id="link"
                                 value={url}
                                 onChange={(e) => setUrl(e.target.value)}
-                                placeholder="Kein Link vorhanden"
+                                placeholder="Kein Link vorhanden (optional)"
                             />
                         </div>
 
@@ -168,14 +168,14 @@ const RecommendationCard = ({ selectedCategory, selectedTags, onAddTags, onOpenC
                                 id="description"
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
-                                placeholder="Keine Beschreibung vorhanden"
+                                placeholder="Keine Beschreibung vorhanden (optional)"
                             />
                         </div>
                     </div>
 
                     {/* Footer mit Action z.B. ein Button */}
                     <div className="recommendation-card-f_footer">
-                           <button className="btn btn-primary form-control mb-4" onClick={onOpenContacts} style={{width: "70%", marginLeft: "15%", marginRight: "15%"}}>An Kontakte senden</button>
+                        <button className="btn btn-primary form-control mb-4" onClick={onOpenContacts} style={{width: "70%", marginLeft: "15%", marginRight: "15%"}}>An Kontakte senden</button>
                     </div>
                 </div>
             </div>
@@ -183,4 +183,4 @@ const RecommendationCard = ({ selectedCategory, selectedTags, onAddTags, onOpenC
     )
 }
 
-export default RecommendationCard;
+export default RecommendationCardForm;

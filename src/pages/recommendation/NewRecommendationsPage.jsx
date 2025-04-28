@@ -23,6 +23,7 @@ const NewRecommendationsPage = () => {
     const [rating, setRating] = useState(3);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [isErrorModal, setIsErrorModal] = useState(false);
+    const [uploadedImgPath, setUploadedImgPath] = useState(null);
 
     useEffect(() => {
         setHeadline("Empfehlen");
@@ -75,6 +76,8 @@ const NewRecommendationsPage = () => {
                     setUrl={setUrl}
                     rating={rating}
                     setRating={setRating}
+                    uploadedImgPath={uploadedImgPath}
+                    setUploadedImgPath={setUploadedImgPath}
                 />
             )}
 
@@ -100,6 +103,7 @@ const NewRecommendationsPage = () => {
                 selectedTags={selectedTags}
                 setShowSuccessModal={setShowSuccessModal}
                 setIsErrorModal={setIsErrorModal}
+                uploadedImgPath={uploadedImgPath}
             />
 
             <RecommendationSuccessModal
