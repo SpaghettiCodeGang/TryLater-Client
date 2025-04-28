@@ -78,10 +78,8 @@ const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay, currentUser,
                 {currentUser && (
                     <Contact
                         contactPartner={{
-                            id: "self",
-                            displayName: currentUser.displayName || "Ich",
-                            username: currentUser.userName || "",
-                            profileImage: currentUser.imgPath ? `${apiService.getImgUrl()}${currentUser?.imgPath}` : "/assets/profil.png"
+                            displayName: "An mich",
+                            imgPath: currentUser.imgPath,
                         }}
                         onClick={toggleSelf}
                         isSelected={selfSelected}
