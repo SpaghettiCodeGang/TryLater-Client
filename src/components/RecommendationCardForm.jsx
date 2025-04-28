@@ -1,18 +1,22 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState, useMemo } from "react";
 import apiService from "../service/apiService.jsx";
 import { BootstrapIcons } from "./BootstrapIcons.jsx";
 import useImageProcessor from "../hooks/useImageProcessor.jsx";
 
-
-const RecommendationCardForm = ({ selectedCategory, selectedTags, onAddTags, onOpenContacts, tagGroups, title, setTitle, description, setDescription, url, setUrl, rating, setRating, uploadedImgPath, setUploadedImgPath }) => {
+/* RecommendationCardForm - Empfehlung erstellen */
+const RecommendationCardForm = ({
+                                    selectedCategory, selectedTags, onAddTags, onOpenContacts, tagGroups, title, setTitle, description, setDescription, url, setUrl, rating, setRating, uploadedImgPath, setUploadedImgPath }) => {
     const [imgSrc, setImgSrc] = useState(null);
-    const activeRecommendation = {
+
+    /* Empfehlung aktiv (Memo, damit sich der Wert nur bei Änderungen ändert) */
+    const activeRecommendation = useMemo(() => ({
         category: selectedCategory,
         tagGroups: selectedTags
-    };
-    const { processImage } = useImageProcessor({ targetWidth: 644, targetHeight: 1000 });
-    const [processedImage, setProcessedImage] = useState(null);
+    }), [selectedCategory, selectedTags]);
 
+    const { processImage } = useImageProcessor({ targetWidth: 644, targetHeight: 1000 });
+
+    /* Funktionen */
     const getTagNameById = (tagId) => {
         for (const group of tagGroups) {
             const foundTag = group.tags.find(tag => tag.id === tagId);
@@ -21,94 +25,88 @@ const RecommendationCardForm = ({ selectedCategory, selectedTags, onAddTags, onO
         return "Unbekanntes Tag";
     };
 
-    // Rating wird geändert
     const handleRatingClick = () => {
         const newRating = rating >= 3 ? 1 : rating + 1;
         setRating(newRating);
     };
 
-    // Bild Url wird gesetzt ansonsten wird default Bild genommen
     const handleFileChange = async (e) => {
         const file = e.target.files[0];
         if (!file) return;
 
         try {
             const processedFile = await processImage(file);
-
-            // Direkt die Datei übergeben wie in ChangeProfileOverlay.jsx
             const response = await apiService.post("/image", processedFile);
             console.log("Upload erfolgreich:", response);
 
             if (Array.isArray(response) && response[0]?.imgPath) {
-                setUploadedImgPath(response[0].imgPath); // Prop-Funktion verwenden
+                setUploadedImgPath(response[0].imgPath);
                 setImgSrc(`${apiService.getImgUrl()}${response[0].imgPath}`);
-            }
-            else if (response?.imgPath) {
-                setUploadedImgPath(response.imgPath); // Prop-Funktion verwenden
+            } else if (response?.imgPath) {
+                setUploadedImgPath(response.imgPath);
                 setImgSrc(`${apiService.getImgUrl()}${response.imgPath}`);
             }
-
-            setProcessedImage(processedFile);
         } catch (error) {
             console.error("Fehler beim Hochladen des Bildes:", error);
         }
     };
 
+    /* Bildquelle automatisch aktualisieren */
     useEffect(() => {
         if (uploadedImgPath) {
             setImgSrc(`${apiService.getImgUrl()}${uploadedImgPath}`);
         } else {
-            setImgSrc(activeRecommendation?.imgPath && activeRecommendation?.imgPath.trim() !== ""
-                ? `${apiService.getImgUrl()}${activeRecommendation?.imgPath}`
-                : `/assets/${activeRecommendation?.category.toLowerCase()}.png`);
+            setImgSrc(
+                activeRecommendation?.imgPath?.trim()
+                    ? `${apiService.getImgUrl()}${activeRecommendation.imgPath}`
+                    : `/assets/${activeRecommendation.category?.toLowerCase()}.png`
+            );
         }
     }, [activeRecommendation, uploadedImgPath]);
 
     return (
         <>
-            {/* Bau der eigentlichen Karte */}
             <div className="recommendation-card-f">
-
-                {/* Karte innen */}
                 <div className="recommendation-card-f_inner">
 
                     {/* Headerbild und alles im Bild */}
-                    <div className="recommendation-card-f_header" style={{backgroundImage: "url(" + imgSrc + ")", minHeight: "60vh"}}>
-
+                    <div
+                        className="recommendation-card-f_header"
+                        style={{ backgroundImage: `url(${imgSrc})`, minHeight: "60vh" }}
+                    >
                         {/* Kategorie-Tag und Herzbewertung */}
                         <div className="recommendation-card-f_header__top">
-                            <span className="recommendation-card-f_tag">
-                              {typeof activeRecommendation?.category === 'string'
-                                  ? activeRecommendation.category.charAt(0).toUpperCase() + activeRecommendation.category.slice(1).toLowerCase()
-                                  : 'Kategorie'}
-                            </span>
-                            {/* Bewertung */}
+              <span className="recommendation-card-f_tag">
+                {typeof activeRecommendation?.category === "string"
+                    ? activeRecommendation.category.charAt(0).toUpperCase() + activeRecommendation.category.slice(1).toLowerCase()
+                    : "Kategorie"}
+              </span>
+
                             <button
                                 type="button"
                                 className="recommendation-card-f_rating"
                                 onClick={handleRatingClick}
                                 style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
                             >
-                                <BootstrapIcons.PencilFill width={20} height={20} style={{ marginRight: '0.25rem', paddingBottom: '0.1rem' }} />
+                                <BootstrapIcons.PencilFill width={20} height={20} style={{ marginRight: "0.25rem", paddingBottom: "0.1rem" }} />
                                 {Array.from({ length: rating }).map((_, i) => (
                                     <BootstrapIcons.HeartFill key={i} width={18} height={18} />
                                 ))}
                             </button>
-
                         </div>
 
                         {/* Image Upload Button */}
                         <div className="recommendation-card-f_header__middle">
                             <label className="recommendation-card-f_text" style={{ cursor: "pointer" }}>
                                 Bild hochladen
-                                <BootstrapIcons.CameraFill width={30} height={30} color="$white" style={{ marginLeft: '0.5rem', paddingBottom: '0.25rem' }} />
+                                <BootstrapIcons.CameraFill width={30} height={30} color="$white" style={{ marginLeft: "0.5rem", paddingBottom: "0.25rem" }} />
                                 <input type="file" accept="image/*" style={{ display: "none" }} onChange={handleFileChange} />
                             </label>
                         </div>
 
                         {/* Wer empfiehlt und Titel */}
                         <div className="recommendation-card-f_header__bottom">
-                            <span className="recommendation-card-f_tag">{ 'Du' } empfiehlst</span>
+                            <span className="recommendation-card-f_tag">Du empfiehlst</span>
                             <div className="recommendation-card-f_title">
                                 <input
                                     type="text"
@@ -118,30 +116,27 @@ const RecommendationCardForm = ({ selectedCategory, selectedTags, onAddTags, onO
                                     onChange={(e) => setTitle(e.target.value)}
                                     placeholder="Titel deiner tollen Empfehlung"
                                 />
-                                <BootstrapIcons.PencilFill width={30} height={30} color="white" style={{paddingTop: '0.3rem'}}/>
+                                <BootstrapIcons.PencilFill width={30} height={30} color="white" style={{ paddingTop: "0.3rem" }} />
                             </div>
                         </div>
-
                     </div>
-                    {/* Ende Headerbild */}
 
                     {/* Body Empfehlung (Tags, Link, Beschreibung) */}
                     <div className="recommendation-card-f_body">
-
                         {/* Tag Section */}
                         <div className="mb-3">
-                            <label htmlFor="tags" className="form-label">Tags<BootstrapIcons.PencilFill width={20} height={20} color="$dark" style={{marginLeft: '0.5rem', paddingBottom: '0.1rem'}}/></label>
+                            <label htmlFor="tags" className="form-label">
+                                Tags
+                                <BootstrapIcons.PencilFill width={20} height={20} color="$dark" style={{ marginLeft: "0.5rem", paddingBottom: "0.1rem" }} />
+                            </label>
                             <div className="recommendation-card-f_tags" id="tags">
-                                {/* Tags (falls welche ausgewählt sind) */}
-                                {selectedTags && selectedTags.length > 0 && selectedTags.map((tagId, index) => (
-                                    <div className="recommendation-card-f_tag recommendation-card-f_tag--gray" key={index}>
+                                {selectedTags.length > 0 && selectedTags.map((tagId, index) => (
+                                    <div key={index} className="recommendation-card-f_tag recommendation-card-f_tag--gray">
                                         {getTagNameById(tagId)}
                                     </div>
                                 ))}
-
-                                {/* IMMER den Button zeigen */}
                                 <button type="button" className="recommendation-card-f_addtag" onClick={onAddTags}>
-                                    <BootstrapIcons.PlusCircleFill width={18} height={18} color="$dark" style={{marginRight: '0.5rem', paddingBottom: '0.15rem'}}/>
+                                    <BootstrapIcons.PlusCircleFill width={18} height={18} color="$dark" style={{ marginRight: "0.5rem", paddingBottom: "0.15rem" }} />
                                     Tags hinzufügen
                                 </button>
                             </div>
@@ -149,7 +144,10 @@ const RecommendationCardForm = ({ selectedCategory, selectedTags, onAddTags, onO
 
                         {/* Link Section */}
                         <div className="mb-3">
-                            <label htmlFor="link" className="form-label">Link<BootstrapIcons.PencilFill width={20} height={20} color="$dark" style={{marginLeft: '0.5rem', paddingBottom: '0.1rem'}} /></label>
+                            <label htmlFor="link" className="form-label">
+                                Link
+                                <BootstrapIcons.PencilFill width={20} height={20} color="$dark" style={{ marginLeft: "0.5rem", paddingBottom: "0.1rem" }} />
+                            </label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -162,7 +160,10 @@ const RecommendationCardForm = ({ selectedCategory, selectedTags, onAddTags, onO
 
                         {/* Beschreibung Section */}
                         <div className="mb-3">
-                            <label htmlFor="description" className="form-label">Notizen<BootstrapIcons.PencilFill width={20} height={20} color="$dark" style={{marginLeft: '0.5rem', paddingBottom: '0.1rem'}} /></label>
+                            <label htmlFor="description" className="form-label">
+                                Notizen
+                                <BootstrapIcons.PencilFill width={20} height={20} color="$dark" style={{ marginLeft: "0.5rem", paddingBottom: "0.1rem" }} />
+                            </label>
                             <textarea
                                 className="form-control"
                                 id="description"
@@ -173,14 +174,21 @@ const RecommendationCardForm = ({ selectedCategory, selectedTags, onAddTags, onO
                         </div>
                     </div>
 
-                    {/* Footer mit Action z.B. ein Button */}
+                    {/* Footer mit Action */}
                     <div className="recommendation-card-f_footer">
-                        <button className="btn btn-primary form-control mb-4" onClick={onOpenContacts} style={{width: "70%", marginLeft: "15%", marginRight: "15%"}}>An Kontakte senden</button>
+                        <button
+                            className="btn btn-primary form-control mb-4"
+                            onClick={onOpenContacts}
+                            style={{ width: "70%", marginLeft: "15%", marginRight: "15%" }}
+                        >
+                            An Kontakte senden
+                        </button>
                     </div>
+
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
 
 export default RecommendationCardForm;

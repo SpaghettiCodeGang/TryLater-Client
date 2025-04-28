@@ -45,7 +45,7 @@ const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay, currentUser,
             imgPath: uploadedImgPath
         };
 
-        console.log("Daten die gesendet werden:", recommendationData); // <<< LOG!
+        console.log("Daten die gesendet werden:", recommendationData);
 
         try {
             await apiService.post('/recommendation', recommendationData);
@@ -55,14 +55,14 @@ const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay, currentUser,
             setTimeout(() => {
                 setIsErrorModal(false);
                 setShowSuccessModal(true);
-            }, 300);
+            });
         } catch (error) {
             console.error("Fehler beim Erstellen der Empfehlung:", error);
             setActiveOverlay(null);
             setTimeout(() => {
                 setIsErrorModal(true);
                 setShowSuccessModal(false);
-            }, 300);
+            });
         }
     };
 

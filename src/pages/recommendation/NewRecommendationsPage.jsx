@@ -1,25 +1,27 @@
 import { useState, useEffect } from "react";
-import CategorySelection from "./../../components/CategorySelection.jsx";
+import { useLayout } from "../../hooks/useLayout.jsx";
+import { useFetch } from "../../hooks/useFetch.jsx";
+import apiService from "../../service/apiService.jsx";
+import CategorySelection from "../../components/CategorySelection.jsx";
+import RecommendationCardForm from "../../components/RecommendationCardForm.jsx";
 import TagSelectionOverlay from "../newrecommendation/TagSelectionOverlay.jsx";
 import ContactSelectionOverlay from "../newrecommendation/ContactSelectionOverlay.jsx";
-import RecommendationCardForm from "./../../components/RecommendationCardForm.jsx";
 import RecommendationSuccessModal from "../newrecommendation/RecommendationSuccessModal.jsx";
-import apiService from "../../service/apiService.jsx";
-import {useLayout} from "../../hooks/useLayout.jsx";
-import {useFetch} from "../../hooks/useFetch.jsx";
 
-/* Zustände */
 const NewRecommendationsPage = () => {
-    const { setHeadline } = useLayout();
-    const [activeOverlay, setActiveOverlay] = useState(null); /* Welches Overlay gerade offen ist (Tag-Auswahl, Kontakt-Auswahl) */
-    const [selectedCategory, setSelectedCategory] = useState(null); /* Welche Kategorie der Nutzer gewählt hat */
-    const [selectedTags, setSelectedTags] = useState([]); /* Welche Tags der Nutzer ausgewählt hat */
-    const [tagGroups, setTagGroups] = useState([]); /* Die Gruppierten Tags, die vom Server geladen werden */
-    const { data: currentUser } = useFetch('/user/me');
 
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [url, setUrl] = useState('');
+    /* Zustände */
+    const { setHeadline } = useLayout();
+    const { data: currentUser } = useFetch("/user/me");
+
+    const [activeOverlay, setActiveOverlay] = useState(null);
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedTags, setSelectedTags] = useState([]);
+    const [tagGroups, setTagGroups] = useState([]);
+
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [url, setUrl] = useState("");
     const [rating, setRating] = useState(3);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [isErrorModal, setIsErrorModal] = useState(false);
@@ -28,11 +30,11 @@ const NewRecommendationsPage = () => {
     useEffect(() => {
         setHeadline("Empfehlen");
         return () => setHeadline("");
-    }, []);
+    }, [setHeadline]);
 
     /* Auswählen und speichern der Kategorie */
     const handleCategorySelect = async (categoryId) => {
-        const upperCaseId = categoryId.toUpperCase(); // fix!
+        const upperCaseId = categoryId.toUpperCase();
         setSelectedCategory(upperCaseId);
         try {
             const response = await apiService.get(`/recommendation/tags?category=${upperCaseId}`);
@@ -47,26 +49,21 @@ const NewRecommendationsPage = () => {
         console.log("Empfehlung wird erstellt mit den Daten:", recommendationData);
     };
 
-    /* "Tags hinzufügen" öffnen */
-    const handleAddTags = () => {
-        setActiveOverlay('tagSelection');
-    };
+    /* Tags hinzufügen öffnen */
+    const handleAddTags = () => setActiveOverlay("tagSelection");
 
     return (
         <div className="recommendations-page">
-
-            {/* CategorySelection Komponente wenn noch keine Kategorie gewählt */}
             {!selectedCategory ? (
                 <CategorySelection onCategorySelect={handleCategorySelect} />
             ) : (
-
                 /* zeige das RecommendationCardForm zum Schreiben der Empfehlung */
                 <RecommendationCardForm
                     selectedTags={selectedTags}
                     selectedCategory={selectedCategory}
                     onSubmit={handleCreateRecommendation}
                     onAddTags={handleAddTags}
-                    onOpenContacts={() => setActiveOverlay('contactSelection')}
+                    onOpenContacts={() => setActiveOverlay("contactSelection")}
                     tagGroups={tagGroups}
                     title={title}
                     setTitle={setTitle}
@@ -106,6 +103,7 @@ const NewRecommendationsPage = () => {
                 uploadedImgPath={uploadedImgPath}
             />
 
+            {/* Popup für erfolgreiche Empfehlung */}
             <RecommendationSuccessModal
                 show={showSuccessModal}
                 onClose={() => setShowSuccessModal(false)}
