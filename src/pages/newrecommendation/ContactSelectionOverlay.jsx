@@ -27,7 +27,6 @@ const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay, currentUser,
 
     /* Absenden */
     const handleSendToContacts = async () => {
-        // Server-side validation fallback
         if (!validateForm()) {
             setActiveOverlay(null);
             setTimeout(() => {
@@ -92,7 +91,7 @@ const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay, currentUser,
             title="Empfehlung senden?" >
 
             <div className="contact-selection">
-                {/* eigener Benutzer */}
+                {/* Eigener Benutzer */}
                 {currentUser && (
                     <Contact
                         contactPartner={{

@@ -3,7 +3,6 @@ import apiService from "../service/apiService.jsx";
 import { BootstrapIcons } from "./BootstrapIcons.jsx";
 import useImageProcessor from "../hooks/useImageProcessor.jsx";
 
-/* RecommendationCardForm - Empfehlung erstellen */
 const RecommendationCardForm = ({ selectedCategory, selectedTags, onAddTags, onOpenContacts, tagGroups, data, updateData, errors }) => {
     const [imgSrc, setImgSrc] = useState(null);
 
@@ -103,7 +102,7 @@ const RecommendationCardForm = ({ selectedCategory, selectedTags, onAddTags, onO
                             </label>
                         </div>
 
-                        {/* Wer empfiehlt und Titel */}
+                        {/* Wer empfiehlt und Titel + Titel-Validierung */}
                         <div className="recommendation-card-f_header__bottom">
                             <span className="recommendation-card-f_tag">Du empfiehlst</span>
                             <div className={`recommendation-card-f_title ${errors.title ? 'is-invalid' : ''}`}>
@@ -146,7 +145,7 @@ const RecommendationCardForm = ({ selectedCategory, selectedTags, onAddTags, onO
                             </div>
                         </div>
 
-                        {/* Link Section */}
+                        {/* Link Section + Link-Validierung */}
                         <div className="mb-3">
                             <label htmlFor="link" className="form-label">
                                 Link

@@ -6,12 +6,12 @@
 }
 
 .is-invalid {
-  border-color: red;
-  background-color: rgba(255, 0, 0, 0.1);
+  border-color: $danger;
+  background-color: rgba($danger, 0.1);
 }
 
 .invalid-feedback {
   background-image: none;
   display: block;
-  color: red;
+  color: $danger;
 }
