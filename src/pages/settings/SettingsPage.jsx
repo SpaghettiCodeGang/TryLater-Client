@@ -2,6 +2,7 @@ import { useLayout } from "../../hooks/useLayout.jsx";
 import { useAuth } from "../../hooks/useAuth.jsx";
 import { useEffect, useState } from "react";
 import ChangeProfileOverlay from "./ChangeProfileOverlay.jsx";
+import BlockedContactsOverlay from "./BlockedContactsOverlay.jsx";
 import { BootstrapIcons } from "../../components/BootstrapIcons.jsx";
 import apiService from "../../service/apiService.jsx";
 import { useFetch } from "../../hooks/useFetch.jsx";
@@ -46,7 +47,8 @@ const SettingsPage = () => {
                             <p className="settings_overview__username">{ user?.userName }</p>
                         </div>
 
-                        <button className="settings_overlay__btn" onClick={() => setActiveOverlay(activeOverlay === 'changeProfile' ? null : 'changeProfile')}>
+                        <button className="settings_overlay__btn" onClick={() =>
+                            setActiveOverlay(activeOverlay === 'changeProfile' ? null : 'changeProfile')}>
                             <p>Profil bearbeiten</p>
                             <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
                         </button>
@@ -56,7 +58,8 @@ const SettingsPage = () => {
                             <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
                         </button>
 
-                        <button className="settings_overlay__btn">
+                        <button className="settings_overlay__btn" onClick={() =>
+                            setActiveOverlay(activeOverlay === 'changeProfile' ? null : 'blockedContacts')}>
                             <p>Blockierte Kontakte</p>
                             <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
                         </button>
@@ -112,6 +115,11 @@ const SettingsPage = () => {
                 refetchUser={refetchUser}
                 imgSrc={imgSrc}
                 user={user}
+            />
+
+            <BlockedContactsOverlay
+                activeOverlay={activeOverlay}
+                setActiveOverlay={setActiveOverlay}
             />
         </>
     )
