@@ -14,7 +14,7 @@ const RecommendationCardForm = ({
         tagGroups: selectedTags
     }), [selectedCategory, selectedTags]);
 
-    const { processImage } = useImageProcessor({ targetWidth: 644, targetHeight: 1000 });
+    const { processImage } = useImageProcessor({ targetWidth: 1000, targetHeight: 1000 });
 
     /* Funktionen */
     const getTagNameById = (tagId) => {
@@ -72,7 +72,7 @@ const RecommendationCardForm = ({
                     {/* Headerbild und alles im Bild */}
                     <div
                         className="recommendation-card-f_header"
-                        style={{ backgroundImage: `url(${imgSrc})`, minHeight: "60vh" }}
+                        style={{ backgroundImage: `url(${imgSrc})`}}
                     >
                         {/* Kategorie-Tag und Herzbewertung */}
                         <div className="recommendation-card-f_header__top">
