@@ -71,7 +71,7 @@ const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay, currentUser,
         <SlideInOverlay
             isVisible={activeOverlay === 'contactSelection'}
             onClose={() => setActiveOverlay(null)}
-            title="Wem möchtest du deine Empfehlung senden?" >
+            title="Empfehlung senden?" >
 
             <div className="contact-selection">
                 {/* eigener Benutzer */}
@@ -104,7 +104,6 @@ const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay, currentUser,
                 <button
                     className="btn btn-primary form-control mb-4"
                     onClick={handleSendToContacts}
-                    style={{width: "70%", marginLeft: "15%", marginRight: "15%"}}
                 >
                     An Kontakte senden!
                 </button>

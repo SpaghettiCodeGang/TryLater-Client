@@ -7,6 +7,7 @@ import RecommendationCardForm from "../../components/RecommendationCardForm.jsx"
 import TagSelectionOverlay from "../newrecommendation/TagSelectionOverlay.jsx";
 import ContactSelectionOverlay from "../newrecommendation/ContactSelectionOverlay.jsx";
 import RecommendationSuccessModal from "../newrecommendation/RecommendationSuccessModal.jsx";
+import { motion, AnimatePresence} from "framer-motion";
 
 const NewRecommendationsPage = () => {
 
@@ -54,29 +55,42 @@ const NewRecommendationsPage = () => {
 
     return (
         <div className="recommendations-page">
-            {!selectedCategory ? (
-                <CategorySelection onCategorySelect={handleCategorySelect} />
-            ) : (
-                /* zeige das RecommendationCardForm zum Schreiben der Empfehlung */
-                <RecommendationCardForm
-                    selectedTags={selectedTags}
-                    selectedCategory={selectedCategory}
-                    onSubmit={handleCreateRecommendation}
-                    onAddTags={handleAddTags}
-                    onOpenContacts={() => setActiveOverlay("contactSelection")}
-                    tagGroups={tagGroups}
-                    title={title}
-                    setTitle={setTitle}
-                    description={description}
-                    setDescription={setDescription}
-                    url={url}
-                    setUrl={setUrl}
-                    rating={rating}
-                    setRating={setRating}
-                    uploadedImgPath={uploadedImgPath}
-                    setUploadedImgPath={setUploadedImgPath}
-                />
-            )}
+            <AnimatePresence mode="wait">
+                {!activeOverlay && (
+                    <motion.div
+                        key="main-content"
+                        exit={{ opacity: 0 }}
+                        transition={{
+                            duration: 0.5
+                    }}
+                    >
+                        {!selectedCategory ? (
+                            <CategorySelection onCategorySelect={handleCategorySelect} />
+                        ) : (
+                            /* zeige das RecommendationCardForm zum Schreiben der Empfehlung */
+                            <RecommendationCardForm
+                                selectedTags={selectedTags}
+                                selectedCategory={selectedCategory}
+                                onSubmit={handleCreateRecommendation}
+                                onAddTags={handleAddTags}
+                                onOpenContacts={() => setActiveOverlay("contactSelection")}
+                                tagGroups={tagGroups}
+                                title={title}
+                                setTitle={setTitle}
+                                description={description}
+                                setDescription={setDescription}
+                                url={url}
+                                setUrl={setUrl}
+                                rating={rating}
+                                setRating={setRating}
+                                uploadedImgPath={uploadedImgPath}
+                                setUploadedImgPath={setUploadedImgPath}
+                            />
+                        )}
+
+                        </motion.div>
+                    )}
+            </AnimatePresence>
 
             {/* zeigen des Tag Overlays nach bedarf */}
             <TagSelectionOverlay

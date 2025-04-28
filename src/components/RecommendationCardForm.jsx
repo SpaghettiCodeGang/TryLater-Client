@@ -114,7 +114,7 @@ const RecommendationCardForm = ({
                                     id="title"
                                     value={title}
                                     onChange={(e) => setTitle(e.target.value)}
-                                    placeholder="Titel deiner tollen Empfehlung"
+                                    placeholder="Titel (Pflichtfeld)"
                                 />
                                 <BootstrapIcons.PencilFill width={30} height={30} color="white" style={{ paddingTop: "0.3rem" }} />
                             </div>
@@ -179,9 +179,9 @@ const RecommendationCardForm = ({
                         <button
                             className="btn btn-primary form-control mb-4"
                             onClick={onOpenContacts}
-                            style={{ width: "70%", marginLeft: "15%", marginRight: "15%" }}
+
                         >
-                            An Kontakte senden
+                            Kontakte auswählen
                         </button>
                     </div>
 

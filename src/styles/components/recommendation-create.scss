@@ -77,6 +77,7 @@
 
     &_tags {
       display: flex;
+      flex-wrap: wrap;
       gap: 0.5rem;
     }
 
@@ -150,6 +151,7 @@
 
     &_footer {
       display: flex;
+      padding: 1.5rem;
       justify-content: flex-end;
       margin-top: 1rem;
     }
