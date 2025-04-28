@@ -20,6 +20,8 @@ const NewRecommendationsPage = () => {
     const [selectedTags, setSelectedTags] = useState([]);
     const [tagGroups, setTagGroups] = useState([]);
 
+    const [data, setData] = useState({})
+
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [url, setUrl] = useState("");
@@ -61,7 +63,7 @@ const NewRecommendationsPage = () => {
                         key="main-content"
                         exit={{ opacity: 0 }}
                         transition={{
-                            duration: 0.5
+                            duration: 0.25
                     }}
                     >
                         {!selectedCategory ? (
@@ -115,6 +117,10 @@ const NewRecommendationsPage = () => {
                 setShowSuccessModal={setShowSuccessModal}
                 setIsErrorModal={setIsErrorModal}
                 uploadedImgPath={uploadedImgPath}
+
+                data={data}
+                setData={setData}
+                onSubmit={handleCreateRecommendation}
             />
 
             {/* Popup für erfolgreiche Empfehlung */}
