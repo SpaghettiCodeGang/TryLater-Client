@@ -173,6 +173,9 @@ const RecommendationCardForm = ({
                                 placeholder="Keine Beschreibung vorhanden (optional)"
                                 maxLength={2000}
                             />
+                            <div className="form-text text-muted text-right" style={{ float: "right" }}>
+                                {data.description.length}/2000 Zeichen
+                            </div>
                         </div>
                     </div>
 
