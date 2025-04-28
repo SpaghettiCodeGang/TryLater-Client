@@ -1,0 +1,22 @@
+@use '../variables' as *;
+@use "sass:color";
+
+h3 {
+  padding: 0;
+  margin: 0;
+}
+
+.accordion {
+
+  .accordion-item {
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+    border: $border-light;
+    margin-bottom: 0.8rem;
+
+    .accordion-button {
+      border-radius: $border-radius;
+      padding: 0.65rem;
+    }
+  }
+}
