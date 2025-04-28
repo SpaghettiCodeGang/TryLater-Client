@@ -22,10 +22,8 @@ const TagSelectionOverlay = ({ activeOverlay, setActiveOverlay, tagGroups = [], 
         <SlideInOverlay
             isVisible={activeOverlay === 'tagSelection'} onClose={() => setActiveOverlay(null)} title="Tags auswählen">
             <div className="tag-selection">
-                {tagGroups.map((group, index) => (
-                    //TODO: tagGroupId wird aus dem Backend nicht zurück gegeben. Fix ist beantragt ;)
-                    //<div key={group.tagGroupId} className="tag-selection__group">
-                    <div key={index} className="tag-selection__group">
+                {tagGroups.map((group) => (
+                    <div key={group.tagGroupId} className="tag-selection__group">
                         <h3 className="tag-selection__title">{group.tagGroupName}</h3>
                         <div className="tag-selection__tags">
                             {group.tags.map((tag) => (
