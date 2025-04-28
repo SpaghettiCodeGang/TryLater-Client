@@ -22,6 +22,13 @@ const NewRecommendationsPage = () => {
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [isErrorModal, setIsErrorModal] = useState(false);
 
+    /* Validierung im Frontend */
+    const [errors, setErrors] = useState({
+        title: "",
+        url: ""
+    });
+
+    /* Datenobjekt zusammen bauen */
     const [data, setData] = useState({
         title: "",
         description: "",
@@ -30,12 +37,20 @@ const NewRecommendationsPage = () => {
         uploadedImgPath: null,
     });
 
-// Updatefunktion für einzelne Felder
+    /* Updatefunktion für einzelne Felder */
     const updateData = (field, value) => {
         setData(prevData => ({
             ...prevData,
             [field]: value
         }));
+
+        /* Error entfernen wenn der User im Feld tippt */
+        if (errors[field]) {
+            setErrors(prevErrors => ({
+                ...prevErrors,
+                [field]: ""
+            }));
+        }
     };
 
     useEffect(() => {
@@ -55,13 +70,51 @@ const NewRecommendationsPage = () => {
         }
     };
 
+    /* Validierung der Formularfelder */
+    const validateForm = () => {
+        let isValid = true;
+        const newErrors = { title: "", url: "" };
+
+        // Validierung Titel
+        if (!data.title.trim()) {
+            newErrors.title = "Titel ist erforderlich";
+            isValid = false;
+        }
+
+        // Validierung URL
+        if (data.url.trim() && !isValidUrl(data.url)) {
+            newErrors.url = "Ungültiger Link";
+            isValid = false;
+        }
+        setErrors(newErrors);
+        return isValid;
+    };
+
+    const isValidUrl = (string) => {
+        try {
+            new URL(string);
+            return true;
+        } catch (_) {
+            return false;
+        }
+    };
+
     /* Speichern der Empfehlung */
     const handleCreateRecommendation = (recommendationData) => {
-        console.log("Empfehlung wird erstellt mit den Daten:", recommendationData);
+        if (validateForm()) {
+            console.log("Empfehlung wird erstellt mit den Daten:", recommendationData);
+        }
     };
 
     /* Tags hinzufügen öffnen */
     const handleAddTags = () => setActiveOverlay("tagSelection");
+
+    /* Vorbereitung öffnet ContactOverlay */
+    const handleOpenContacts = () => {
+        if (validateForm()) {
+            setActiveOverlay("contactSelection");
+        }
+    };
 
     return (
         <div className="recommendations-page">
@@ -72,29 +125,30 @@ const NewRecommendationsPage = () => {
                         exit={{ opacity: 0 }}
                         transition={{
                             duration: 0.5
-                    }}
+                        }}
                     >
                         {!selectedCategory ? (
                             <CategorySelection onCategorySelect={handleCategorySelect} />
                         ) : (
-                            /* zeige das RecommendationCardForm zum Schreiben der Empfehlung */
+                            /* Zeige das RecommendationCardForm zum Schreiben der Empfehlung */
                             <RecommendationCardForm
                                 selectedTags={selectedTags}
                                 selectedCategory={selectedCategory}
                                 onSubmit={handleCreateRecommendation}
                                 onAddTags={handleAddTags}
-                                onOpenContacts={() => setActiveOverlay("contactSelection")}
+                                onOpenContacts={handleOpenContacts}
                                 tagGroups={tagGroups}
                                 data={data}
                                 updateData={updateData}
+                                errors={errors}
                             />
                         )}
 
-                        </motion.div>
-                    )}
+                    </motion.div>
+                )}
             </AnimatePresence>
 
-            {/* zeigen des Tag Overlays nach bedarf */}
+            {/* Zeigen des Tag Overlays nach bedarf */}
             <TagSelectionOverlay
                 activeOverlay={activeOverlay}
                 setActiveOverlay={setActiveOverlay}
@@ -103,7 +157,7 @@ const NewRecommendationsPage = () => {
                 setSelectedTags={setSelectedTags}
             />
 
-            {/* zeigen des Contact Overlays nach bedarf */}
+            {/* Zeigen des Contact Overlays nach bedarf */}
             <ContactSelectionOverlay
                 activeOverlay={activeOverlay}
                 setActiveOverlay={setActiveOverlay}
@@ -113,6 +167,7 @@ const NewRecommendationsPage = () => {
                 selectedTags={selectedTags}
                 setShowSuccessModal={setShowSuccessModal}
                 setIsErrorModal={setIsErrorModal}
+                validateForm={validateForm}
             />
 
             {/* Popup für erfolgreiche Empfehlung */}

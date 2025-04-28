@@ -4,8 +4,7 @@ import { BootstrapIcons } from "./BootstrapIcons.jsx";
 import useImageProcessor from "../hooks/useImageProcessor.jsx";
 
 /* RecommendationCardForm - Empfehlung erstellen */
-const RecommendationCardForm = ({
-                                    selectedCategory, selectedTags, onAddTags, onOpenContacts, tagGroups, data, updateData }) => {
+const RecommendationCardForm = ({ selectedCategory, selectedTags, onAddTags, onOpenContacts, tagGroups, data, updateData, errors }) => {
     const [imgSrc, setImgSrc] = useState(null);
 
     /* Empfehlung aktiv (Memo, damit sich der Wert nur bei Änderungen ändert) */
@@ -51,7 +50,6 @@ const RecommendationCardForm = ({
         }
     };
 
-
     /* Bildquelle automatisch aktualisieren */
     useEffect(() => {
         if (data.uploadedImgPath) {
@@ -77,11 +75,11 @@ const RecommendationCardForm = ({
                     >
                         {/* Kategorie-Tag und Herzbewertung */}
                         <div className="recommendation-card-f_header__top">
-              <span className="recommendation-card-f_tag">
-                {typeof activeRecommendation?.category === "string"
-                    ? activeRecommendation.category.charAt(0).toUpperCase() + activeRecommendation.category.slice(1).toLowerCase()
-                    : "Kategorie"}
-              </span>
+                            <span className="recommendation-card-f_tag">
+                                {typeof activeRecommendation?.category === "string"
+                                    ? activeRecommendation.category.charAt(0).toUpperCase() + activeRecommendation.category.slice(1).toLowerCase()
+                                    : "Kategorie"}
+                            </span>
 
                             <button
                                 type="button"
@@ -108,17 +106,22 @@ const RecommendationCardForm = ({
                         {/* Wer empfiehlt und Titel */}
                         <div className="recommendation-card-f_header__bottom">
                             <span className="recommendation-card-f_tag">Du empfiehlst</span>
-                            <div className="recommendation-card-f_title">
+                            <div className={`recommendation-card-f_title ${errors.title ? 'is-invalid' : ''}`}>
                                 <input
                                     type="text"
                                     className="recommendation-card-f_title--form"
                                     id="title"
                                     value={data.title}
                                     onChange={(e) => updateData("title", e.target.value)}
-                                    placeholder="Titel (Pflichtfeld)"
+                                    placeholder={errors.title ? "Titel erforderlich" : "Titel (Pflichtfeld)"}
                                 />
                                 <BootstrapIcons.PencilFill width={30} height={30} color="white" style={{ paddingTop: "0.3rem" }} />
                             </div>
+                            {errors.title && (
+                                <div className="invalid-feedback">
+                                    {errors.title}
+                                </div>
+                            )}
                         </div>
                     </div>
 
@@ -151,12 +154,17 @@ const RecommendationCardForm = ({
                             </label>
                             <input
                                 type="text"
-                                className="form-control"
+                                className={`form-control ${errors.url ? 'is-invalid' : ''}`}
                                 id="link"
                                 value={data.url}
                                 onChange={(e) => updateData("url", e.target.value)}
-                                placeholder="Kein Link vorhanden (optional)"
+                                placeholder={errors.url ? "Ungültiger Link" : "Kein Link vorhanden (optional)"}
                             />
+                            {errors.url && (
+                                <div className="invalid-feedback">
+                                    {errors.url}
+                                </div>
+                            )}
                         </div>
 
                         {/* Beschreibung Section */}

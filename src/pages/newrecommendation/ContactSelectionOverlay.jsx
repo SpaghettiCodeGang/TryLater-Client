@@ -4,11 +4,12 @@ import { useFetch } from "../../hooks/useFetch.jsx";
 import Contact from "../../components/Contact.jsx";
 import apiService from "./../../service/apiService.jsx";
 
-const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay, currentUser, data, selectedCategory, selectedTags, setShowSuccessModal, setIsErrorModal, onSubmit }) => {
+const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay, currentUser, data, selectedCategory, selectedTags, setShowSuccessModal, setIsErrorModal, onSubmit, validateForm }) => {
 
     const [selectedContacts, setSelectedContacts] = useState([]); /* Array mit IDs der gewählten Kontakte */
     const { data: contacts } = useFetch('/contact?status=ACCEPTED'); /* Alle Kontakte, die vom Server geladen werden */
     const [selfSelected, setSelfSelected] = useState(false); /* Boolean (true/false), ob selbst ausgewählt */
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     /* Kontakt-Auswahl umschalten */
     const toggleContact = (contactId) => {
@@ -26,6 +27,17 @@ const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay, currentUser,
 
     /* Absenden */
     const handleSendToContacts = async () => {
+        // Server-side validation fallback
+        if (!validateForm()) {
+            setActiveOverlay(null);
+            setTimeout(() => {
+                setIsErrorModal(true);
+                setShowSuccessModal(true);
+            });
+            return;
+        }
+
+        setIsSubmitting(true);
         let receiverIds = [...selectedContacts];
 
         if (selfSelected && currentUser?.id) {
@@ -67,6 +79,8 @@ const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay, currentUser,
                 setIsErrorModal(true);
                 setShowSuccessModal(true);
             });
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -108,8 +122,9 @@ const ContactSelectionOverlay = ({ activeOverlay, setActiveOverlay, currentUser,
                 <button
                     className="btn btn-primary form-control mb-4"
                     onClick={handleSendToContacts}
+                    disabled={isSubmitting}
                 >
-                    An Kontakte senden!
+                    {isSubmitting ? "Wird gesendet..." : "An Kontakte senden!"}
                 </button>
             </div>
         </SlideInOverlay>
