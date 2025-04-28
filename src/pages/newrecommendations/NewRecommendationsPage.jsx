@@ -3,9 +3,9 @@ import { useLayout } from "../../hooks/useLayout.jsx";
 import apiService from "../../service/apiService.jsx";
 import CategorySelection from "../../components/CategorySelection.jsx";
 import RecommendationCardForm from "../../components/RecommendationCardForm.jsx";
-import TagSelectionOverlay from "../newrecommendation/TagSelectionOverlay.jsx";
-import ContactSelectionOverlay from "../newrecommendation/ContactSelectionOverlay.jsx";
-import RecommendationSuccessModal from "../newrecommendation/RecommendationSuccessModal.jsx";
+import TagSelectionOverlay from "./TagSelectionOverlay.jsx";
+import ContactSelectionOverlay from "./ContactSelectionOverlay.jsx";
+import RecommendationSuccessModal from "./RecommendationSuccessModal.jsx";
 
 const NewRecommendationsPage = ({ user }) => {
 

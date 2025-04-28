@@ -3,12 +3,12 @@ import { useAuth } from "../hooks/useAuth.jsx";
 import HomePage from '../pages/HomePage.jsx';
 import LoginPage from '../pages/auth/LoginPage.jsx';
 import RegisterPage from '../pages/auth/RegisterPage.jsx';
-import MyRecommendationsPage from '../pages/recommendation/MyRecommendationsPage.jsx';
+import MyRecommendationsPage from '../pages/myrecommendations/MyRecommendationsPage.jsx';
 import SettingsPage from '../pages/settings/SettingsPage.jsx';
 import PublicLayout from '../layouts/PublicLayout';
 import PrivateLayout from '../layouts/PrivateLayout';
-import DiscoverRecommendationsPage from "../pages/recommendation/DiscoverRecommendationsPage.jsx";
-import NewRecommendationsPage from "../pages/recommendation/NewRecommendationsPage.jsx";
+import DiscoverRecommendationsPage from "../pages/discoverrecommendations/DiscoverRecommendationsPage.jsx";
+import NewRecommendationsPage from "../pages/newrecommendations/NewRecommendationsPage.jsx";
 import ContactPage from "../pages/contact/ContactPage.jsx";
 import LogoAnimation from "../components/LogoAnimation.jsx";
 
