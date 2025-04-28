@@ -85,8 +85,9 @@
     }
 
     &__displayname {
-      font-size: $tag-font-size;
-      font-weight: $tag-font-weight;
+      font-size: $lead-font-size;
+      font-weight: $lead-font-weight;
+      color: $dark;
       margin: 0 0.8rem 0 0;
       max-width: 50%;
       white-space: nowrap;
@@ -164,10 +165,6 @@
       flex-direction: column;
       justify-content: center;
       flex-grow: 1;
-
-      input:disabled {
-        background-color: $white;
-      }
     }
   }
 

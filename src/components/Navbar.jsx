@@ -9,23 +9,23 @@ const Navbar = () => {
         <nav className="navbar">
 
             <NavLink to="/recommendations" className={getNavLinkClass} end>
-                <BootstrapIcons.HouseDoor size={24} />
+                <BootstrapIcons.HouseDoor width={24} height={24} />
             </NavLink>
 
-            <NavLink to="/recommendations/received" className={getNavLinkClass}>
-                <BootstrapIcons.Search size={24} />
+            <NavLink to="/received" className={getNavLinkClass}>
+                <BootstrapIcons.Search width={24} height={24} />
             </NavLink>
 
-            <NavLink to="/recommendations/create" className={getNavLinkClass}>
-                <BootstrapIcons.Plus size={24} />
+            <NavLink to="/create" className={getNavLinkClass}>
+                <BootstrapIcons.PlusLG width={32} height={32} />
             </NavLink>
 
             <NavLink to="/contacts" className={getNavLinkClass}>
-                <BootstrapIcons.Person size={24} />
+                <BootstrapIcons.Person width={28} height={28} />
             </NavLink>
 
             <NavLink to="/settings" className={getNavLinkClass}>
-                <BootstrapIcons.Gear size={24} />
+                <BootstrapIcons.Gear width={24} height={24} />
             </NavLink>
         </nav>
     );
