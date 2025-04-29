@@ -80,7 +80,7 @@ const RegisterPage = () => {
                 </button>
             </form>
             <p className="text-center mb-5">
-                <small>Schon ein Account? <Link className="text-black" to="/login"><strong>Hier Anmelden</strong></Link></small>
+                <small>Schon ein Account? <Link className="text-dark" to="/login"><strong>Hier Anmelden</strong></Link></small>
             </p>
         </>
     )
