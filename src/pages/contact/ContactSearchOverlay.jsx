@@ -36,7 +36,17 @@ const ContactSearchOverlay = ({ activeOverlay, setActiveOverlay, outgoingContact
                 contactStatus: null
             };
 
-            setLocalOutgoingContactRequests(prev => [newContact, ...prev]);
+            setLocalOutgoingContactRequests(prev => {
+                const updatedContacts = [...prev];
+
+                if (updatedContacts.length > 0 && updatedContacts[0].contactStatus === null) {
+                    updatedContacts[0] = newContact;
+                } else {
+                    updatedContacts.unshift(newContact);
+                }
+
+                return updatedContacts;
+            });
             setSearchValue("");
 
         } catch (error) {
