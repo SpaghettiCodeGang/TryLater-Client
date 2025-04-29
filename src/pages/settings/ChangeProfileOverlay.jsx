@@ -3,6 +3,8 @@ import useImageProcessor from "../../hooks/useImageProcessor.jsx";
 import {useEffect, useRef, useState} from "react";
 import { Modal } from 'bootstrap';
 import apiService from "../../service/apiService.jsx";
+import PasswordModal from "../../components/PasswordModal.jsx";
+import { motion, AnimatePresence } from "framer-motion";
 
 const ChangeProfileOverlay = ({ activeOverlay, setActiveOverlay, user, refetchUser, imgSrc }) => {
     const { processImage } = useImageProcessor({ targetWidth: 300, targetHeight: 300 });
@@ -24,29 +26,6 @@ const ChangeProfileOverlay = ({ activeOverlay, setActiveOverlay, user, refetchUs
         setPassword("");
         setPendingUserData(null);
         formRef.current?.reset();
-
-        const passwordModal = document.getElementById('passwordModal');
-
-        const handleModalShow = () => {
-            setPassword("");
-            setTimeout(() => {
-                document.querySelector('#passwordModal input[type="password"]')?.focus();
-            }, 50);
-        };
-
-        const handleModalHide = () => setPassword("");
-
-        if (passwordModal) {
-            passwordModal.addEventListener('shown.bs.modal', handleModalShow);
-            passwordModal.addEventListener('hidden.bs.modal', handleModalHide);
-        }
-
-        return () => {
-            if (passwordModal) {
-                passwordModal.removeEventListener('shown.bs.modal', handleModalShow);
-                passwordModal.removeEventListener('hidden.bs.modal', handleModalHide);
-            }
-        };
     }, [isVisible]);
 
     const handleFileChange = async (e) => {
@@ -173,28 +152,24 @@ const ChangeProfileOverlay = ({ activeOverlay, setActiveOverlay, user, refetchUs
                 </form>
             </SlideInOverlay>
 
-            <div className="modal fade" id="passwordModal" tabIndex="-1" aria-hidden="true">
-                <div className="modal-dialog modal-dialog-centered">
-                    <div className="modal-content">
-                        <form onSubmit={handlePasswordConfirm}>
-                            <div className="modal-header">
-                                <h2 className="modal-title">Passwort bestätigen</h2>
-                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
-                            </div>
-                            <div className="modal-body mb-3">
-                                <p>Bitte gib dein Passwort ein, um die Änderungen zu bestätigen.</p>
-                                <input type="password" className="form-control" value={password} placeholder="Passwort" required
-                                    onChange={(e) => setPassword(e.target.value)}
-                                />
-                            </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-secondary form-control" data-bs-dismiss="modal">Abbrechen</button>
-                                <button type="submit" className="btn btn-primary form-control">Bestätigen</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+
+            <AnimatePresence mode="wait">
+                {isVisible && (
+                    <motion.div
+                        key="passwordModal"
+                        exit={{ opacity: 0 }}
+                        transition={{
+                            duration: 0.5
+                        }}
+                    >
+                        <PasswordModal
+                            onSubmit={handlePasswordConfirm}
+                            password={password}
+                            setPassword={setPassword}
+                        />
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </>
     )
 }

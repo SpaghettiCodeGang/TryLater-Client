@@ -1,12 +1,12 @@
 import apiService from "../service/apiService.jsx";
 
-const Contact = ({ contactPartner, actions, onClick }) => {
+const Contact = ({ contactPartner, actions, onClick, isSelected  }) => {
 
     const placeholderImg = "/assets/profil.png";
     const imgSrc = contactPartner?.imgPath && contactPartner?.imgPath.trim() !== "" ? `${apiService.getBaseUrl()}/images/${contactPartner?.imgPath}` : placeholderImg;
 
     return (
-        <li className="contact_list__item" role="button" onClick={ onClick } tabIndex="0"
+        <li className={`contact_list__item ${isSelected ? "contact_list__item--selected" : ""}`} role="button" onClick={onClick} tabIndex="0"
             onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
                     onClick();
