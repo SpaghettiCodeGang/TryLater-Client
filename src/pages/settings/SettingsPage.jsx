@@ -7,6 +7,8 @@ import { BootstrapIcons } from "../../components/BootstrapIcons.jsx";
 import apiService from "../../service/apiService.jsx";
 import { useFetch } from "../../hooks/useFetch.jsx";
 import { motion, AnimatePresence } from "framer-motion";
+import ImprintOverlay from "./ImprintOverlay.jsx";
+import PrivacyPolicyOverlay from "./PrivacyPolicyOverlay.jsx";
 import PasswordModal from "../../components/PasswordModal.jsx";
 import { Modal } from "bootstrap";
 
@@ -87,12 +89,14 @@ const SettingsPage = () => {
                                 <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
                             </button>
 
-                            <button className="settings_overlay__btn">
+                            <button className="settings_overlay__btn" onClick={() =>
+                                setActiveOverlay(activeOverlay === 'privacyPolicy' ? null : 'privacyPolicy')}>
                                 <p>Sicherheit & Datenschutz</p>
                                 <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
                             </button>
 
-                            <button className="settings_overlay__btn">
+                            <button className="settings_overlay__btn" onClick={() =>
+                                setActiveOverlay(activeOverlay === 'imprint' ? null : 'imprint')}>
                                 <p>Kontakt & Impressum</p>
                                 <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
                             </button>
@@ -144,6 +148,16 @@ const SettingsPage = () => {
             />
 
             <BlockedContactsOverlay
+                activeOverlay={activeOverlay}
+                setActiveOverlay={setActiveOverlay}
+            />
+
+            <PrivacyPolicyOverlay
+                activeOverlay={activeOverlay}
+                setActiveOverlay={setActiveOverlay}
+            />
+
+            <ImprintOverlay
                 activeOverlay={activeOverlay}
                 setActiveOverlay={setActiveOverlay}
             />
