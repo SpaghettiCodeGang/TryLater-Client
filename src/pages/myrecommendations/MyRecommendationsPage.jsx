@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import {useFetch} from "../../hooks/useFetch.jsx";
 import RecommendationCard from "../../components/RecommendationCard.jsx";
 import RecommendationPreviewComponent from "./RecommendationPreviewComponent.jsx";
+import apiService from "../../service/apiService.jsx";
 
 const MyRecommendationsPage = () => {
     const {setHeadline} = useLayout();
@@ -22,6 +23,16 @@ const MyRecommendationsPage = () => {
         setLocations([])
         setRecipes([]);
         setProducts([]);
+
+        // void apiService.post("/recommendation", {
+        //     title: "Test2",
+        //     description: "Test description",
+        //     rating: 2,
+        //     category: "RECIPE",
+        //     url: "https://www.google.de",
+        //     receiverIds: [1, 2],
+        //     tagIds: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        // })
 
         acceptedRecommendations?.forEach((recommendation) => {
             if (recommendation?.category === "MEDIA") {
