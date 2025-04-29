@@ -6,12 +6,11 @@
   border-radius: $border-radius;
   top: 0;
   left: $body-padding;
-  z-index: 20;
+  z-index: 1000;
   width: calc(100% - 2 * $body-padding);
-  min-height: calc(100% - 2px);
+  height: calc(100% - 2px); // 100% abzüglich box-shadow
   border: $border-light;
   box-shadow: $box-shadow;
-  padding: $body-padding;
   display: flex;
   flex-direction: column;
 
@@ -23,8 +22,9 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    margin-bottom: 1.5rem;
-    padding: 0;
+    padding: $body-padding;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
 
     h2 {
       margin: 0;
@@ -33,12 +33,19 @@
 
   &__icon {
     position: absolute;
-    left: 0;
+    left: $body-padding;
   }
 
   &__content {
-    flex-grow: 1;
+    flex: 1 1 auto;
     display: flex;
     flex-direction: column;
+    padding: $body-padding;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 }

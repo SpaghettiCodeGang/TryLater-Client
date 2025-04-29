@@ -1,6 +1,9 @@
+@use '../variables' as *;
+
 .swipe-container {
   height: 100%;
   display: grid;
+  padding: 0 $body-padding;
 }
 
 .swipe-card {

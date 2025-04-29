@@ -56,80 +56,80 @@ const SettingsPage = () => {
     return (
         <>
             <AnimatePresence mode="wait">
-                {activeOverlay === null && (
+                {!activeOverlay && (
                     <motion.div
+                        className="main-content"
                         key="main-content"
                         exit={{ opacity: 0 }}
-                        transition={{
-                            duration: 0.5
-                        }}
-                        className="d-flex flex-column"
+                        transition={{ duration: 0.5 }}
                     >
-                        <div className="settings_overview__data">
-                            <img className="settings_overview__img" src={ imgSrc } alt={`${user?.displayName}`} />
-                            <p className="settings_overview__displayname">{ user?.displayName }</p>
-                            <p className="settings_overview__username">{ user?.userName }</p>
-                        </div>
+                        <div className="d-flex flex-column">
+                            <div className="settings_overview__data">
+                                <img className="settings_overview__img" src={ imgSrc } alt={`${user?.displayName}`} />
+                                <p className="settings_overview__displayname">{ user?.displayName }</p>
+                                <p className="settings_overview__username">{ user?.userName }</p>
+                            </div>
 
-                        <button className="settings_overlay__btn" onClick={() =>
-                            setActiveOverlay(activeOverlay === 'changeProfile' ? null : 'changeProfile')}>
-                            <p>Profil bearbeiten</p>
-                            <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
-                        </button>
+                            <button className="settings_overlay__btn" onClick={() =>
+                                setActiveOverlay(activeOverlay === 'changeProfile' ? null : 'changeProfile')}>
+                                <p>Profil bearbeiten</p>
+                                <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
+                            </button>
 
-                        <button className="settings_overlay__btn">
-                            <p>Passwort ändern</p>
-                            <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
-                        </button>
+                            <button className="settings_overlay__btn">
+                                <p>Passwort ändern</p>
+                                <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
+                            </button>
 
-                        <button className="settings_overlay__btn" onClick={() =>
-                            setActiveOverlay(activeOverlay === 'changeProfile' ? null : 'blockedContacts')}>
-                            <p>Blockierte Kontakte</p>
-                            <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
-                        </button>
+                            <button className="settings_overlay__btn" onClick={() =>
+                                setActiveOverlay(activeOverlay === 'changeProfile' ? null : 'blockedContacts')}>
+                                <p>Blockierte Kontakte</p>
+                                <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
+                            </button>
 
-                        <button className="settings_overlay__btn">
-                            <p>Sicherheit & Datenschutz</p>
-                            <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
-                        </button>
+                            <button className="settings_overlay__btn">
+                                <p>Sicherheit & Datenschutz</p>
+                                <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
+                            </button>
 
-                        <button className="settings_overlay__btn">
-                            <p>Kontakt & Impressum</p>
-                            <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
-                        </button>
+                            <button className="settings_overlay__btn">
+                                <p>Kontakt & Impressum</p>
+                                <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
+                            </button>
 
-                        <button className="btn btn-secondary btn-flat form-control mb-3" onClick={handleLogout} disabled={ logoutLoading || insertPasswordLoading }>
-                            {logoutLoading ? (
-                                <>
-                                    <span className="btn-spinner me-2" />
-                                    <span>Sende...</span>
-                                </>
-                            ) : (
-                                <span>Ausloggen</span>
-                            )}
-                        </button>
+                            <button className="btn btn-secondary btn-flat form-control mb-3" onClick={handleLogout} disabled={ logoutLoading || insertPasswordLoading }>
+                                {logoutLoading ? (
+                                    <>
+                                        <span className="btn-spinner me-2" />
+                                        <span>Sende...</span>
+                                    </>
+                                ) : (
+                                    <span>Ausloggen</span>
+                                )}
+                            </button>
 
-                        <button className="btn btn-secondary btn-flat form-control mb-2" disabled={ logoutLoading || insertPasswordLoading }
-                                onClick={() =>Modal.getOrCreateInstance(document.getElementById('passwordModal')).show()}>
-                            { insertPasswordLoading ? (
-                                <>
-                                    <span className="btn-spinner me-2" />
-                                    <span>Sende...</span>
-                                </>
-                            ) : (
-                                <span>Profil löschen</span>
-                            )}
-                        </button>
+                            <button className="btn btn-secondary btn-flat form-control mb-2" disabled={ logoutLoading || insertPasswordLoading }
+                                    onClick={() =>Modal.getOrCreateInstance(document.getElementById('passwordModal')).show()}>
+                                { insertPasswordLoading ? (
+                                    <>
+                                        <span className="btn-spinner me-2" />
+                                        <span>Sende...</span>
+                                    </>
+                                ) : (
+                                    <span>Profil löschen</span>
+                                )}
+                            </button>
 
-                        <small className="text-danger ps-3 pe-3 align-self-center">{ error }</small>
+                            <small className="text-danger ps-3 pe-3 align-self-center">{ error }</small>
 
-                        <div className="settings_banner">
-                            <p className="h1">
-                                <span className="text-primary">Try</span>
-                                <span className="text-dark">Later</span>
-                            </p>
-                            <small>Aktuelle Version: 1.0.0</small>
-                            <small>Empfehlungen für dich!</small>
+                            <div className="settings_banner">
+                                <p className="h1">
+                                    <span className="text-primary">Try</span>
+                                    <span className="text-dark">Later</span>
+                                </p>
+                                <small>Aktuelle Version: 1.0.0</small>
+                                <small>Empfehlungen für dich!</small>
+                            </div>
                         </div>
                     </motion.div>
                 )}
@@ -153,9 +153,7 @@ const SettingsPage = () => {
                     <motion.div
                         key="passwordModal"
                         exit={{ opacity: 0 }}
-                        transition={{
-                            duration: 0.5
-                        }}
+                        transition={{ duration: 0.5 }}
                     >
                         <PasswordModal
                             onSubmit={handleDeleteUser}

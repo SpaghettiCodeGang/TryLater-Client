@@ -16,10 +16,6 @@
     }
   }
 
-  main {
-    padding: 0 $body-padding;
-  }
-
   footer {
     padding: $body-padding;
   }
@@ -56,6 +52,10 @@
         margin: 0;
       }
     }
+
+    main {
+      padding: 0 $body-padding;
+    }
   }
 
   &--private {
@@ -66,15 +66,22 @@
     }
 
     main {
-      flex-grow: 1;
       position: relative;
-      overflow-y: scroll;
-      overflow-x: hidden;
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      overflow: hidden;
 
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      &::-webkit-scrollbar {
-        display: none;
+      .main-content {
+        padding: 0 $body-padding ;
+        flex: 1 1 auto;
+        overflow-y: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        &::-webkit-scrollbar {
+          display: none;
+        }
       }
     }
   }
