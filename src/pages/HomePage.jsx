@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import {useLayout} from "../hooks/useLayout.jsx";
 import {useEffect} from "react";
+import { motion } from "framer-motion";
 
 const HomePage = () => {
     const { setHeadline } = useLayout();
@@ -12,22 +13,43 @@ const HomePage = () => {
 
     return (
         <>
-            <h2 className="mb-2 text-center">Empfehlen. Swipen. <br /> Entdecken</h2>
+            <h2 className="position-relative start-50 translate-middle-x text-center" style={{ top: '-2.5rem' }}>
+                Empfehlen. Swipen. <br /> Entdecken
+            </h2>
 
-            <div className="d-flex justify-content-center my-4">
-                <div  style={{ width: '150px' }}>
+
+            <div className="d-flex flex-column align-items-center my-4">
+                <motion.div
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                    }}
+                    className="col-4"
+                >
                     <img
                         src="/assets/Homepage-mainimage.png"
                         alt="Main"
-                        className="img-fluid p z-2"
+                        className="img-fluid z-2"
                     />
+                </motion.div>
+
+                <motion.div
+                    animate={{ scale: [1, 0.95, 1] }}
+                    transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                    }}
+                    className="mt-3 col-3"
+                >
                     <img
                         src="/assets/Homepage-shadow.png"
                         alt="Shadow"
-                        className=" mt-3 start-50 d-flex justify-content-center mg-fluid p z-2 z-1"
-                        style={{ width: '100px'}}
+                        className="img-fluid"
                     />
-                </div>
+                </motion.div>
             </div>
 
             <Link to="/register">
