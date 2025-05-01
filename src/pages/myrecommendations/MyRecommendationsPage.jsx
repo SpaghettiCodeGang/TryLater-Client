@@ -14,25 +14,12 @@ const MyRecommendationsPage = () => {
     const [recipes, setRecipes] = useState([]);
     const [products, setProducts] = useState([]);
 
-    /*TODO: console log löschen*/
-    console.log(acceptedRecommendations);
-
     useEffect(() => {
         setHeadline("Sammlung");
         setMedias([]);
         setLocations([])
         setRecipes([]);
         setProducts([]);
-
-        // void apiService.post("/recommendation", {
-        //     title: "Test2",
-        //     description: "Test description",
-        //     rating: 2,
-        //     category: "RECIPE",
-        //     url: "https://www.google.de",
-        //     receiverIds: [1, 2],
-        //     tagIds: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-        // })
 
         acceptedRecommendations?.forEach((recommendation) => {
             if (recommendation?.category === "MEDIA") {
