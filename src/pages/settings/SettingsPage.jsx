@@ -133,7 +133,7 @@ const SettingsPage = () => {
                                     <span className="text-primary">Try</span>
                                     <span className="text-dark">Later</span>
                                 </p>
-                                <small>Aktuelle Version: 1.0.0</small>
+                                <small>Aktuelle Version: 0.1.0</small>
                                 <small>Empfehlungen für dich!</small>
                             </div>
                         </div>
