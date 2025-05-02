@@ -1,6 +1,7 @@
 import SlideInOverlay from "../../components/SlideInOverlay.jsx";
 import {useEffect, useRef, useState} from "react";
 import apiService from "../../service/apiService.jsx";
+import {BootstrapIcons} from "../../components/BootstrapIcons.jsx";
 
 const ChangePasswordOverlay = ({activeOverlay, setActiveOverlay}) => {
     const [currentPassword, setCurrentPassword] = useState("");
@@ -58,6 +59,7 @@ const ChangePasswordOverlay = ({activeOverlay, setActiveOverlay}) => {
                 <div className="mb-3">
                     <label htmlFor="currentPassword" className="form-label">
                         <strong>Aktuelles Passwort</strong>
+                        <BootstrapIcons.PencilFill width={20} height={20} color="$dark" style={{ marginLeft: "0.5rem", paddingBottom: "0.1rem" }} />
                     </label>
                     <input
                         type="password"
@@ -73,6 +75,7 @@ const ChangePasswordOverlay = ({activeOverlay, setActiveOverlay}) => {
                 <div className="mb-3">
                     <label htmlFor="newPassword" className="form-label">
                         <strong>Neues Passwort</strong>
+                        <BootstrapIcons.PencilFill width={20} height={20} color="$dark" style={{ marginLeft: "0.5rem", paddingBottom: "0.1rem" }} />
                     </label>
                     <input
                         type="password"
@@ -88,6 +91,7 @@ const ChangePasswordOverlay = ({activeOverlay, setActiveOverlay}) => {
                 <div className="mb-4">
                     <label htmlFor="confirmPassword" className="form-label">
                         <strong>Neues Passwort bestätigen</strong>
+                        <BootstrapIcons.PencilFill width={20} height={20} color="$dark" style={{ marginLeft: "0.5rem", paddingBottom: "0.1rem" }} />
                     </label>
                     <input
                         type="password"
@@ -108,7 +112,7 @@ const ChangePasswordOverlay = ({activeOverlay, setActiveOverlay}) => {
                     </div>
                 )}
 
-                <button className="btn btn-primary form-control" type="submit" disabled={loading}>
+                <button className="btn btn-primary form-control mt-5" type="submit" disabled={loading}>
                     {loading ? (
                         <>
                             <span className="btn-spinner me-2"/>

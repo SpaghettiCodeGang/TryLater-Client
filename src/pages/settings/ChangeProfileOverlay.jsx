@@ -5,6 +5,7 @@ import { Modal } from 'bootstrap';
 import apiService from "../../service/apiService.jsx";
 import PasswordModal from "../../components/PasswordModal.jsx";
 import { motion, AnimatePresence } from "framer-motion";
+import {BootstrapIcons} from "../../components/BootstrapIcons.jsx";
 
 const ChangeProfileOverlay = ({ activeOverlay, setActiveOverlay, user, refetchUser, imgSrc }) => {
     const { processImage } = useImageProcessor({ targetWidth: 300, targetHeight: 300 });
@@ -120,17 +121,26 @@ const ChangeProfileOverlay = ({ activeOverlay, setActiveOverlay, user, refetchUs
                     </label>
 
                     <div>
-                        <label htmlFor="displayName" className="form-label"><strong>Anzeigename</strong></label>
+                        <label htmlFor="displayName" className="form-label">
+                            <strong>Anzeigename</strong>
+                            <BootstrapIcons.PencilFill width={20} height={20} color="$dark" style={{ marginLeft: "0.5rem", paddingBottom: "0.1rem" }} />
+                        </label>
                         <input type="text" className={`form-control ${error?.errors?.displayName ? 'is-invalid' : ''}`} id="displayName" placeholder={user?.displayName} />
                         <small className="text-danger ps-3 pe-3 d-inline-flex">{ error?.errors?.displayName }</small>
                     </div>
                     <div>
-                        <label htmlFor="userName" className="form-label"><strong>Benutzername</strong></label>
+                        <label htmlFor="userName" className="form-label">
+                            <strong>Benutzername</strong>
+                            <BootstrapIcons.PencilFill width={20} height={20} color="$dark" style={{ marginLeft: "0.5rem", paddingBottom: "0.1rem" }} />
+                        </label>
                         <input type="text" className={`form-control ${error?.errors?.userName ? 'is-invalid' : ''}`} id="userName" placeholder={user?.userName} />
                         <small className="text-danger ps-3 pe-3 d-inline-flex">{ error?.errors?.userName }</small>
                     </div>
                     <div>
-                        <label htmlFor="email" className="form-label"><strong>E-Mail</strong></label>
+                        <label htmlFor="email" className="form-label">
+                            <strong>E-Mail</strong>
+                            <BootstrapIcons.PencilFill width={20} height={20} color="$dark" style={{ marginLeft: "0.5rem", paddingBottom: "0.1rem" }} />
+                        </label>
                         <input type="email" className={`form-control ${error?.errors?.email ? 'is-invalid' : ''}`} id="email" placeholder={user?.email} />
                         <small className="text-danger ps-3 pe-3 d-inline-flex">{ error?.errors?.email }</small>
                     </div>
