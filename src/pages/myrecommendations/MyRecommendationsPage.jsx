@@ -4,6 +4,7 @@ import {useFetch} from "../../hooks/useFetch.jsx";
 import RecommendationCard from "../../components/RecommendationCard.jsx";
 import RecommendationPreviewComponent from "./RecommendationPreviewComponent.jsx";
 import apiService from "../../service/apiService.jsx";
+import {BootstrapIcons} from "../../components/BootstrapIcons.jsx";
 
 const MyRecommendationsPage = () => {
     const {setHeadline} = useLayout();
@@ -167,7 +168,7 @@ const MyRecommendationsPage = () => {
                 <RecommendationCard
                     activeRecommendation={activeCard}
                     error={error}
-                    onClose={<button onClick={handleClose}>X</button>}
+                    onClose={<button className="recommendation_preview__closeButton" onClick={handleClose}><BootstrapIcons.ChevronDown width={24} height={24} fill="dark" /></button>}
                     action={
                         <button className="btn btn-primary form-control" type="submit" disabled={loading}
                                 onClick={() => {

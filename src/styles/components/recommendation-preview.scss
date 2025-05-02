@@ -50,23 +50,27 @@ h3 {
       flex-wrap: nowrap;
       cursor: pointer;
     }
+
     &__data {
       display: flex;
       flex-direction: row;
       width: 100%;
       height: 160px;
     }
+
     &__imgwrapper {
       display: flex;
       justify-content: center;
       align-items: center;
     }
+
     &__contentwrapper {
       min-width: 50%;
       display: flex;
       flex-direction: column;
       width: 100%;
     }
+
     &__creatorratingwrapper {
       height: 20%;
       display: flex;
@@ -79,16 +83,19 @@ h3 {
         margin-bottom: 0;
       }
     }
+
     &__titlewrapper {
       height: 40%;
       margin-right: 10px;
     }
+
     &__tagwrapper {
       height: 40%;
       overflow: hidden;
       margin-right: 10px;
       margin-bottom: 5px;
     }
+
     &__img {
       height: 120px;
       width: 120px;
@@ -96,6 +103,7 @@ h3 {
       object-fit: cover;
       border-radius: $border-radius;
     }
+
     &__creator {
       width: 50%;
       white-space: nowrap;
@@ -108,6 +116,7 @@ h3 {
       border-radius: $border-radius-small;
       padding: 0.1rem 0.3rem;
     }
+
     &__rating {
       max-width: 50%;
 
@@ -116,6 +125,7 @@ h3 {
         color: $primary;
       }
     }
+
     &__title {
       font-size: $lead-font-size;
       font-weight: $lead-font-weight;
@@ -123,6 +133,7 @@ h3 {
       text-overflow: ellipsis;
       max-height: 100%;
     }
+
     &__tag {
       font-size: $tag-font-size-small;
       font-weight: $tag-font-weight;
@@ -131,6 +142,25 @@ h3 {
       margin: 3px;
       border-radius: $border-radius-small;
       background-color: $gray-200;
+    }
+
+    &__closeButton {
+
+      background-color: $white;
+      border-radius: 50%;
+      border: none;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      padding: 0;
+      margin-right: 0.5rem;
+      justify-content: center;
+      align-items: center;
+
+      &:hover,
+      &:focus {
+        background-color: color.adjust($white, $lightness: 30%);
+      }
     }
   }
 }
