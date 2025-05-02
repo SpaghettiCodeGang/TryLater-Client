@@ -49,7 +49,7 @@ const LoginPage = () => {
                 </button>
             </form>
             <p className="text-center mb-5">
-                <small>Noch kein Account? <Link className="text-black" to="/register"><strong>Hier Registrieren</strong></Link></small>
+                <small>Noch kein Account? <Link className="text-dark" to="/register"><strong>Hier Registrieren</strong></Link></small>
             </p>
         </>
     )

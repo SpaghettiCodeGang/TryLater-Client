@@ -10,9 +10,9 @@ const MyRecommendationsPage = () => {
     }, []);
 
     return (
-        <>
+        <div className="main-content">
             <p>Content</p>
-        </>
+        </div>
     )
 }
 
