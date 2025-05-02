@@ -56,11 +56,25 @@
 );
 
 // Prevent responsive behavior of fonts
-.h1, h1 { font-size: $h1-font-size }
-.h2, h2 { font-size: $h2-font-size }
-.h3, h3 { font-size: $h3-font-size }
-.btn { font-size: $btn-font-size}
-p, small {color: $secondary}
+.h1, h1 {
+  font-size: $h1-font-size
+}
+
+.h2, h2 {
+  font-size: $h2-font-size
+}
+
+.h3, h3 {
+  font-size: $h3-font-size
+}
+
+.btn {
+  font-size: $btn-font-size
+}
+
+p, small {
+  color: $secondary
+}
 
 // Button overwrite
 .btn {
@@ -96,7 +110,7 @@ p, small {color: $secondary}
 
   &:hover,
   &:focus,
-  &:disabled  {
+  &:disabled {
     color: $white;
   }
 }
@@ -117,5 +131,24 @@ textarea.form-control {
   color: $secondary;
   &:disabled {
     background-color: $white;
+  }
+}
+
+.accordion-button {
+
+  &:focus {
+    box-shadow: none;
+  }
+  &:not(.collapsed) {
+    background-color: $white;
+    color: $dark;
+    &::after {
+      transform: rotate(0deg);
+    }
+  }
+  &.collapsed {
+    &::after {
+      transform: rotate(-90deg);
+    }
   }
 }

@@ -9,6 +9,8 @@ const BlockedContactsOverlay = ({ activeOverlay, setActiveOverlay }) => {
     const [error, setError] = useState(null);
     const { data: blockedContacts, refetch: refetchBlockedContacts } = useFetch('/contact?status=BLOCKED');
 
+    const isVisible = activeOverlay === 'blockedContacts';
+
     const handleDeleteBlockedContact = async (contactId) => {
         try {
             await apiService.delete(`/contact/${contactId}`);
@@ -20,7 +22,7 @@ const BlockedContactsOverlay = ({ activeOverlay, setActiveOverlay }) => {
 
     return (
         <SlideInOverlay
-            isVisible={activeOverlay === 'blockedContacts'}
+            isVisible={isVisible}
             onClose={() => setActiveOverlay(null)}
             title="Blockierte Kontakte"
         >

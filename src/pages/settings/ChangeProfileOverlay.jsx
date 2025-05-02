@@ -108,7 +108,7 @@ const ChangeProfileOverlay = ({ activeOverlay, setActiveOverlay, user, refetchUs
     return (
         <>
             <SlideInOverlay
-                isVisible={activeOverlay === 'changeProfile'}
+                isVisible={isVisible}
                 onClose={() => setActiveOverlay(null)}
                 title="Profil bearbeiten"
             >
@@ -151,7 +151,6 @@ const ChangeProfileOverlay = ({ activeOverlay, setActiveOverlay, user, refetchUs
                     </button>
                 </form>
             </SlideInOverlay>
-
 
             <AnimatePresence mode="wait">
                 {isVisible && (

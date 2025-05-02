@@ -9,6 +9,7 @@ import { useFetch } from "../../hooks/useFetch.jsx";
 import { motion, AnimatePresence } from "framer-motion";
 import ImprintOverlay from "./ImprintOverlay.jsx";
 import PrivacyPolicyOverlay from "./PrivacyPolicyOverlay.jsx";
+import ChangePasswordOverlay from "./ChangePasswordOverlay.jsx";
 import PasswordModal from "../../components/PasswordModal.jsx";
 import { Modal } from "bootstrap";
 
@@ -78,7 +79,8 @@ const SettingsPage = () => {
                                 <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
                             </button>
 
-                            <button className="settings_overlay__btn">
+                            <button className="settings_overlay__btn" onClick={() =>
+                                setActiveOverlay(activeOverlay === 'changePassword' ? null : 'changePassword')}>
                                 <p>Passwort ändern</p>
                                 <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
                             </button>
@@ -145,6 +147,11 @@ const SettingsPage = () => {
                 refetchUser={refetchUser}
                 imgSrc={imgSrc}
                 user={user}
+            />
+
+            <ChangePasswordOverlay
+                activeOverlay={activeOverlay}
+                setActiveOverlay={setActiveOverlay}
             />
 
             <BlockedContactsOverlay
