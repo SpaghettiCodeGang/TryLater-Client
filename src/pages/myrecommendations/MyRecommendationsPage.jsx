@@ -13,6 +13,9 @@ const MyRecommendationsPage = () => {
     const [locations, setLocations] = useState([]);
     const [recipes, setRecipes] = useState([]);
     const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const loadingAnimationDuration = 500;
 
     useEffect(() => {
         setHeadline("Sammlung");
@@ -20,6 +23,7 @@ const MyRecommendationsPage = () => {
         setLocations([])
         setRecipes([]);
         setProducts([]);
+        setError(null);
 
         acceptedRecommendations?.forEach((recommendation) => {
             if (recommendation?.category === "MEDIA") {
@@ -42,6 +46,23 @@ const MyRecommendationsPage = () => {
 
     const handleClose = () => {
         setActiveCard(false)
+    }
+
+    const handleDelete = async (id) => {
+        try {
+            setLoading(true);
+            await apiService.delete(`/recommendation/${id}`);
+            await refetch();
+        } catch (error) {
+            setTimeout(() => {
+                setError(error?.data?.message)
+            }, loadingAnimationDuration);
+        } finally {
+            setTimeout(() => {
+                setLoading(false);
+                /*setActiveCard(false);*/
+            }, loadingAnimationDuration);
+        }
     }
 
     return (
@@ -141,23 +162,26 @@ const MyRecommendationsPage = () => {
                             </div>
                         </div>
                     </div>
-
-
-                    {/*<button onClick={handleShow}>Show</button>
-                    <div className="accordion">
-                        {acceptedRecommendations?.map((recommendation) => (
-                            <RecommendationCard
-                                key={recommendation.id}
-                                activeRecommendation={recommendation}/>
-                        ))}
-                    </div>*/}
                 </>
             ) : (
                 <RecommendationCard
                     activeRecommendation={activeCard}
+                    error={error}
                     onClose={<button onClick={handleClose}>X</button>}
                     action={
-                        <button>Start</button>
+                        <button className="btn btn-primary form-control" type="submit" disabled={loading}
+                                onClick={() => {
+                                    void handleDelete(activeCard.id)
+                                }}>
+                            {loading ? (
+                                <>
+                                    <span className="btn-spinner me-2"/>
+                                    <span>Sende...</span>
+                                </>
+                            ) : (
+                                <span>Erledigt</span>
+                            )}
+                        </button>
                     }
                 >
 

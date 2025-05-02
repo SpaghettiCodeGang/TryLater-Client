@@ -10,7 +10,6 @@ const ChangePasswordOverlay = ({activeOverlay, setActiveOverlay}) => {
     const [loading, setLoading] = useState(false);
     const formRef = useRef(null);
     const loadingAnimationDuration = 500;
-
     const isVisible = activeOverlay === 'changePassword';
 
     useEffect(() => {
@@ -26,11 +25,6 @@ const ChangePasswordOverlay = ({activeOverlay, setActiveOverlay}) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError(null);
-        const form = e.target;
-
-        currentPassword: form.password.value.trim();
-
-        if (currentPassword !== form.password.value.trim) {}
 
         if (newPassword !== confirmPassword) {
             setError({message: "Die neuen Passwörter stimmen nicht überein."});
@@ -39,33 +33,14 @@ const ChangePasswordOverlay = ({activeOverlay, setActiveOverlay}) => {
 
         setLoading(true);
         try {
-            const response = await apiService.patch("/user/me/password", {
-                currentPassword,
-                newPassword
+           await apiService.patch("/user/me", {
+                currentPassword: currentPassword,
+                newPassword: newPassword
             });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || "Unbekannter Fehler beim Passwortwechsel");
-            }
 
             setActiveOverlay(null);
         } catch (error) {
-            console.error("Password change error:", error);
-
-            let errorMessage = "Ein Fehler ist aufgetreten";
-
-            if (error.message.includes("Failed to fetch")) {
-                errorMessage = "Verbindung zum Server fehlgeschlagen";
-            } else if (error.message.includes("404")) {
-                errorMessage = "Passwort-Änderungs-Endpunkt nicht gefunden";
-            } else if (error.message.includes("401")) {
-                errorMessage = "Aktuelles Passwort ist falsch";
-            } else if (error.message) {
-                errorMessage = error.message;
-            }
-
-            setError({message: errorMessage});
+            setError(error?.data?.errors?.newPassword);
         } finally {
             setTimeout(() => {
                 setLoading(false);
@@ -89,7 +64,7 @@ const ChangePasswordOverlay = ({activeOverlay, setActiveOverlay}) => {
                         className="form-control"
                         id="currentPassword"
                         value={currentPassword}
-                        onChange={(e) => setCurrentPassword(e.target.value)}
+                        onChange={(e) => setCurrentPassword(e.target.value.trim())}
                         required
                         autoComplete="current-password"
                     />
@@ -104,7 +79,7 @@ const ChangePasswordOverlay = ({activeOverlay, setActiveOverlay}) => {
                         className="form-control"
                         id="newPassword"
                         value={newPassword}
-                        onChange={(e) => setNewPassword(e.target.value)}
+                        onChange={(e) => setNewPassword(e.target.value.trim())}
                         required
                         autoComplete="new-password"
                     />
@@ -119,7 +94,7 @@ const ChangePasswordOverlay = ({activeOverlay, setActiveOverlay}) => {
                         className="form-control"
                         id="confirmPassword"
                         value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        onChange={(e) => setConfirmPassword(e.target.value.trim())}
                         required
                         autoComplete="new-password"
                     />
@@ -128,7 +103,7 @@ const ChangePasswordOverlay = ({activeOverlay, setActiveOverlay}) => {
                 {error && (
                     <div className="mb-4 d-flex justify-content-center">
                         <small className="text-danger ps-3 pe-3 d-inline-flex">
-                            {error.message}
+                            {error}
                         </small>
                     </div>
                 )}
