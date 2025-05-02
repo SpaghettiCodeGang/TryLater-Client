@@ -17,7 +17,7 @@ const PrivateLayout = () => {
                     <div className="d-flex gap-2 align-items-center me-2">{ actions }</div>
                 </header>
 
-                <main className="position-relative">
+                <main>
                     <Outlet />
                 </main>
 

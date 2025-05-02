@@ -36,7 +36,17 @@ const ContactSearchOverlay = ({ activeOverlay, setActiveOverlay, outgoingContact
                 contactStatus: null
             };
 
-            setLocalOutgoingContactRequests(prev => [newContact, ...prev]);
+            setLocalOutgoingContactRequests(prev => {
+                const updatedContacts = [...prev];
+
+                if (updatedContacts.length > 0 && updatedContacts[0].contactStatus === null) {
+                    updatedContacts[0] = newContact;
+                } else {
+                    updatedContacts.unshift(newContact);
+                }
+
+                return updatedContacts;
+            });
             setSearchValue("");
 
         } catch (error) {
@@ -62,7 +72,7 @@ const ContactSearchOverlay = ({ activeOverlay, setActiveOverlay, outgoingContact
         >
             <form className="contact_search" onSubmit={handleSearch}>
                 <button className="btn btn-outline-secondary" type="submit">
-                    <BootstrapIcons.Search width={18} height={18} fill="black" />
+                    <BootstrapIcons.Search width={18} height={18} fill="#1E171A" />
                 </button>
                 <input type="text" className="form-control"
                        value={searchValue} placeholder="Suche..." aria-label="Suche"

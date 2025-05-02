@@ -6,6 +6,7 @@ import RecommendationCardForm from "../../components/RecommendationCardForm.jsx"
 import TagSelectionOverlay from "./TagSelectionOverlay.jsx";
 import ContactSelectionOverlay from "./ContactSelectionOverlay.jsx";
 import RecommendationSuccessModal from "./RecommendationSuccessModal.jsx";
+import { motion, AnimatePresence } from "framer-motion";
 
 const NewRecommendationsPage = ({ user }) => {
 
@@ -106,26 +107,33 @@ const NewRecommendationsPage = ({ user }) => {
     };
 
     return (
-        <div className="recommendations-page">
-            {!activeOverlay && (
-                <>
-                    {!selectedCategory ? (
-                        <CategorySelection onCategorySelect={handleCategorySelect} />
-                    ) : (
-                        /* Zeige das RecommendationCardForm zum Schreiben der Empfehlung */
-                        <RecommendationCardForm
-                            selectedTags={selectedTags}
-                            selectedCategory={selectedCategory}
-                            onAddTags={handleAddTags}
-                            onOpenContacts={handleOpenContacts}
-                            tagGroups={tagGroups}
-                            data={data}
-                            updateData={updateData}
-                            errors={errors}
-                        />
-                    )}
-                </>
-            )}
+        <>
+            <AnimatePresence mode="wait">
+                {!activeOverlay && (
+                    <motion.div
+                        className="main-content"
+                        key="main-content"
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        {!selectedCategory ? (
+                            <CategorySelection onCategorySelect={handleCategorySelect} />
+                        ) : (
+                            /* Zeige das RecommendationCardForm zum Schreiben der Empfehlung */
+                            <RecommendationCardForm
+                                selectedTags={selectedTags}
+                                selectedCategory={selectedCategory}
+                                onAddTags={handleAddTags}
+                                onOpenContacts={handleOpenContacts}
+                                tagGroups={tagGroups}
+                                data={data}
+                                updateData={updateData}
+                                errors={errors}
+                            />
+                        )}
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
             {/* Zeigen des Tag Overlays nach bedarf */}
             <TagSelectionOverlay
@@ -155,7 +163,7 @@ const NewRecommendationsPage = ({ user }) => {
                 onClose={() => setShowSuccessModal(false)}
                 isError={isErrorModal}
             />
-        </div>
+        </>
     );
 };
 

@@ -45,30 +45,29 @@ const ContactPage = () => {
     return (
         <>
             <AnimatePresence mode="wait">
-                {activeOverlay === null && (
+                {!activeOverlay && (
                     <motion.div
-                        className="contact_page"
+                        className="main-content"
                         key="main-content"
                         exit={{ opacity: 0 }}
-                        transition={{
-                            duration: 0.5
-                        }}
+                        transition={{ duration: 0.5 }}
                     >
-                        <div className="contact_border"></div>
-                        <h2 className="ms-2">Deine Kontakte</h2>
+                        <div className="contact_page">
+                            <h2 className="ms-2">Deine Kontakte</h2>
 
-                        <ul className="contact_list">
-                            {contacts?.map((contact) => (
-                                <Contact
-                                    key={contact.contactId}
-                                    contactPartner={contact.contactPartner}
-                                    onClick={() => {
-                                        setActiveContact(contact);
-                                        setActiveOverlay(activeOverlay === 'contactView' ? null : 'contactView')}
-                                    }
-                                />
-                            ))}
-                        </ul>
+                            <ul className="contact_list">
+                                {contacts?.map((contact) => (
+                                    <Contact
+                                        key={contact.contactId}
+                                        contactPartner={contact.contactPartner}
+                                        onClick={() => {
+                                            setActiveContact(contact);
+                                            setActiveOverlay(activeOverlay === 'contactView' ? null : 'contactView')}
+                                        }
+                                    />
+                                ))}
+                            </ul>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>

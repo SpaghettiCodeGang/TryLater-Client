@@ -4,7 +4,7 @@
 .contact {
   &_nav {
     &__btn {
-      background-color: $black;
+      background-color: $dark;
       border-radius: 50%;
       border: none;
       width: 32px;
@@ -17,7 +17,7 @@
 
       &:hover,
       &:focus {
-        background-color: color.adjust($black, $lightness: 30%);
+        background-color: color.adjust($dark, $lightness: 15%);
       }
 
       &.active {
@@ -111,7 +111,7 @@
     }
 
     &__btn {
-      background-color: $black;
+      background-color: $dark;
       border-radius: 50%;
       border: none;
       width: 24px;
@@ -122,7 +122,7 @@
 
       &:hover,
       &:focus {
-        background-color: color.adjust($black, $lightness: 30%);
+        background-color: color.adjust($dark, $lightness: 15%);
       }
 
       &--primary {
