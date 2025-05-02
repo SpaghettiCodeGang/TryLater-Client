@@ -59,7 +59,7 @@ const HomePage = () => {
             </Link>
 
             <p className="text-center mb-5">
-                <small>Schon ein Account? <Link className="text-black" to="/login"><strong>Hier Einloggen</strong></Link></small>
+                <small>Schon ein Account? <Link className="text-dark" to="/login"><strong>Hier Einloggen</strong></Link></small>
             </p>
         </>
     );
