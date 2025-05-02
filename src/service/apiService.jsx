@@ -23,7 +23,6 @@ const request = async (method, path, data = null) => {
         const error = new Error(errorData.message || 'Unbekannter Fehler');
         error.status = response.status;
         error.data = errorData;
-        console.log(error.data);
         throw error;
     }
 
