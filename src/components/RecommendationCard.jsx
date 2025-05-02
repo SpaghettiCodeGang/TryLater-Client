@@ -43,16 +43,22 @@ const RecommendationCard = ({activeRecommendation, action, onClose, error = null
                         <div className="mb-3">
                             <label htmlFor="tags" className="form-label">Tags</label>
                             <div className="recommendation-card_tags" id="tags">
-                                {activeRecommendation?.tagGroups?.map((tagGroup, t) =>
-                                    tagGroup.tags.map((tag, i) => (
-                                        <div className="recommendation-card_tag recommendation-card_tag--gray"
-                                             key={`${t}-${i}`}>
-                                            {tag.tagName}
+                                {(() => {
+                                    const allTags = activeRecommendation?.tagGroups?.flatMap(group => group.tags) || [];
+                                    return allTags.length > 0 ? (
+                                        allTags.map((tag, i) => (
+                                            <div className="recommendation-card_tag recommendation-card_tag--gray"
+                                                 key={i}>
+                                                {tag.tagName}
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <div className="recommendation-card_tag recommendation-card_tag--gray">
+                                            Keine Tags ausgewählt
                                         </div>
-                                    ))
-                                )}
+                                    );
+                                })()}
                             </div>
-
                         </div>
 
                         <div className="mb-3">
@@ -66,7 +72,7 @@ const RecommendationCard = ({activeRecommendation, action, onClose, error = null
                             </div>
                         </div>
 
-                        <div className="mb-3">
+                        <div>
                             <label htmlFor="description" className="form-label">Notizen</label>
                             <div className="form-control" id="description">
                                 {activeRecommendation?.description ? (
@@ -78,16 +84,18 @@ const RecommendationCard = ({activeRecommendation, action, onClose, error = null
                         </div>
                     </div>
 
-                    <div className="recommendation-card_footer">
-                        {error && (
-                            <div className="mb-4 d-flex justify-content-center">
-                                <small className="text-danger ps-3 pe-3 d-inline-flex">
-                                    {error}
-                                </small>
-                            </div>
-                        )}
-                        {action}
-                    </div>
+                    {action &&
+                        <div className="recommendation-card_footer">
+                            {error && (
+                                <div className="mb-4 d-flex justify-content-center">
+                                    <small className="text-danger ps-3 pe-3 d-inline-flex">
+                                        {error}
+                                    </small>
+                                </div>
+                            )}
+                            {action}
+                        </div>
+                    }
                 </div>
             </div>
         </>

@@ -75,7 +75,7 @@ const MyRecommendationsPage = () => {
                         className="main-content"
                         key="main-content"
                         exit={{ y: "-100%" }}
-                        transition={{ duration: 0.15 }}
+                        transition={{ duration: 0.4 }}
                     >
                         <div className="accordion" id="accordionExample">
                             <div className="accordion-item">
@@ -176,7 +176,7 @@ const MyRecommendationsPage = () => {
             <AnimatePresence mode="wait">
                 {activeCard && (
                     <motion.div
-                        className="main-content"
+                        className="main-content main-content_overlay"
                         key="recommendation-card"
                         initial={{ y: "100%", scale: 0 }}
                         animate={{ y: "0%", scale: 1 }}

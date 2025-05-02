@@ -39,6 +39,7 @@
       &__top {
         display: flex;
         justify-content: space-between;
+        align-items: center;
       }
 
       &__bottom {
@@ -75,7 +76,12 @@
       }
     }
 
-    &_body,
+    &_body {
+      padding: 1.5rem;
+      &:not(:last-child) {
+        padding-bottom: 0;
+      }
+    }
     &_footer{
       padding: 1.5rem;
     }

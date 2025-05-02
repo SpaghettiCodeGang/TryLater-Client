@@ -8,10 +8,11 @@ h3 {
 
 .accordion {
   .accordion-body {
-    padding: 0.5rem;
+    padding: 0 $body-padding $body-padding;
 
     ul {
       padding: 0;
+      margin: 0;
     }
   }
 
@@ -23,7 +24,7 @@ h3 {
 
     .accordion-button {
       border-radius: $border-radius;
-      padding: 0.65rem;
+      padding: 0.65rem 1rem;
 
 
     }
@@ -46,9 +47,13 @@ h3 {
       align-items: center;
       justify-content: space-between;
       gap: 0.8rem;
-      margin-top: 0.6rem;
+      margin-bottom: 1rem;
       flex-wrap: nowrap;
       cursor: pointer;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
 
     &__data {
@@ -105,7 +110,7 @@ h3 {
     }
 
     &__creator {
-      width: 50%;
+      max-width: 50%;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
