@@ -31,11 +31,11 @@ const AppRouter = () => {
 
                 {/* Private Pages */}
                 <Route element={<PrivateLayout />}>
-                    <Route path="/recommendations" element={user ? <MyRecommendationsPage /> : <Navigate to="/login" />} />
-                    <Route path="/received" element={user ? <DiscoverRecommendationsPage /> : <Navigate to="/login" />} />
-                    <Route path="/create" element={user ? <NewRecommendationsPage user={user} /> : <Navigate to="/login" />} />
+                    <Route path="/recommendations" element={user ? <MyRecommendationsPage /> : <Navigate to="/" />} />
+                    <Route path="/received" element={user ? <DiscoverRecommendationsPage /> : <Navigate to="/" />} />
+                    <Route path="/create" element={user ? <NewRecommendationsPage user={user} /> : <Navigate to="/" />} />
                     <Route path="/contacts" element={user ? <ContactPage /> : <Navigate to="/login" />} />
-                    <Route path="/settings" element={user ? <SettingsPage user={user} /> : <Navigate to="/login" />} />
+                    <Route path="/settings" element={user ? <SettingsPage user={user} /> : <Navigate to="/" />} />
                 </Route>
 
                 {/* Catch-all */}
