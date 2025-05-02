@@ -21,6 +21,13 @@ export const AuthProvider = ({ children }) => {
             });
     }, []);
 
+    const userIsNotAuthenticated = () => {
+        setLoadingLogo(true);
+        setUser(null);
+        setTimeout(() =>
+            setLoadingLogo(false), logoAnimationDuration);
+    }
+
     const register = async ( data ) => {
         setLoading(true);
         setError(null);
@@ -77,7 +84,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ register, login, logout, user, loading, loadingLogo, error }}>
+        <AuthContext.Provider value={{ register, login, logout, userIsNotAuthenticated, user, loading, loadingLogo, error }}>
             {children}
         </AuthContext.Provider>
     );

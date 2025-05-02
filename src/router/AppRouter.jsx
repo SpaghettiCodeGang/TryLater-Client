@@ -7,8 +7,8 @@ import MyRecommendationsPage from '../pages/myrecommendations/MyRecommendationsP
 import SettingsPage from '../pages/settings/SettingsPage.jsx';
 import PublicLayout from '../layouts/PublicLayout';
 import PrivateLayout from '../layouts/PrivateLayout';
-import DiscoverRecommendationsPage from "../pages/recommendation/DiscoverRecommendationsPage.jsx";
-import NewRecommendationsPage from "../pages/recommendation/NewRecommendationsPage.jsx";
+import DiscoverRecommendationsPage from "../pages/discoverrecommendations/DiscoverRecommendationsPage.jsx";
+import NewRecommendationsPage from "../pages/newrecommendations/NewRecommendationsPage.jsx";
 import ContactPage from "../pages/contact/ContactPage.jsx";
 import LogoAnimation from "../components/LogoAnimation.jsx";
 
@@ -33,7 +33,7 @@ const AppRouter = () => {
                 <Route element={<PrivateLayout />}>
                     <Route path="/recommendations" element={user ? <MyRecommendationsPage /> : <Navigate to="/login" />} />
                     <Route path="/received" element={user ? <DiscoverRecommendationsPage /> : <Navigate to="/login" />} />
-                    <Route path="/create" element={user ? <NewRecommendationsPage /> : <Navigate to="/login" />} />
+                    <Route path="/create" element={user ? <NewRecommendationsPage user={user} /> : <Navigate to="/login" />} />
                     <Route path="/contacts" element={user ? <ContactPage /> : <Navigate to="/login" />} />
                     <Route path="/settings" element={user ? <SettingsPage user={user} /> : <Navigate to="/login" />} />
                 </Route>

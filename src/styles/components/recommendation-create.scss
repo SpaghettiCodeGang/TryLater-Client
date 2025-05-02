@@ -1,0 +1,159 @@
+@use '../variables' as *;
+@use "sass:color";
+
+.recommendation {
+  &-card-f {
+    background-color: $white;
+    border-radius: $border-radius-large;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    &_inner {
+      height: 100%;
+      overflow-y: auto;
+
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    &_header {
+      height: 65vh;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-radius: $border-radius-large;
+      padding: 1.5rem;
+
+      h2 {
+        font-size: 2rem;
+        color: $white;
+        padding: 0.1rem 0.3rem;
+        border: $white 0.1rem solid;
+        border-radius: $border-radius-small;
+      }
+
+      &__top {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      &__middle {
+        display: block;
+        margin-top: 55%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      &__bottom {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: start;
+        gap: 0.5rem;
+      }
+    }
+
+    &_rating {
+      background-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: $primary;
+      border: $white 0.1rem solid;
+      border-radius: $border-radius-small;
+      padding: 0.1rem 0.3rem;
+
+      &:hover {
+        background-color: $white;
+        color: $dark;
+      }
+    }
+
+    &_tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    &_addtag {
+      border: none;
+      background-color: $gray-200;
+      font-size: $tag-font-size;
+      font-weight: $tag-font-weight;
+      border-radius: $border-radius-small;
+      padding: 0.2rem 0.4rem;
+
+      &:hover {
+        background-color: $gray-300;
+      }
+    }
+
+    &_tag {
+      background-color: $white;
+      color: $dark;
+      border-radius: $border-radius-small;
+      font-size: $tag-font-size;
+      font-weight: $tag-font-weight;
+      padding: 0.25rem 0.5rem;
+
+      &--gray {
+        background-color: $gray-200;
+      }
+    }
+
+    &_text {
+      background-color: transparent;
+      color: $white;
+      border: $white 0.1rem solid;
+      border-radius: $border-radius-small;
+      padding: 0.1rem 0.3rem;
+
+      &:hover {
+        background-color: $white;
+        color: $dark;
+      }
+    }
+
+    &_title {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      background-color: transparent;
+      border: $white 0.1rem solid;
+      border-radius: $border-radius-small;
+      padding: 0.1rem 0.3rem;
+
+      &--form {
+        all: unset;
+        width: 100%;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: $white;
+        font-size: $h2-font-size;
+
+        &::placeholder {
+          color: $white;
+          opacity: 1;
+        }
+      }
+    }
+
+    &_body {
+      padding: 1.5rem;
+    }
+
+    &_footer {
+      display: flex;
+      padding: 1.5rem;
+      justify-content: flex-end;
+      margin-top: 1rem;
+    }
+  }
+}
