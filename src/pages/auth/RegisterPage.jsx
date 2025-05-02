@@ -50,22 +50,22 @@ const RegisterPage = () => {
             <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="userName" className="form-label"><strong>Benutzername</strong></label>
-                    <input type="text" className="form-control" id="userName" placeholder="Benutzername" />
+                    <input type="text" className={`form-control ${error?.userName ? 'is-invalid' : ''}`} id="userName" placeholder="Benutzername" />
                     <small className="text-danger ps-3 pe-3 d-inline-flex">{ error?.userName }</small>
                 </div>
                 <div className="mb-4">
                     <label htmlFor="email" className="form-label"><strong>E-Mail</strong></label>
-                    <input type="email" className="form-control" id="email" placeholder="E-Mail" />
+                    <input type="email" className={`form-control ${error?.email ? 'is-invalid' : ''}`} id="email" placeholder="E-Mail" />
                     <small className="text-danger ps-3 pe-3 d-inline-flex">{ error?.email }</small>
                 </div>
                 <div>
                     <label htmlFor="password" className="form-label"><strong>Passwort</strong></label>
-                    <input type="password" className="form-control" id="password" placeholder="Passwort" />
+                    <input type="password" className={`form-control ${error?.password ? 'is-invalid' : ''}`} id="password" placeholder="Passwort" />
                     <small className="text-danger ps-3 pe-3 d-inline-flex">{ error?.password }</small>
                 </div>
                 <div className="mb-5">
                     <label htmlFor="confirmPassword" className="form-label"><strong>Passwort wiederholen</strong></label>
-                    <input type="password" className="form-control" id="confirmPassword" placeholder="Passwort wiederholen" />
+                    <input type="password" className={`form-control ${passwordConfirmError?.confirmPassword ? 'is-invalid' : ''}`} id="confirmPassword" placeholder="Passwort wiederholen" />
                     <small className="text-danger ps-3 pe-3 d-inline-flex">{ passwordConfirmError?.confirmPassword }</small>
                 </div>
                 <button className="btn btn-primary form-control" type="submit" disabled={ loading }>

@@ -30,12 +30,12 @@ const LoginPage = () => {
             <form onSubmit={handleSubmit}>
                 <div className="mb-1">
                     <label htmlFor="loginName" className="form-label">Benutzername oder E-Mail</label>
-                    <input type="text" className="form-control" id="loginName" placeholder="Benutzername oder E-Mail" />
+                    <input type="text" className={`form-control ${error?.message ? 'is-invalid' : ''}`} id="loginName" placeholder="Benutzername oder E-Mail" />
                     <small className="text-danger ps-3 pe-3 d-inline-flex">{ error?.message }</small>
                 </div>
                 <div style={{ marginBottom: "10rem" }}>
                     <label htmlFor="password" className="form-label">Passwort</label>
-                    <input type="password" className="form-control" id="password" placeholder="Passwort" />
+                    <input type="password" className={`form-control ${error?.message ? 'is-invalid' : ''}`} id="password" placeholder="Passwort" />
                 </div>
                 <button className="btn btn-primary form-control" type="submit" disabled={ loading }>
                     {loading ? (
