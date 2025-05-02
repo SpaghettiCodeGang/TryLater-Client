@@ -10,10 +10,20 @@
     }
 
     &__img {
-      width: 20%;
-      height: auto;
-      border-radius: 50%;
-      margin: 0 1.5rem;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+
+      &-wrapper {
+        width: 20%;
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+        background-color: $gray-200;
+        overflow: hidden;
+        margin: 0 1.5rem;
+        flex-shrink: 0;
+      }
     }
 
     &__displayname {

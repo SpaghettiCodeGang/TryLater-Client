@@ -68,7 +68,9 @@ const SettingsPage = () => {
                     >
                         <div className="d-flex flex-column">
                             <div className="settings_overview__data">
-                                <img className="settings_overview__img" src={ imgSrc } alt={`${user?.displayName}`} />
+                                <div className="settings_overview__img-wrapper">
+                                    <img className="settings_overview__img" src={ imgSrc } alt={`${user?.displayName}`} />
+                                </div>
                                 <p className="settings_overview__displayname">{ user?.displayName }</p>
                                 <p className="settings_overview__username">{ user?.userName }</p>
                             </div>

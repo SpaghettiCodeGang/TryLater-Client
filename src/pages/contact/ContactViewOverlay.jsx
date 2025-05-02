@@ -60,7 +60,9 @@ const ContactViewOverlay = ({ activeOverlay, setActiveOverlay, contact, refetchC
         >
 
             <div className="contact_view">
-                <img className="contact_view__img" src={ imgSrc } alt={`${contactPartner?.displayName}`} />
+                <div className="contact_view__img-wrapper">
+                    <img className="contact_view__img" src={ imgSrc } alt={`${contactPartner?.displayName}`} />
+                </div>
                 <div className="contact_view__data">
                     <div className="mb-4">
                         <label htmlFor="displayName" className="form-label"><strong>Anzeigename</strong></label>
