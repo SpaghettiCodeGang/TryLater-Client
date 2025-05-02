@@ -5,6 +5,7 @@ import Check from '../assets/icons/Bootstrap/check.svg?react';
 import CheckCircleFill from '../assets/icons/Bootstrap/check-circle-fill.svg?react';
 import ChevronRight from '../assets/icons/Bootstrap/chevron-right.svg?react';
 import ChevronLeft from '../assets/icons/Bootstrap/chevron-left.svg?react';
+import ChevronDown from '../assets/icons/Bootstrap/chevron-down.svg?react';
 import CircleFill from '../assets/icons/Bootstrap/circle-fill.svg?react';
 import CloudUpload from '../assets/icons/Bootstrap/cloud-upload.svg?react';
 import CupStraw from '../assets/icons/Bootstrap/cup-straw.svg?react';
@@ -31,6 +32,7 @@ export const BootstrapIcons = {
     Check,
     CheckCircleFill,
     ChevronRight,
+    ChevronDown,
     ChevronLeft,
     CircleFill,
     CloudUpload,
