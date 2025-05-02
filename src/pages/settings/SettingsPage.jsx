@@ -2,6 +2,7 @@ import { useLayout } from "../../hooks/useLayout.jsx";
 import { useAuth } from "../../hooks/useAuth.jsx";
 import { useEffect, useState } from "react";
 import ChangeProfileOverlay from "./ChangeProfileOverlay.jsx";
+import ChangePasswordOverlay from "./ChangePasswordOverlay.jsx"; // New import
 import BlockedContactsOverlay from "./BlockedContactsOverlay.jsx";
 import { BootstrapIcons } from "../../components/BootstrapIcons.jsx";
 import apiService from "../../service/apiService.jsx";
@@ -53,7 +54,8 @@ const SettingsPage = () => {
                             <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
                         </button>
 
-                        <button className="settings_overlay__btn">
+                        <button className="settings_overlay__btn" onClick={() =>
+                            setActiveOverlay(activeOverlay === 'changePassword' ? null : 'changePassword')}>
                             <p>Passwort ändern</p>
                             <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
                         </button>
@@ -115,6 +117,11 @@ const SettingsPage = () => {
                 refetchUser={refetchUser}
                 imgSrc={imgSrc}
                 user={user}
+            />
+
+            <ChangePasswordOverlay
+                activeOverlay={activeOverlay}
+                setActiveOverlay={setActiveOverlay}
             />
 
             <BlockedContactsOverlay
