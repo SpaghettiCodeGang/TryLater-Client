@@ -5,9 +5,7 @@ import { AuthProvider } from './hooks/useAuth.jsx'
 import './styles/main.scss'
 
 createRoot(document.getElementById('root')).render(
-    <StrictMode>
-        <AuthProvider>
-            <AppRouter />
-        </AuthProvider>
-    </StrictMode>
+    <AuthProvider>
+        <AppRouter />
+    </AuthProvider>
 )
