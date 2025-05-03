@@ -6,8 +6,8 @@ const SwipeCard = ({ children, onSwipeLeft, onSwipeRight, currentCard, allCards 
     const x = useMotionValue(0);
 
     const opacity = useTransform(x, [-250, 0, 250], [0, 1, 0]);
-    const rightIconOpacity = useTransform(x, [50, 150], [0, 1]);
-    const leftIconOpacity = useTransform(x, [-150, -50], [1, 0]);
+    const rightIconOpacity = useTransform(x, [50, 100], [0, 1]);
+    const leftIconOpacity = useTransform(x, [-100, -50], [1, 0]);
 
     const [lockedDirection, setLockedDirection] = useState(null);
     const [swipeCompleted, setSwipeCompleted] = useState(false);
@@ -21,11 +21,11 @@ const SwipeCard = ({ children, onSwipeLeft, onSwipeRight, currentCard, allCards 
 
     useEffect(() => {
         x.on('change', (latestX) => {
-            if (latestX > 150 && lockedDirection !== "right") {
+            if (latestX > 100 && lockedDirection !== "right") {
                 setLockedDirection("right");
-            } else if (latestX < -150 && lockedDirection !== "left") {
+            } else if (latestX < -100 && lockedDirection !== "left") {
                 setLockedDirection("left");
-            } else if (latestX >= -150 && latestX <= 150 && lockedDirection !== null) {
+            } else if (latestX >= -100 && latestX <= 100 && lockedDirection !== null) {
                 setLockedDirection(null);
             }
         });
@@ -33,13 +33,13 @@ const SwipeCard = ({ children, onSwipeLeft, onSwipeRight, currentCard, allCards 
     }, [x, lockedDirection]);
 
     const handleDragEnd = () => {
-        if (x.get() > 150) {
+        if (x.get() > 100) {
             setSwipeCompleted(true);
             onSwipeRight();
             setTimeout(() => {
                 setLockedDirection(null)
             }, 500)
-        } else if (x.get() < -150) {
+        } else if (x.get() < -100) {
             setSwipeCompleted(true);
             onSwipeLeft();
             setTimeout(() => {
