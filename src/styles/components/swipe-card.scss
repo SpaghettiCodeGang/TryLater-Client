@@ -1,15 +1,25 @@
 @use '../variables' as *;
 
 .swipe-container {
-  height: 100%;
+  flex: 1 1 auto;
   display: grid;
   padding: 0 $body-padding;
+
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .swipe-card {
+  position: relative;
   height: 100%;
   grid-row: 1;
   grid-column: 1;
+  z-index: 999;
+  touch-action: pan-x;
 
   &:hover {
     cursor: grab;
@@ -20,9 +30,9 @@
   }
 
   &_icon {
-    height: 85%;
-    grid-row: 1;
-    grid-column: 1;
+    position: absolute;
+    height: 100%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;

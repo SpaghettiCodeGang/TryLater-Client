@@ -13,7 +13,7 @@
     &_inner {
       height: 100%;
       overflow-y: auto;
-
+      touch-action: pan-y;
       scrollbar-width: none;
       -ms-overflow-style: none;
       &::-webkit-scrollbar {
@@ -22,7 +22,7 @@
     }
 
     &_header {
-      height: 85%;
+      height: 65vh;
       background-size: cover;
       background-position: center;
       display: flex;

@@ -63,37 +63,42 @@ const DiscoverRecommendationsPage = () => {
     };
 
     return (
-        <div className="swipe-container">
-            <div className="d-flex justify-content-center align-items-center"
-                 style={{gridColumn: "1", gridRow: "1"}}>
-                <div className="d-flex flex-column align-items-center justify-content-center text-center">
-                    <BootstrapIcons.HourglassBottom width={50} height={50} fill="#4A4044" className="mb-4"/>
-                    <p className="m-0">Du hast keine Empfehlungen mehr.</p>
-                    <p>Schau später nochmal rein</p>
+        <>
+            {recommendations?.length === 0 ? (
+                <div className="d-flex justify-content-center align-items-center h-100">
+                    <div className="d-flex flex-column align-items-center justify-content-center text-center">
+                        <BootstrapIcons.HourglassBottom width={50} height={50} fill="#4A4044" className="mb-4"/>
+                        <p className="m-0">Du hast keine Empfehlungen mehr.</p>
+                        <p>Schau später nochmal rein</p>
+                    </div>
                 </div>
-            </div>
-            {recommendations?.map((recommendation) => (
-                <SwipeCard
-                    key={recommendation.id}
-                    onSwipeLeft={() => handleDelete(recommendation)}
-                    onSwipeRight={() => handleAccept(recommendation)}
-                    currentCard={recommendation}
-                    allCards={recommendations}
-                >
-                    <RecommendationCard activeRecommendation={recommendation} />
-                </SwipeCard>
-            ))}
+            ) : (
+                <div className="swipe-container">
+                    {recommendations?.map((recommendation) => (
+                        <SwipeCard
+                            key={recommendation.id}
+                            onSwipeLeft={() => handleDelete(recommendation)}
+                            onSwipeRight={() => handleAccept(recommendation)}
+                            currentCard={recommendation}
+                            allCards={recommendations}
+                        >
+                            <RecommendationCard activeRecommendation={recommendation} />
+                        </SwipeCard>
+                    ))}
 
-            <motion.div
-                className="swipe-card_icon"
-                style={{
-                    zIndex: 1000,
-                    opacity: error ? 1 : 0
-                }}
-            >
-                <BootstrapIcons.XCircleFill width={120} height={120} fill="#D40000" />
-            </motion.div>
-        </div>
+                    <motion.div
+                        className="swipe-card_icon"
+                        style={{
+                            zIndex: 1000,
+                            opacity: error ? 1 : 0
+                        }}
+                    >
+                        <BootstrapIcons.XCircleFill width={120} height={120} fill="#D40000" />
+                    </motion.div>
+                </div>
+            )}
+        </>
+
     )
 }
 

@@ -59,11 +59,11 @@ const SwipeCard = ({ children, onSwipeLeft, onSwipeRight, currentCard, allCards 
                 }}
                 initial={{
                     filter: "grayscale(100%)",
-                    scale: 0.95,
+                    scale: 0.99,
                 }}
                 animate={{
                     filter: isFront? "grayscale(0%)": "grayscale(100%)",
-                    scale: isFront? 1: 0.95,
+                    scale: isFront? 1: 0.99,
                     transition: {
                         duration: 1,
                     }
