@@ -69,7 +69,7 @@ const RecommendationCardForm = ({ selectedCategory, selectedTags, onAddTags, onO
                     {/* Headerbild und alles im Bild */}
                     <div
                         className="recommendation-card-f_header"
-                        style={{ backgroundImage: `url(${imgSrc})`}}
+                        style={{backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 12.5%, rgba(0,0,0,0) 62.5%, rgba(0,0,0,1) 100%), url(${imgSrc})`}}
                     >
                         {/* Kategorie-Tag und Herzbewertung */}
                         <div className="recommendation-card-f_header__top">

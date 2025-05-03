@@ -16,7 +16,8 @@ const RecommendationCard = ({activeRecommendation, action, onClose, error = null
         <>
             <div className="recommendation-card">
                 <div className="recommendation-card_inner">
-                    <div className="recommendation-card_header" style={{backgroundImage: "url(" + imgSrc + ")"}}>
+                    <div className="recommendation-card_header"
+                         style={{backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 12.5%, rgba(0,0,0,0) 62.5%, rgba(0,0,0,1) 100%), url(${imgSrc})`}}>
                         <div className="recommendation-card_header__top">
                             <span className="recommendation-card_tag">
                               {typeof activeRecommendation?.category === 'string'
