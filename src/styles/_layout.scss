@@ -55,6 +55,17 @@
 
     main {
       padding: 0 $body-padding;
+      overflow-y: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+    }
+
+    footer:empty {
+      padding-top: 0;
     }
   }
 

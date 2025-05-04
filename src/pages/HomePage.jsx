@@ -13,12 +13,12 @@ const HomePage = () => {
 
     return (
         <>
-            <h2 className="position-relative start-50 translate-middle-x text-center" style={{ top: '-2.5rem' }}>
+            <h2 className="position-relative start-50 translate-middle-x text-center mb-5">
                 Empfehlen. Swipen. <br /> Entdecken
             </h2>
 
 
-            <div className="d-flex flex-column align-items-center my-4">
+            <div className="d-flex flex-column align-items-center mb-5">
                 <motion.div
                     animate={{ y: [0, -10, 0] }}
                     transition={{

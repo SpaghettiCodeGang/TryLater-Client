@@ -63,7 +63,7 @@ const RegisterPage = () => {
                     <input type="password" className={`form-control ${error?.password ? 'is-invalid' : ''}`} id="password" placeholder="Passwort" />
                     <small className="text-danger ps-3 pe-3 d-inline-flex">{ error?.password }</small>
                 </div>
-                <div className="mb-5">
+                <div className="mb-4">
                     <label htmlFor="confirmPassword" className="form-label"><strong>Passwort wiederholen</strong></label>
                     <input type="password" className={`form-control ${passwordConfirmError?.confirmPassword ? 'is-invalid' : ''}`} id="confirmPassword" placeholder="Passwort wiederholen" />
                     <small className="text-danger ps-3 pe-3 d-inline-flex">{ passwordConfirmError?.confirmPassword }</small>
