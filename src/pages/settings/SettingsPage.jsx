@@ -78,31 +78,31 @@ const SettingsPage = () => {
                             <button className="settings_overlay__btn" onClick={() =>
                                 setActiveOverlay(activeOverlay === 'changeProfile' ? null : 'changeProfile')}>
                                 <p>Profil bearbeiten</p>
-                                <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
+                                <BootstrapIcons.ChevronRight width={24} height={24} fill="#4A4044" className="settings_overlay__icon"/>
                             </button>
 
                             <button className="settings_overlay__btn" onClick={() =>
                                 setActiveOverlay(activeOverlay === 'changePassword' ? null : 'changePassword')}>
                                 <p>Passwort ändern</p>
-                                <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
+                                <BootstrapIcons.ChevronRight width={24} height={24} fill="#4A4044" className="settings_overlay__icon"/>
                             </button>
 
                             <button className="settings_overlay__btn" onClick={() =>
                                 setActiveOverlay(activeOverlay === 'changeProfile' ? null : 'blockedContacts')}>
                                 <p>Blockierte Kontakte</p>
-                                <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
+                                <BootstrapIcons.ChevronRight width={24} height={24} fill="#4A4044" className="settings_overlay__icon"/>
                             </button>
 
                             <button className="settings_overlay__btn" onClick={() =>
                                 setActiveOverlay(activeOverlay === 'privacyPolicy' ? null : 'privacyPolicy')}>
                                 <p>Sicherheit & Datenschutz</p>
-                                <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
+                                <BootstrapIcons.ChevronRight width={24} height={24} fill="#4A4044" className="settings_overlay__icon"/>
                             </button>
 
                             <button className="settings_overlay__btn" onClick={() =>
                                 setActiveOverlay(activeOverlay === 'imprint' ? null : 'imprint')}>
                                 <p>Kontakt & Impressum</p>
-                                <BootstrapIcons.ChevronRight width={24} height={24} className="settings_overlay__icon"/>
+                                <BootstrapIcons.ChevronRight width={24} height={24} fill="#4A4044" className="settings_overlay__icon"/>
                             </button>
 
                             <button className="btn btn-secondary btn-flat form-control mb-3" onClick={handleLogout} disabled={ logoutLoading || insertPasswordLoading }>

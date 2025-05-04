@@ -137,8 +137,8 @@ const RecommendationCardForm = ({ selectedCategory, selectedTags, onAddTags, onO
                                         {getTagNameById(tagId)}
                                     </div>
                                 ))}
-                                <button type="button" className="recommendation-card-f_addtag" onClick={onAddTags}>
-                                    <BootstrapIcons.PlusCircleFill width={18} height={18} color="$dark" style={{ marginRight: "0.5rem", paddingBottom: "0.15rem" }} />
+                                <button type="button" className="recommendation-card-f_addtag text-dark" onClick={onAddTags}>
+                                    <BootstrapIcons.PlusCircleFill width={18} height={18} fill="#1E171A" style={{ marginRight: "0.5rem", paddingBottom: "0.15rem" }} />
                                     Tags hinzufügen
                                 </button>
                             </div>

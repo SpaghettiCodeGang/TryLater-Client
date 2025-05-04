@@ -29,7 +29,7 @@ const TagSelectionOverlay = ({ activeOverlay, setActiveOverlay, tagGroups = [], 
                             {group.tags.map((tag) => (
                                 <button
                                     key={tag?.id}
-                                    className={`tag-selection__tag ${selectedTags.includes(tag.id) ? 'tag-selection__tag--selected' : ''}`}
+                                    className={`tag-selection__tag ${selectedTags.includes(tag.id) ? 'tag-selection__tag--selected' : ''} text-dark`}
                                     onClick={() => toggleTag(tag.id)}
                                 >
                                     {tag.tagName}

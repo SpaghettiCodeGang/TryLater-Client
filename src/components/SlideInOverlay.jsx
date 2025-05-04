@@ -12,8 +12,8 @@ const SlideInOverlay = ({ isVisible, onClose, title, children }) => {
                     exit={{ x: "-100%" }}
                     transition={{ duration: 0.4 }}
                 >
-                    <button className="slide-in_overlay__btn" onClick={onClose}>
-                        <BootstrapIcons.ChevronLeft width={24} height={24} className="slide-in_overlay__icon" />
+                    <button className="slide-in_overlay__btn text-dark" onClick={onClose}>
+                        <BootstrapIcons.ChevronLeft width={24} height={24} fill="#4A4044" className="slide-in_overlay__icon" />
                         <h2>{title}</h2>
                     </button>
                     <div className="slide-in_overlay__content">

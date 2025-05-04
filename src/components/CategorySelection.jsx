@@ -35,7 +35,7 @@ const CategorySelection = ({ onCategorySelect }) => {
 
             <div className="category-selection__buttons">
                 {categories.map((category) => (
-                    <button key={category.id} className="category-selection__button" onClick={() => onCategorySelect(category.id)}>
+                    <button key={category.id} className="category-selection__button text-dark" onClick={() => onCategorySelect(category.id)}>
 
                         <div className="category-selection__icon">{category.icon}</div>
                         <div className="category-selection__text">
