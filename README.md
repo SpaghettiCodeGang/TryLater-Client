@@ -6,6 +6,7 @@ Die **TryLater-Clientanwendung** stellt das Userinterface der TryLater-App berei
 ## 🔗 Project-Links
 - **[Project-Wiki](https://github.com/SpaghettiCodeGang/TryLater-Server/wiki)**
 - **[Project-Board](https://github.com/orgs/SpaghettiCodeGang/projects/1)**
+- **[Figma-Design](https://www.figma.com/design/iyOAVOSewnzKnI8AFwVOEF/TryLater-App?node-id=0-1&p=f&t=LpERV3a0oO4hfuo2-0)**
 
 ---
 
