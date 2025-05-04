@@ -69,10 +69,13 @@
       border-radius: $border-radius-small;
       padding: 0.1rem 0.3rem;
 
-      &:hover {
-        background-color: $white;
-        color: $dark;
+      @media (hover: hover) and (pointer: fine) {
+        &:hover {
+          background-color: $white;
+          color: $dark;
+        }
       }
+
     }
 
     &_tags {
